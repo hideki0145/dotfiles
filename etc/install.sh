@@ -13,13 +13,20 @@ error() {
   exit 1
 }
 
+# Initialize of packages.
+init() {
+  cd "$DOT_DIR"
+  bash ./etc/init.sh
+  return 0
+}
+
 # Deployment of dotfiles.
 deploy() {
   cd "$DOT_DIR"
   for f in .??*
   do
-      [ "$f" = ".git" ] && continue
-      ln -snfv "$DOT_DIR/$f" "$HOME/$f"
+    [ "$f" = ".git" ] && continue
+    ln -snfv "$DOT_DIR/$f" "$HOME/$f"
   done
   return 0
 }
@@ -49,6 +56,10 @@ fi
 
 if [ ! -d "$DOT_DIR" ]; then
   error "not found: $DOT_DIR"
+fi
+
+if [ "$1" = "init" -o "$1" = "i" ]; then
+  init
 fi
 
 if [ "$1" = "deploy" -o "$1" = "d" ]; then
