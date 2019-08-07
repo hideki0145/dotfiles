@@ -39,21 +39,22 @@ if [ ! -d ~/.vim/autoload ]; then
 fi
 echo "***************"
 
-# nvm
-echo "***** nvm *****"
-readonly NVM_GITHUB="https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh"
-if [ ! -d ~/.nvm ]; then
-  curl -o- "$NVM_GITHUB" | bash
+# nodenv
+echo "***** nodenv *****"
+if ! has "nodenv"; then
+  git clone https://github.com/nodenv/nodenv.git ~/.nodenv
+  git clone https://github.com/nodenv/node-build.git ~/.nodenv/plugins/node-build
+  echo '' >> ~/.bashrc
+  echo 'export PATH="$HOME/.nodenv/bin:$PATH"' >> ~/.bashrc
+  echo 'eval "$(nodenv init -)"' >> ~/.bashrc
 else
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  nvm --version
-  if [ -n "$BASH_VERSION" ]; then
-    curl -o- "$NVM_GITHUB" | bash
-  elif [ -n "$ZSH_VERSION" ]; then
-    curl -o- "$NVM_GITHUB" | zsh
-  fi
+  curl -fsSL https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor | bash
+  cd ~/.nodenv
+  git pull
+  cd ~/.nodenv/plugins/node-build
+  git pull
 fi
-echo "***************"
+echo "******************"
 
 # yarn
 echo "***** yarn *****"
