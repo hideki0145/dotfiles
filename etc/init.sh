@@ -14,7 +14,7 @@ sudo apt update
 # git
 echo "***** git *****"
 if ! has "git"; then
-  yes | sudo apt install git
+  sudo apt install -y git
 else
   git --version
 fi
@@ -30,7 +30,7 @@ echo "***************"
 # vim
 echo "***** vim *****"
 if ! has "vim"; then
-  yes | sudo apt install vim
+  sudo apt install -y vim
 else
   vim --version
 fi
@@ -62,7 +62,7 @@ if ! has "yarn"; then
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
   sudo apt update
-  yes | sudo apt install --no-install-recommends yarn
+  sudo apt install -y --no-install-recommends yarn
 else
   yarn --version
 fi
@@ -87,7 +87,7 @@ echo "*****************"
 
 # sqlite3
 echo "***** sqlite3 *****"
-yes | sudo apt install libsqlite3-dev
+sudo apt install -y libsqlite3-dev
 echo "*******************"
 
 
