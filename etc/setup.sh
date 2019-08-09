@@ -52,7 +52,7 @@ if ! has "zsh"; then
   chsh -s $(which zsh)
 else
   zsh --version
-  cd "${ZDOTDIR:-$HOME}"
+  cd "${ZDOTDIR:-$HOME}/.zprezto"
   git pull
   git submodule update --init --recursive
 fi
