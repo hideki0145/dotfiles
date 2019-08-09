@@ -91,5 +91,6 @@ sudo apt install -y libsqlite3-dev
 echo "*******************"
 
 
-# Restarting shell
-exec $SHELL
+# Setup complete
+echo "Setup complete!"
+echo "Please restarting your shell."
