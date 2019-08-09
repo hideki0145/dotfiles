@@ -1,5 +1,5 @@
 #!/bin/bash
-# Initialize Script.
+# Setup Script.
 
 # Check existence of the command.
 has() {

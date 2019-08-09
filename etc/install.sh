@@ -13,10 +13,10 @@ error() {
   exit 1
 }
 
-# Initialize of packages.
-init() {
+# Setup of packages.
+setup() {
   cd "$DOT_DIR"
-  bash ./etc/init.sh
+  bash ./etc/setup.sh
   return 0
 }
 
@@ -58,8 +58,8 @@ if [ ! -d "$DOT_DIR" ]; then
   error "not found: $DOT_DIR"
 fi
 
-if [ "$1" = "init" -o "$1" = "i" ]; then
-  init
+if [ "$1" = "setup" -o "$1" = "s" ]; then
+  setup
 fi
 
 if [ "$1" = "deploy" -o "$1" = "d" ]; then
