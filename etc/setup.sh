@@ -39,6 +39,23 @@ if [ ! -d ~/.vim/autoload ]; then
 fi
 echo "***************"
 
+# zsh
+echo "***** zsh *****"
+if ! has "zsh"; then
+  sudo apt install -y zsh
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/*
+  do
+    [ "${rcfile##*/}" = "README.md" ] && continue
+    ln -snfv "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
+  done
+  chsh -s $(which zsh)
+else
+  zsh --version
+  cd $ZPREZTODIR && git pull && git submodule update --init --recursive
+fi
+echo "***************"
+
 # nodenv
 echo "***** nodenv *****"
 if ! has "nodenv"; then
