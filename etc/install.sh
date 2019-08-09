@@ -22,11 +22,10 @@ setup() {
 
 # Deployment of dotfiles.
 deploy() {
-  cd "$DOT_DIR"
-  for f in .??*
+  for f in "$DOT_DIR"/.??*
   do
-    [ "$f" = ".git" ] && continue
-    ln -snfv "$DOT_DIR/$f" "$HOME/$f"
+    [ "${f##*/}" = ".git" ] && continue
+    ln -snfv "$f" "$HOME/${f##*/}"
   done
   return 0
 }
