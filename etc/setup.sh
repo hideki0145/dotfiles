@@ -49,6 +49,7 @@ if ! has "zsh"; then
     [ "${rcfile##*/}" = "README.md" ] && continue
     ln -snfv "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
   done
+  echo "Change login shell."
   chsh -s $(which zsh)
 else
   zsh --version
