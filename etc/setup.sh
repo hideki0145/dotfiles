@@ -109,6 +109,15 @@ echo "***** sqlite3 *****"
 sudo apt install -y libsqlite3-dev
 echo "*******************"
 
+# tig
+echo "***** tig *****"
+if ! has "tig"; then
+  sudo apt install -y tig
+else
+  tig --version
+fi
+echo "***************"
+
 
 # Setup complete
 echo "Setup complete!"
