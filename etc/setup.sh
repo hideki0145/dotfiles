@@ -59,20 +59,38 @@ else
 fi
 echo "***************"
 
-# nodenv
-echo "***** nodenv *****"
-if ! has "nodenv"; then
-  git clone https://github.com/nodenv/nodenv.git ~/.nodenv
-  git clone https://github.com/nodenv/node-build.git ~/.nodenv/plugins/node-build
+# anyenv
+echo "***** anyenv *****"
+if ! has "anyenv"; then
+  git clone https://github.com/anyenv/anyenv ~/.anyenv
   echo '' >> ~/.bashrc
-  echo 'export PATH="$HOME/.nodenv/bin:$PATH"' >> ~/.bashrc
-  echo 'eval "$(nodenv init -)"' >> ~/.bashrc
+  echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> ~/.bashrc
+  echo 'eval "$(anyenv init -)"' >> ~/.bashrc
 else
-  curl -fsSL https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor | bash
-  cd ~/.nodenv
-  git pull
-  cd ~/.nodenv/plugins/node-build
-  git pull
+  anyenv --version
+  if [ ! -d ~/.config/anyenv/anyenv-install ]; then
+    anyenv install --init
+    git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anyenv-update
+    git clone https://github.com/znz/anyenv-git.git $(anyenv root)/plugins/anyenv-git
+  fi
+  if ! has "nodenv"; then
+    anyenv install nodenv
+  else
+    curl -fsSL https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor | bash
+  fi
+  if ! has "pyenv"; then
+    anyenv install pyenv
+    sudo apt install -y --no-install-recommends make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+  else
+    pyenv --version
+  fi
+  if ! has "rbenv"; then
+    anyenv install rbenv
+    sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev
+  else
+    curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
+  fi
+  anyenv update
 fi
 echo "******************"
 
@@ -87,23 +105,6 @@ else
   yarn --version
 fi
 echo "****************"
-
-# rbenv
-echo "***** rbenv *****"
-if ! has "rbenv"; then
-  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-  git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-  echo '' >> ~/.bashrc
-  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-  echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-else
-  curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
-  cd ~/.rbenv
-  git pull
-  cd ~/.rbenv/plugins/ruby-build
-  git pull
-fi
-echo "*****************"
 
 # sqlite3
 echo "***** sqlite3 *****"
