@@ -73,6 +73,8 @@ else
     git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anyenv-update
     git clone https://github.com/znz/anyenv-git.git $(anyenv root)/plugins/anyenv-git
   fi
+  anyenv update
+
   if ! has "nodenv"; then
     anyenv install nodenv
   else
@@ -90,7 +92,6 @@ else
   else
     curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
   fi
-  anyenv update
 fi
 echo "******************"
 
