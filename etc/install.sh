@@ -37,11 +37,11 @@ if [ ! -d "$DOT_DIR" ]; then
   if has "git"; then
     git clone "$DOTFILES_GITHUB" "$DOT_DIR"
   elif has "curl" || has "wget"; then
-    local _tarball="https://github.com/hideki0145/dotfiles/archive/master.tar.gz"
+    readonly TARBALL="https://github.com/hideki0145/dotfiles/archive/master.tar.gz"
     if has "curl"; then
-      curl -L "$_tarball"
+      curl -L "$TARBALL"
     elif has "wget"; then
-      wget -O "$_tarball"
+      wget -O "$TARBALL"
     fi | tar zxv
     mv -f dotfiles-master "$DOT_DIR"
   else
