@@ -8,6 +8,8 @@ has() {
 }
 
 # main
+readonly DOT_DIR="$HOME/.dotfiles"
+
 sudo apt update
 
 
@@ -25,6 +27,10 @@ if [ -z "`git config --list | grep color.ui`" ]; then
   git config --global color.ui auto
 fi
 git config --global --list
+if [ ! -d "$HOME/.config/git" ]; then
+  mkdir -p "$HOME/.config/git"
+fi
+ln -snfv "$DOT_DIR/config/git/ignore" "$HOME/.config/git/ignore"
 echo "***************"
 
 # vim
