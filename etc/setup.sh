@@ -23,6 +23,9 @@ fi
 if [ -z "`git config --list | grep user.name`" ]; then
   git config --global user.name "Hideki Miyamoto"
 fi
+if [ -z "`git config --list | grep user.useConfigOnly`" ]; then
+  git config --global user.useConfigOnly true
+fi
 if [ -z "`git config --list | grep color.ui`" ]; then
   git config --global color.ui auto
 fi
