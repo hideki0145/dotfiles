@@ -41,7 +41,7 @@ echo "***** vim *****"
 if ! has "vim"; then
   sudo apt install -y vim
 else
-  vim --version
+  vim --version | head -n 1
 fi
 if [ ! -d ~/.vim/autoload ]; then
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
