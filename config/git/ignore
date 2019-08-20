@@ -1,2 +1,3 @@
 /.vscode/
 .solargraph.yml
+/vendor/bundle
