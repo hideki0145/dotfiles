@@ -152,6 +152,17 @@ else
 fi
 echo "***************"
 
+# lazygit
+echo "***** lazygit *****"
+if ! has "lazygit"; then
+  sudo add-apt-repository -y ppa:lazygit-team/release
+  sudo apt update
+  sudo apt install -y lazygit
+else
+  lazygit --version
+fi
+echo "*******************"
+
 
 # Setup complete
 echo "Setup complete!"
