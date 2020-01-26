@@ -1,6 +1,18 @@
 #!/bin/bash
 # Setup Script.
 
+# Check OS.
+os_wsl() {
+  if [ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+    return 1
+  fi
+  return 0
+}
+os_raspbian() {
+  grep --quiet "^model name\s*:\s*ARMv" /proc/cpuinfo > /dev/null 2>&1
+  return $?
+}
+
 # Check existence of the command.
 has() {
   type "$1" > /dev/null 2>&1
@@ -119,7 +131,7 @@ echo "****************"
 # docker
 echo "***** docker *****"
 if ! has "docker"; then
-  if [ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+  if ! os_wsl && ! os_raspbian; then
     sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
@@ -155,9 +167,11 @@ echo "***************"
 # lazygit
 echo "***** lazygit *****"
 if ! has "lazygit"; then
-  sudo add-apt-repository -y ppa:lazygit-team/release
-  sudo apt update
-  sudo apt install -y lazygit
+  if ! os_raspbian; then
+    sudo add-apt-repository -y ppa:lazygit-team/release
+    sudo apt update
+    sudo apt install -y lazygit
+  fi
 else
   lazygit --version
 fi
