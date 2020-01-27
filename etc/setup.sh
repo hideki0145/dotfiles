@@ -19,6 +19,11 @@ has() {
   return $?
 }
 
+# Display setup skip message.
+skip() {
+  echo "This OS skips $1 setup."
+}
+
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
 
@@ -143,6 +148,8 @@ if ! has "docker"; then
     compose_version="$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep tag_name | sed -e 's/[^0-9\.]//g')"
     sudo curl -L "https://github.com/docker/compose/releases/download/${compose_version}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
+  else
+    skip "docker"
   fi
 else
   docker --version
@@ -171,6 +178,8 @@ if ! has "lazygit"; then
     sudo add-apt-repository -y ppa:lazygit-team/release
     sudo apt update
     sudo apt install -y lazygit
+  else
+    skip "lazygit"
   fi
 else
   lazygit --version
