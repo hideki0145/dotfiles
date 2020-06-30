@@ -48,6 +48,9 @@ fi
 if [ -z "`git config --list | grep color.ui`" ]; then
   git config --global color.ui auto
 fi
+if [ -z "`git config --list | grep pull.rebase`" ]; then
+  git config --global pull.rebase false
+fi
 git config --global --list
 if [ ! -d "$HOME/.config/git" ]; then
   mkdir -p "$HOME/.config/git"
