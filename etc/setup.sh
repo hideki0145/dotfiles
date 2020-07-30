@@ -12,6 +12,12 @@ os_raspbian() {
   grep --quiet "^model name\s*:\s*ARMv" /proc/cpuinfo > /dev/null 2>&1
   return $?
 }
+os_ubuntu() {
+  if [ ! "$(lsb_release -cs)" = "$1" ]; then
+    return 1
+  fi
+  return 0
+}
 
 # Check existence of the command.
 has() {
@@ -93,10 +99,14 @@ echo "***************"
 # anyenv
 echo "***** anyenv *****"
 if ! has "anyenv"; then
-  git clone https://github.com/anyenv/anyenv ~/.anyenv
-  echo '' >> ~/.bashrc
-  echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> ~/.bashrc
-  echo 'eval "$(anyenv init -)"' >> ~/.bashrc
+  if ! os_raspbian; then
+    git clone https://github.com/anyenv/anyenv ~/.anyenv
+    echo '' >> ~/.bashrc
+    echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> ~/.bashrc
+    echo 'eval "$(anyenv init -)"' >> ~/.bashrc
+  else
+    skip "anyenv"
+  fi
 else
   anyenv --version
   if [ ! -d ~/.config/anyenv/anyenv-install ]; then
@@ -119,7 +129,11 @@ else
   fi
   if ! has "rbenv"; then
     anyenv install rbenv
-    sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev
+    if os_ubuntu "bionic"; then
+      sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev libdb-dev
+    else
+      sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
+    fi
   else
     curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
   fi
