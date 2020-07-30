@@ -164,7 +164,11 @@ echo "******************"
 
 # sqlite3
 echo "***** sqlite3 *****"
-sudo apt install -y libsqlite3-dev
+if ! has "sqlite3"; then
+  sudo apt install -y sqlite3 libsqlite3-dev
+else
+  sqlite3 --version
+fi
 echo "*******************"
 
 # tig
