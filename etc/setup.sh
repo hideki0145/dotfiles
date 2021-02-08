@@ -27,7 +27,7 @@ has() {
 
 # Display setup skip message.
 skip() {
-  echo "This OS skips $1 setup."
+  echo "Skip $1 setup."
 }
 
 # main
@@ -143,10 +143,11 @@ echo "******************"
 # yarn
 echo "***** yarn *****"
 if ! has "yarn"; then
-  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-  sudo apt update
-  sudo apt install -y --no-install-recommends yarn
+  if has "npm"; then
+    npm install -g yarn
+  else
+    skip "yarn"
+  fi
 else
   yarn --version
 fi
