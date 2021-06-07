@@ -57,7 +57,7 @@ fi
 if [ -z "`git config --list | grep pull.rebase`" ]; then
   git config --global pull.rebase false
 fi
-git config --global --list
+git --no-pager config --global --list
 if [ ! -d "$HOME/.config/git" ]; then
   mkdir -p "$HOME/.config/git"
 fi
