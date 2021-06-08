@@ -24,5 +24,9 @@ if [ -z $SSH_AUTH_SOCK ]; then
   fi
 fi
 
-export PATH="$HOME/.anyenv/bin:$PATH"
-eval "$(anyenv init -)"
+. $HOME/.asdf/asdf.sh
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH''s compinit
+autoload -Uz compinit
+compinit
