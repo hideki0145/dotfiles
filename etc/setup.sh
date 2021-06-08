@@ -96,46 +96,46 @@ else
 fi
 echo "***************"
 
-# anyenv
-echo "***** anyenv *****"
-if ! has "anyenv"; then
+# asdf
+echo "***** asdf *****"
+if ! has "asdf"; then
   if ! os_raspbian; then
-    git clone https://github.com/anyenv/anyenv ~/.anyenv
+    git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+    cd ~/.asdf
+    git checkout "$(git describe --abbrev=0 --tags)"
+    cd -
     echo '' >> ~/.bashrc
-    echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> ~/.bashrc
-    echo 'eval "$(anyenv init -)"' >> ~/.bashrc
+    echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc
+    echo '. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
   else
-    skip "anyenv"
+    skip "asdf"
   fi
 else
-  anyenv --version
-  if [ ! -d ~/.config/anyenv/anyenv-install ]; then
-    anyenv install --init
-    git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anyenv-update
-    git clone https://github.com/znz/anyenv-git.git $(anyenv root)/plugins/anyenv-git
-  fi
-  anyenv update
+  asdf --version
+  asdf update
+  asdf plugin update --all
 
-  if ! has "nodenv"; then
-    anyenv install nodenv
+  if [ -z "`asdf plugin list | grep nodejs`" ]; then
+    sudo apt install -y dirmngr gpg curl gawk
+    asdf plugin add nodejs
   else
-    curl -fsSL https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor | bash
+    asdf plugin list --urls --refs | grep nodejs
   fi
-  if ! has "pyenv"; then
-    anyenv install pyenv
-    sudo apt install -y --no-install-recommends make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+  if [ -z "`asdf plugin list | grep python`" ]; then
+    sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+    asdf plugin add python
   else
-    pyenv --version
+    asdf plugin list --urls --refs | grep python
   fi
-  if ! has "rbenv"; then
-    anyenv install rbenv
+  if [ -z "`asdf plugin list | grep ruby`" ]; then
     if os_ubuntu "bionic"; then
       sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev libdb-dev
     else
       sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
     fi
+    asdf plugin add ruby
   else
-    curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
+    asdf plugin list --urls --refs | grep ruby
   fi
 fi
 echo "******************"
@@ -214,3 +214,4 @@ echo "*******************"
 # Setup complete
 echo "Setup complete!"
 echo "Please restarting your shell."
+echo "If you run it for the first time, please re-run this script again."
