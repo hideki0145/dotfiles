@@ -8,8 +8,15 @@ os_wsl() {
   fi
   return 0
 }
+os_wsl2() {
+  if ! os_wsl; then
+    return 1
+  fi
+  grep --quiet Hyper-V /proc/interrupts
+  return $?
+}
 os_raspbian() {
-  grep --quiet "^model name\s*:\s*ARMv" /proc/cpuinfo > /dev/null 2>&1
+  grep --quiet "^model name\s*:\s*ARMv" /proc/cpuinfo
   return $?
 }
 os_ubuntu() {
@@ -156,7 +163,7 @@ echo "****************"
 # docker
 echo "***** docker *****"
 if ! has "docker"; then
-  if ! os_wsl && ! os_raspbian; then
+  if (! os_wsl || os_wsl2) && ! os_raspbian; then
     sudo apt install -y ca-certificates curl gnupg lsb-release
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
