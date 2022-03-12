@@ -215,6 +215,32 @@ else
 fi
 echo "*******************"
 
+# genie
+echo "***** genie *****"
+if ! has "genie"; then
+  if os_wsl2; then
+    sudo wget -O /etc/apt/trusted.gpg.d/wsl-transdebian.gpg https://arkane-systems.github.io/wsl-transdebian/apt/wsl-transdebian.gpg
+    sudo chmod a+r /etc/apt/trusted.gpg.d/wsl-transdebian.gpg
+    echo "deb https://arkane-systems.github.io/wsl-transdebian/apt/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/wsl-transdebian.list > /dev/null
+    echo "deb-src https://arkane-systems.github.io/wsl-transdebian/apt/ $(lsb_release -cs) main" | sudo tee -a /etc/apt/sources.list.d/wsl-transdebian.list > /dev/null
+    sudo apt update
+    sudo apt install -y systemd-genie
+    sudo sed -i -e "s/systemd-timeout=.*/systemd-timeout=30/g" /etc/genie.ini
+    sudo systemctl set-default multi-user.target
+    sudo ssh-keygen -A
+    sudo e2label $(df / | awk '/\//{print $1}') cloudimg-rootfs
+    sudo systemctl disable multipathd.service
+    echo '#!/bin/sh' | sudo tee /etc/rc.local > /dev/null
+    echo 'ls /proc/sys/fs/binfmt_misc > /dev/null 2>&1 || mount -t binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc' | sudo tee -a /etc/rc.local > /dev/null
+    sudo chmod +x /etc/rc.local
+  else
+    skip "genie"
+  fi
+else
+  genie --version
+fi
+echo "*******************"
+
 
 # Setup complete
 echo "Setup complete!"

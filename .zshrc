@@ -14,6 +14,12 @@ fi
 export EDITOR='vim'
 export VISUAL='vim'
 
+# Check existence of the command.
+has() {
+  type "$1" > /dev/null 2>&1
+  return $?
+}
+
 function isWinDir {
  case $PWD/ in
    /mnt/*) return $(true);;
@@ -44,3 +50,16 @@ fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH''s compinit
 autoload -Uz compinit
 compinit
+
+if has "genie"; then
+  # Are we in the bottle?
+  if [[ ! -v INSIDE_GENIE ]]; then
+    read -t 3 -q "yn? * Preparing to enter genie bottle (in 3s); abort? "
+    echo
+
+    if [[ $yn != "y" ]]; then
+      echo "Starting genie:"
+      exec /usr/bin/genie -c "zsh"
+    fi
+  fi
+fi
