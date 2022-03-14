@@ -244,6 +244,14 @@ echo "*******************"
 
 
 # Setup complete
-echo "Setup complete!"
-echo "Please restarting your shell."
-echo "If you run it for the first time, please re-run this script again."
+readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
+echo ""
+if [ -e "$FIRST_RUN" ]; then
+  echo "Setup complete!"
+  echo "Please restarting your shell."
+else
+  touch "$FIRST_RUN"
+  echo "First setup complete!"
+  echo "You run it for the first time, please deployment of dotfiles, and restarting your shell."
+  echo "After that, please re-run this script again."
+fi
