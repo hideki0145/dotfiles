@@ -93,6 +93,7 @@ if ! has "zsh"; then
     [ "${rcfile##*/}" = "README.md" ] && continue
     ln -snfv "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
   done
+  cp "$DOT_DIR/config/zsh/.zsh_history" "$HOME/.zsh_history"
   echo "Change login shell."
   chsh -s $(which zsh)
 else
