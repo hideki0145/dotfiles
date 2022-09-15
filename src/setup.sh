@@ -171,7 +171,6 @@ if ! has "lazygit" || [ ! "$compose_version" = "$(lazygit --version | grep -Po '
   sudo tar xf "$DOT_DIR/tmp/lazygit.tar.gz" -C /usr/bin lazygit
 fi
 lazygit --version
-fi
 echo "*******************"
 
 # genie
