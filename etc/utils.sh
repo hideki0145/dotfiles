@@ -53,7 +53,8 @@ setup() {
 deploy() {
   for f in "$DOT_DIR"/.??*
   do
-    [ "${f##*/}" = ".git" -o "${f##*/}" = ".gitignore" ] && continue
+    [ "${f##*/}" = ".git" ] && continue
+    [ "${f##*/}" = ".gitignore" ] && continue
     ln -snfv "$f" "$HOME/${f##*/}"
   done
   return 0

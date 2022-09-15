@@ -9,7 +9,7 @@ if [ ! -d "$DOT_DIR/etc" ]; then
   mkdir -p "$DOT_DIR/etc"
 fi
 readonly UTILS_SCRIPT="$DOT_DIR/etc/utils.sh"
-if [ ! -e "$UTILS_SCRIPT" ]; then
+if [ ! -f "$UTILS_SCRIPT" ]; then
   curl -SL "https://raw.githubusercontent.com/$DOTFILES_GITHUB/main/etc/utils.sh" -o "$UTILS_SCRIPT"
   chmod 755 "$UTILS_SCRIPT"
 fi
@@ -38,10 +38,20 @@ if [ ! -d "$DOT_DIR" ]; then
   error "not found: $DOT_DIR"
 fi
 
-if [ "$1" = "setup" -o "$1" = "s" ]; then
-  setup
-fi
-
-if [ "$1" = "deploy" -o "$1" = "d" ]; then
-  deploy
-fi
+while [ $# -gt 0 ]; do
+  case $1 in
+    -s | --setup)
+      setup
+      ;;
+    -d | --deploy)
+      deploy
+      ;;
+    -*)
+      error "invalid option $1."
+      ;;
+    *)
+      echo "argument $1."
+      ;;
+  esac
+  shift
+done

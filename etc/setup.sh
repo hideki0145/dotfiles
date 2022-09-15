@@ -212,7 +212,7 @@ echo "*******************"
 # Setup complete
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
 echo ""
-if [ -e "$FIRST_RUN" ]; then
+if [ -f "$FIRST_RUN" ]; then
   echo "Setup complete!"
   echo "Please restarting your shell."
 else
