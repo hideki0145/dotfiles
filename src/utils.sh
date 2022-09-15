@@ -15,10 +15,6 @@ os_wsl2() {
   grep --quiet Hyper-V /proc/interrupts
   return $?
 }
-os_raspbian() {
-  grep --quiet "^model name\s*:\s*ARMv" /proc/cpuinfo
-  return $?
-}
 os_ubuntu() {
   if [ ! "$(lsb_release -cs)" = "$1" ]; then
     return 1

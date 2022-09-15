@@ -71,17 +71,13 @@ echo "***************"
 # asdf
 echo "***** asdf *****"
 if ! has "asdf"; then
-  if ! os_raspbian; then
-    git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-    cd ~/.asdf
-    git checkout "$(git describe --abbrev=0 --tags)"
-    cd -
-    echo '' >> ~/.bashrc
-    echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc
-    echo '. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
-  else
-    skip "asdf"
-  fi
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+  cd ~/.asdf
+  git checkout "$(git describe --abbrev=0 --tags)"
+  cd -
+  echo '' >> ~/.bashrc
+  echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc
+  echo '. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
 else
   asdf --version
   asdf update
@@ -128,7 +124,7 @@ echo "****************"
 # docker
 echo "***** docker *****"
 if ! has "docker"; then
-  if (! os_wsl || os_wsl2) && ! os_raspbian; then
+  if ! os_wsl || os_wsl2; then
     sudo apt install -y ca-certificates curl gnupg lsb-release
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
@@ -169,15 +165,12 @@ echo "***************"
 
 # lazygit
 echo "***** lazygit *****"
-if ! os_raspbian; then
-  compose_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[\d.]+')
-  if ! has "lazygit" || [ ! "$compose_version" = "$(lazygit --version | grep -Po 'version=\K[\d.]+')" ]; then
-    curl -SL "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${compose_version}_$(uname -s)_$(uname -m).tar.gz" -o "$DOT_DIR/tmp/lazygit.tar.gz"
-    sudo tar xf "$DOT_DIR/tmp/lazygit.tar.gz" -C /usr/bin lazygit
-  fi
-  lazygit --version
-else
-  skip "lazygit"
+compose_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[\d.]+')
+if ! has "lazygit" || [ ! "$compose_version" = "$(lazygit --version | grep -Po 'version=\K[\d.]+')" ]; then
+  curl -SL "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${compose_version}_$(uname -s)_$(uname -m).tar.gz" -o "$DOT_DIR/tmp/lazygit.tar.gz"
+  sudo tar xf "$DOT_DIR/tmp/lazygit.tar.gz" -C /usr/bin lazygit
+fi
+lazygit --version
 fi
 echo "*******************"
 
