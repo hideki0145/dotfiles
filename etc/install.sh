@@ -1,43 +1,25 @@
 #!/bin/bash
 # Installation Script.
 
-# Check existence of the command.
-has() {
-  type "$1" > /dev/null 2>&1
-  return $?
-}
-
-# Display error message and returns exit code error.
-error() {
-  echo "$1" 1>&2
-  exit 1
-}
-
-# Setup of packages.
-setup() {
-  bash "$DOT_DIR"/etc/setup.sh
-  return 0
-}
-
-# Deployment of dotfiles.
-deploy() {
-  for f in "$DOT_DIR"/.??*
-  do
-    [ "${f##*/}" = ".git" -o "${f##*/}" = ".gitignore" ] && continue
-    ln -snfv "$f" "$HOME/${f##*/}"
-  done
-  return 0
-}
-
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
-readonly DOTFILES_GITHUB="https://github.com/hideki0145/dotfiles.git"
+readonly DOTFILES_GITHUB="hideki0145/dotfiles"
+
+if [ ! -d "$DOT_DIR/etc" ]; then
+  mkdir -p "$DOT_DIR/etc"
+fi
+readonly UTILS_SCRIPT="$DOT_DIR/etc/utils.sh"
+if [ ! -e "$UTILS_SCRIPT" ]; then
+  curl -SL "https://raw.githubusercontent.com/$DOTFILES_GITHUB/main/etc/utils.sh" -o "$UTILS_SCRIPT"
+  chmod 755 "$UTILS_SCRIPT"
+fi
+. "$UTILS_SCRIPT"
 
 if [ ! -d "$DOT_DIR" ]; then
   if has "git"; then
-    git clone "$DOTFILES_GITHUB" "$DOT_DIR"
+    git clone "https://github.com/$DOTFILES_GITHUB.git" "$DOT_DIR"
   elif has "curl" || has "wget"; then
-    readonly TARBALL="https://github.com/hideki0145/dotfiles/archive/main.tar.gz"
+    readonly TARBALL="https://github.com/$DOTFILES_GITHUB/archive/main.tar.gz"
     if has "curl"; then
       curl -L "$TARBALL"
     elif has "wget"; then
