@@ -205,16 +205,13 @@ echo "***************"
 
 # lazygit
 echo "***** lazygit *****"
-if ! has "lazygit"; then
-  if ! os_raspbian; then
-    sudo add-apt-repository -y ppa:lazygit-team/release
-    sudo apt update
-    sudo apt install -y lazygit
-  else
-    skip "lazygit"
-  fi
-else
+if ! os_raspbian; then
+  compose_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[\d.]+')
+  curl -SL "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${compose_version}_$(uname -s)_$(uname -m).tar.gz" -o "$DOT_DIR/tmp/lazygit.tar.gz"
+  sudo tar xf "$DOT_DIR/tmp/lazygit.tar.gz" -C /usr/bin lazygit
   lazygit --version
+else
+  skip "lazygit"
 fi
 echo "*******************"
 
