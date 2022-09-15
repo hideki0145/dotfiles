@@ -9,8 +9,7 @@ declare -a SYMLINK_FILES=(
   "zsh/.zshrc"
 )
 
-for f in "${SYMLINK_FILES[@]}"
-do
+for f in "${SYMLINK_FILES[@]}"; do
   ln -snfv "$DOT_DIR/config/$f" "$HOME/${f##*/}"
 done
 

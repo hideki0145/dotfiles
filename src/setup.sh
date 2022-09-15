@@ -53,8 +53,7 @@ echo "***** zsh *****"
 if ! has "zsh"; then
   sudo apt install -y zsh
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/*
-  do
+  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/*; do
     [ "${rcfile##*/}" = "README.md" ] && continue
     ln -snfv "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
   done
