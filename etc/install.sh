@@ -41,7 +41,7 @@ if [ ! -d "$DOT_DIR" ]; then
     if has "curl"; then
       curl -L "$TARBALL"
     elif has "wget"; then
-      wget -O "$TARBALL"
+      wget -O - "$TARBALL"
     fi | tar zxv
     mv -f dotfiles-master "$DOT_DIR"
   else
