@@ -51,11 +51,6 @@ setup() {
 
 # Deployment of dotfiles.
 deploy() {
-  for f in "$DOT_DIR"/.??*
-  do
-    [ "${f##*/}" = ".git" ] && continue
-    [ "${f##*/}" = ".gitignore" ] && continue
-    ln -snfv "$f" "$HOME/${f##*/}"
-  done
+  bash "$DOT_DIR"/src/deploy.sh
   return 0
 }
