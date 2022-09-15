@@ -3,39 +3,44 @@
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
-readonly DOTFILES_GITHUB="hideki0145/dotfiles"
-
-if [ ! -d "$DOT_DIR/src" ]; then
-  mkdir -p "$DOT_DIR/src"
-fi
+readonly GITHUB_REPOSITORY="hideki0145/dotfiles"
+readonly DOTFILES_ORIGIN_URL="https://github.com/$GITHUB_REPOSITORY.git"
+readonly DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/archive/main.tar.gz"
+readonly DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/main/src/utils.sh"
 readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
+
 if [ ! -f "$UTILS_SCRIPT" ]; then
-  curl -SL "https://raw.githubusercontent.com/$DOTFILES_GITHUB/main/src/utils.sh" -o "$UTILS_SCRIPT"
-  chmod 755 "$UTILS_SCRIPT"
+  mkdir -p "$DOT_DIR/src"
+  curl -SL "$DOTFILES_UTILS_URL" -o "$UTILS_SCRIPT"
 fi
 . "$UTILS_SCRIPT"
 
-if [ ! -d "$DOT_DIR" ]; then
+if [ -d "$DOT_DIR/.git" ]; then
+  cd "$DOT_DIR"
+  git pull
+elif [ ! -d "$DOT_DIR/tmp" ]; then
+  rm -rf "$DOT_DIR"
   if has "git"; then
-    git clone "https://github.com/$DOTFILES_GITHUB.git" "$DOT_DIR"
+    git clone "$DOTFILES_ORIGIN_URL" "$DOT_DIR"
   elif has "curl" || has "wget"; then
-    readonly TARBALL="https://github.com/$DOTFILES_GITHUB/archive/main.tar.gz"
     if has "curl"; then
-      curl -L "$TARBALL"
+      curl -L "$DOTFILES_TARBALL_URL"
     elif has "wget"; then
-      wget -O - "$TARBALL"
+      wget -O - "$DOTFILES_TARBALL_URL"
     fi | tar zxv
     mv -f dotfiles-main "$DOT_DIR"
   else
     error "curl or wget required."
   fi
-elif [ -d "$DOT_DIR/.git" ]; then
-  cd "$DOT_DIR"
-  git pull
 fi
 
-if [ ! -d "$DOT_DIR" ]; then
-  error "not found: $DOT_DIR"
+readonly SETUP_SCRIPT="$DOT_DIR/src/setup.sh"
+readonly DEPLOY_SCRIPT="$DOT_DIR/src/deploy.sh"
+
+if [ ! -f "$SETUP_SCRIPT" ]; then
+  error "not found: $SETUP_SCRIPT"
+elif [ ! -f "$DEPLOY_SCRIPT" ]; then
+  error "not found: $DEPLOY_SCRIPT"
 fi
 
 while [ $# -gt 0 ]; do
