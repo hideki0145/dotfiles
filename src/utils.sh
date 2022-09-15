@@ -45,7 +45,7 @@ error() {
 
 # Setup of packages.
 setup() {
-  bash "$DOT_DIR"/etc/setup.sh
+  bash "$DOT_DIR"/src/setup.sh
   return 0
 }
 

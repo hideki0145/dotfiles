@@ -5,12 +5,12 @@
 readonly DOT_DIR="$HOME/.dotfiles"
 readonly DOTFILES_GITHUB="hideki0145/dotfiles"
 
-if [ ! -d "$DOT_DIR/etc" ]; then
-  mkdir -p "$DOT_DIR/etc"
+if [ ! -d "$DOT_DIR/src" ]; then
+  mkdir -p "$DOT_DIR/src"
 fi
-readonly UTILS_SCRIPT="$DOT_DIR/etc/utils.sh"
+readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
 if [ ! -f "$UTILS_SCRIPT" ]; then
-  curl -SL "https://raw.githubusercontent.com/$DOTFILES_GITHUB/main/etc/utils.sh" -o "$UTILS_SCRIPT"
+  curl -SL "https://raw.githubusercontent.com/$DOTFILES_GITHUB/main/src/utils.sh" -o "$UTILS_SCRIPT"
   chmod 755 "$UTILS_SCRIPT"
 fi
 . "$UTILS_SCRIPT"

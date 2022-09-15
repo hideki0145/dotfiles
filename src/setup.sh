@@ -3,7 +3,7 @@
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
-. "$DOT_DIR"/etc/utils.sh
+. "$DOT_DIR"/src/utils.sh
 
 sudo apt update
 
