@@ -54,6 +54,15 @@ if [ ! -d ~/.vim/autoload ]; then
 fi
 echo "***************"
 
+# tig
+echo "***** tig *****"
+if ! has "tig"; then
+  brew install tig
+else
+  tig --version
+fi
+echo "***************"
+
 
 # Setup complete
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
