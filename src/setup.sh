@@ -96,7 +96,7 @@ else
     asdf plugin list --urls --refs | grep python
   fi
   if [ -z "`asdf plugin list | grep ruby`" ]; then
-    if os_ubuntu "bionic"; then
+    if [ "$(os_version)" = "18.04" ]; then
       sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev libdb-dev
     else
       sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
