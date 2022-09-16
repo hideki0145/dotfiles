@@ -6,6 +6,17 @@ readonly DOT_DIR="$HOME/.dotfiles"
 . "$DOT_DIR"/src/utils.sh
 
 
+# homebrew
+echo "***** homebrew *****"
+if ! has "brew"; then
+  xcode-select --install
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+  brew --version
+fi
+echo "********************"
+
+
 # Setup complete
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
 echo ""
