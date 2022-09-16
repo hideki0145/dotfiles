@@ -5,7 +5,12 @@
 readonly DOT_DIR="$HOME/.dotfiles"
 . "$DOT_DIR"/src/utils.sh
 
-sudo apt update
+sudo -v &> /dev/null
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done &> /dev/null &
 
 
 # git
