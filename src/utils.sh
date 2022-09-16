@@ -2,24 +2,32 @@
 # Utilities Script.
 
 # Check OS.
-os_wsl() {
-  if [ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
-    return 1
-  fi
-  return 0
-}
-os_wsl2() {
-  if ! os_wsl; then
-    return 1
-  fi
-  grep --quiet Hyper-V /proc/interrupts
-  return $?
-}
 os_ubuntu() {
   if [ ! "$(lsb_release -cs)" = "$1" ]; then
     return 1
   fi
   return 0
+}
+
+# Check WSL.
+check_wsl1_or_wsl2() {
+  if [ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+    return 1
+  fi
+  return 0
+}
+check_wsl1() {
+  if ! check_wsl1_or_wsl2 || check_wsl2; then
+    return 1
+  fi
+  return 0
+}
+check_wsl2() {
+  if ! check_wsl1_or_wsl2; then
+    return 1
+  fi
+  grep --quiet Hyper-V /proc/interrupts
+  return $?
 }
 
 # Check existence of the command.

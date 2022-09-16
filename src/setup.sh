@@ -124,7 +124,7 @@ echo "****************"
 # docker
 echo "***** docker *****"
 if ! has "docker"; then
-  if ! os_wsl || os_wsl2; then
+  if ! check_wsl1; then
     sudo apt install -y ca-certificates curl gnupg lsb-release
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
@@ -176,7 +176,7 @@ echo "*******************"
 # genie
 echo "***** genie *****"
 if ! has "genie"; then
-  if os_wsl2; then
+  if check_wsl2; then
     sudo wget -O /etc/apt/trusted.gpg.d/wsl-transdebian.gpg https://arkane-systems.github.io/wsl-transdebian/apt/wsl-transdebian.gpg
     sudo chmod a+r /etc/apt/trusted.gpg.d/wsl-transdebian.gpg
     echo "deb https://arkane-systems.github.io/wsl-transdebian/apt/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/wsl-transdebian.list > /dev/null
