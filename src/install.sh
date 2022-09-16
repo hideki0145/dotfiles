@@ -34,8 +34,8 @@ elif [ ! -d "$DOT_DIR/tmp" ]; then
   fi
 fi
 
-readonly SETUP_SCRIPT="$DOT_DIR/src/setup.sh"
-readonly DEPLOY_SCRIPT="$DOT_DIR/src/deploy.sh"
+readonly SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/setup.sh"
+readonly DEPLOY_SCRIPT="$DOT_DIR/src/$(os_name)/deploy.sh"
 
 if [ ! -f "$SETUP_SCRIPT" ]; then
   error "not found: $SETUP_SCRIPT"
@@ -46,10 +46,10 @@ fi
 while [ $# -gt 0 ]; do
   case $1 in
     -s | --setup)
-      setup
+      bash "$SETUP_SCRIPT"
       ;;
     -d | --deploy)
-      deploy
+      bash "$DEPLOY_SCRIPT"
       ;;
     -*)
       error "invalid option $1."

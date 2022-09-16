@@ -75,15 +75,3 @@ error() {
   echo "$1" 1>&2
   exit 1
 }
-
-# Setup of packages.
-setup() {
-  bash "$DOT_DIR"/src/setup.sh
-  return 0
-}
-
-# Deployment of dotfiles.
-deploy() {
-  bash "$DOT_DIR"/src/deploy.sh
-  return 0
-}
