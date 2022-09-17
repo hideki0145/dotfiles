@@ -126,6 +126,15 @@ else
 fi
 echo "****************"
 
+# sqlite3
+echo "***** sqlite3 *****"
+if ! has "sqlite3"; then
+  brew install sqlite3
+else
+  sqlite3 --version
+fi
+echo "*******************"
+
 # tig
 echo "***** tig *****"
 if ! has "tig"; then
