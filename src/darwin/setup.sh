@@ -4,6 +4,7 @@
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
 . "$DOT_DIR"/src/utils.sh
+. "$DOT_DIR"/src/darwin/utils.sh
 
 
 # homebrew
@@ -16,6 +17,7 @@ else
 fi
 echo "********************"
 
+# CUI packages
 # git
 echo "***** git *****"
 if ! has "git"; then
@@ -150,6 +152,17 @@ if ! has "lazygit"; then
   brew install jesseduffield/lazygit/lazygit
 else
   lazygit --version
+fi
+echo "*******************"
+
+# GUI packages
+# hackgen
+echo "***** hackgen *****"
+if ! has_cask "font-hackgen"; then
+  brew tap homebrew/cask-fonts
+  brew install --cask font-hackgen font-hackgen-nerd
+else
+  cask_version "font-hackgen"
 fi
 echo "*******************"
 
