@@ -4,6 +4,7 @@
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
 . "$DOT_DIR"/src/utils.sh
+. "$DOT_DIR"/src/ubuntu/utils.sh
 
 sudo -v &> /dev/null
 while true; do
