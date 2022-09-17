@@ -165,6 +165,15 @@ else
 fi
 echo "*************************"
 
+# karabiner elements
+echo "***** karabiner elements *****"
+if ! has_cask "karabiner-elements"; then
+  brew install --cask karabiner-elements
+else
+  cask_version "karabiner-elements"
+fi
+echo "******************************"
+
 # hackgen
 echo "***** hackgen *****"
 if ! has_cask "font-hackgen"; then
