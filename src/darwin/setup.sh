@@ -192,6 +192,15 @@ else
 fi
 echo "******************************"
 
+# deepl
+echo "***** deepl *****"
+if ! has_cask "deepl"; then
+  brew install --cask deepl
+else
+  cask_version "deepl"
+fi
+echo "*****************"
+
 # hackgen
 echo "***** hackgen *****"
 if ! has_cask "font-hackgen"; then
