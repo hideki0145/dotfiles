@@ -183,6 +183,15 @@ else
 fi
 echo "********************"
 
+# visual studio code
+echo "***** visual studio code *****"
+if ! has_cask "visual-studio-code"; then
+  brew install --cask visual-studio-code
+else
+  cask_version "visual-studio-code"
+fi
+echo "******************************"
+
 # hackgen
 echo "***** hackgen *****"
 if ! has_cask "font-hackgen"; then
