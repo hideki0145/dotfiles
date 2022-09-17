@@ -144,6 +144,15 @@ else
 fi
 echo "***************"
 
+# lazygit
+echo "***** lazygit *****"
+if ! has "lazygit"; then
+  brew install jesseduffield/lazygit/lazygit
+else
+  lazygit --version
+fi
+echo "*******************"
+
 
 # Setup complete
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
