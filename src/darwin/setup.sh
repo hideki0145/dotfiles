@@ -174,6 +174,15 @@ else
 fi
 echo "******************************"
 
+# onedrive
+echo "***** onedrive *****"
+if ! has_cask "onedrive"; then
+  brew install --cask onedrive
+else
+  cask_version "onedrive"
+fi
+echo "********************"
+
 # hackgen
 echo "***** hackgen *****"
 if ! has_cask "font-hackgen"; then
