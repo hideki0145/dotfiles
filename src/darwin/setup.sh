@@ -156,6 +156,15 @@ fi
 echo "*******************"
 
 # GUI packages
+# google chrome
+echo "***** google chrome *****"
+if ! has_cask "google-chrome"; then
+  brew install --cask google-chrome
+else
+  cask_version "google-chrome"
+fi
+echo "*************************"
+
 # hackgen
 echo "***** hackgen *****"
 if ! has_cask "font-hackgen"; then
