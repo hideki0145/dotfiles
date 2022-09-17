@@ -57,16 +57,19 @@ echo "***************"
 echo "***** zsh *****"
 if ! has "zsh"; then
   sudo apt install -y zsh
+else
+  zsh --version
+fi
+if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
   for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/*; do
     [ "${rcfile##*/}" = "README.md" ] && continue
     ln -snfv "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
   done
-  cp "$DOT_DIR/config/zsh/ubuntu/.zsh_history.sample" "$HOME/.zsh_history"
+  cp "$DOT_DIR/config/zsh/ubuntu/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
   echo "Change login shell."
   chsh -s $(which zsh)
 else
-  zsh --version
   cd "${ZDOTDIR:-$HOME}/.zprezto"
   git pull
   git submodule update --init --recursive
