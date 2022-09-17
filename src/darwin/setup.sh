@@ -113,6 +113,19 @@ else
 fi
 echo "******************"
 
+# yarn
+echo "***** yarn *****"
+if ! has "yarn"; then
+  if has "npm"; then
+    npm install -g yarn
+  else
+    skip "yarn"
+  fi
+else
+  yarn --version
+fi
+echo "****************"
+
 # tig
 echo "***** tig *****"
 if ! has "tig"; then
