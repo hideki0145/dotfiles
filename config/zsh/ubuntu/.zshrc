@@ -11,14 +11,12 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+readonly DOT_DIR="$HOME/.dotfiles"
+readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
+. "$UTILS_SCRIPT"
+
 export EDITOR='vim'
 export VISUAL='vim'
-
-# Check existence of the command.
-has() {
-  type "$1" > /dev/null 2>&1
-  return $?
-}
 
 if [ -z $SSH_AUTH_SOCK ]; then
   readonly SSH_KEY_LIFE_TIME_SEC=3600

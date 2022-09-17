@@ -11,8 +11,13 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+readonly DOT_DIR="$HOME/.dotfiles"
+readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
+. "$UTILS_SCRIPT"
+
 export EDITOR='vim'
 export VISUAL='vim'
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -22,5 +27,3 @@ fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit
 compinit
-
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
