@@ -20,20 +20,6 @@ has() {
   return $?
 }
 
-function isWinDir {
- case $PWD/ in
-   /mnt/*) return $(true);;
-   *) return $(false);;
- esac
-}
-function git {
- if isWinDir; then
-   git.exe "$@"
- else
-   /usr/bin/git "$@"
- fi
-}
-
 if [ -z $SSH_AUTH_SOCK ]; then
   readonly SSH_KEY_LIFE_TIME_SEC=3600
   readonly SSH_AGENT_FILE="$HOME/.ssh_agent"
