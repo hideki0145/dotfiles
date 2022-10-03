@@ -89,29 +89,31 @@ if ! has "asdf"; then
   echo '' >> ~/.bashrc
   echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc
   echo '. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
+  . $HOME/.asdf/asdf.sh
+  . $HOME/.asdf/completions/asdf.bash
 else
   asdf --version
-  asdf update
-  asdf plugin update --all
+fi
+asdf update
+asdf plugin update --all
 
-  if [ -z "`asdf plugin list | grep nodejs`" ]; then
-    brew install gpg gawk
-    asdf plugin add nodejs
-  else
-    asdf plugin list --urls --refs | grep nodejs
-  fi
-  if [ -z "`asdf plugin list | grep python`" ]; then
-    brew install openssl readline sqlite3 xz zlib tcl-tk
-    asdf plugin add python
-  else
-    asdf plugin list --urls --refs | grep python
-  fi
-  if [ -z "`asdf plugin list | grep ruby`" ]; then
-    brew install openssl@1.1 readline libyaml
-    asdf plugin add ruby
-  else
-    asdf plugin list --urls --refs | grep ruby
-  fi
+if [ -z "`asdf plugin list | grep nodejs`" ]; then
+  brew install gpg gawk
+  asdf plugin add nodejs
+else
+  asdf plugin list --urls --refs | grep nodejs
+fi
+if [ -z "`asdf plugin list | grep python`" ]; then
+  brew install openssl readline sqlite3 xz zlib tcl-tk
+  asdf plugin add python
+else
+  asdf plugin list --urls --refs | grep python
+fi
+if [ -z "`asdf plugin list | grep ruby`" ]; then
+  brew install openssl@1.1 readline libyaml
+  asdf plugin add ruby
+else
+  asdf plugin list --urls --refs | grep ruby
 fi
 echo "******************"
 

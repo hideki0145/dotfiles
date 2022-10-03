@@ -87,33 +87,35 @@ if ! has "asdf"; then
   echo '' >> ~/.bashrc
   echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc
   echo '. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
+  . $HOME/.asdf/asdf.sh
+  . $HOME/.asdf/completions/asdf.bash
 else
   asdf --version
-  asdf update
-  asdf plugin update --all
+fi
+asdf update
+asdf plugin update --all
 
-  if [ -z "`asdf plugin list | grep nodejs`" ]; then
-    sudo apt install -y dirmngr gpg curl gawk
-    asdf plugin add nodejs
+if [ -z "`asdf plugin list | grep nodejs`" ]; then
+  sudo apt install -y dirmngr gpg curl gawk
+  asdf plugin add nodejs
+else
+  asdf plugin list --urls --refs | grep nodejs
+fi
+if [ -z "`asdf plugin list | grep python`" ]; then
+  sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+  asdf plugin add python
+else
+  asdf plugin list --urls --refs | grep python
+fi
+if [ -z "`asdf plugin list | grep ruby`" ]; then
+  if [ "$(os_version)" = "18.04" ]; then
+    sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev libdb-dev
   else
-    asdf plugin list --urls --refs | grep nodejs
+    sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
   fi
-  if [ -z "`asdf plugin list | grep python`" ]; then
-    sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-    asdf plugin add python
-  else
-    asdf plugin list --urls --refs | grep python
-  fi
-  if [ -z "`asdf plugin list | grep ruby`" ]; then
-    if [ "$(os_version)" = "18.04" ]; then
-      sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev libdb-dev
-    else
-      sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
-    fi
-    asdf plugin add ruby
-  else
-    asdf plugin list --urls --refs | grep ruby
-  fi
+  asdf plugin add ruby
+else
+  asdf plugin list --urls --refs | grep ruby
 fi
 echo "******************"
 
