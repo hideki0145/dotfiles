@@ -15,10 +15,7 @@ if [ ! -f "$UTILS_SCRIPT" ]; then
 fi
 . "$UTILS_SCRIPT"
 
-if [ -d "$DOT_DIR/.git" ]; then
-  cd "$DOT_DIR"
-  git pull
-elif [ ! -d "$DOT_DIR/tmp" ]; then
+if [ ! -d "$DOT_DIR/.git" ]; then
   rm -rf "$DOT_DIR"
   if has "git"; then
     git clone "$DOTFILES_ORIGIN_URL" "$DOT_DIR"
@@ -32,6 +29,9 @@ elif [ ! -d "$DOT_DIR/tmp" ]; then
   else
     error "curl or wget required."
   fi
+else
+  cd "$DOT_DIR"
+  git pull
 fi
 
 readonly SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/setup.sh"
