@@ -43,8 +43,19 @@ elif [ ! -f "$DEPLOY_SCRIPT" ]; then
   error "not found: $DEPLOY_SCRIPT"
 fi
 
-while [ $# -gt 0 ]; do
-  case $1 in
+while getopts sd-: opt; do
+  optarg="$OPTARG"
+  if [[ "$opt" = - ]]; then
+    opt="-${OPTARG%%=*}"
+    optarg="${OPTARG/${OPTARG%%=*}/}"
+    optarg="${optarg#=}"
+    if [[ -z "$optarg" ]] && [[ ! "${!OPTIND}" = -* ]]; then
+      optarg="${!OPTIND}"
+      shift
+    fi
+  fi
+
+  case "-$opt" in
     -s | --setup)
       bash "$SETUP_SCRIPT"
       ;;
@@ -54,9 +65,5 @@ while [ $# -gt 0 ]; do
     -*)
       error "invalid option $1."
       ;;
-    *)
-      echo "argument $1."
-      ;;
   esac
-  shift
 done
