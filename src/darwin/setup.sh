@@ -60,6 +60,8 @@ echo "***************"
 echo "***** zsh *****"
 if ! has "zsh"; then
   brew install zsh
+  echo "Change login shell."
+  chsh -s $(which zsh)
 else
   zsh --version
 fi
@@ -70,8 +72,6 @@ if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
     ln -snfv "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
   done
   cp "$DOT_DIR/config/zsh/$(os_name)/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
-  echo "Change login shell."
-  chsh -s $(which zsh)
 else
   cd "${ZDOTDIR:-$HOME}/.zprezto"
   git pull
