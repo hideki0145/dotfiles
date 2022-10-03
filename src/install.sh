@@ -16,6 +16,11 @@ fi
 . "$UTILS_SCRIPT"
 
 if [ ! -d "$DOT_DIR/.git" ]; then
+  readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
+  exist_first_run=0
+  if [ -f "$FIRST_RUN" ]; then
+    exist_first_run=1
+  fi
   rm -rf "$DOT_DIR"
   if has "git"; then
     git clone "$DOTFILES_ORIGIN_URL" "$DOT_DIR"
@@ -28,6 +33,10 @@ if [ ! -d "$DOT_DIR/.git" ]; then
     mv -f dotfiles-main "$DOT_DIR"
   else
     error "curl or wget required."
+  fi
+  if [ $exist_first_run -ne 0 ]; then
+    mkdir -p "$DOT_DIR/tmp"
+    touch "$FIRST_RUN"
   fi
 else
   cd "$DOT_DIR"
