@@ -4,7 +4,7 @@
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
 . "$DOT_DIR"/src/utils.sh
-. "$DOT_DIR"/src/darwin/utils.sh
+. "$DOT_DIR"/src/$(os_name)/utils.sh
 
 
 # homebrew
@@ -69,7 +69,7 @@ if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
     [ "${rcfile##*/}" = "README.md" ] && continue
     ln -snfv "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
   done
-  cp "$DOT_DIR/config/zsh/darwin/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
+  cp "$DOT_DIR/config/zsh/$(os_name)/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
   echo "Change login shell."
   chsh -s $(which zsh)
 else

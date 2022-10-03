@@ -13,7 +13,7 @@ fi
 declare -a SYMLINK_FILES=(
   "vim/.vimrc"
   "zsh/.zpreztorc"
-  "zsh/darwin/.zshrc"
+  "zsh/$(os_name)/.zshrc"
 )
 
 for f in "${SYMLINK_FILES[@]}"; do
