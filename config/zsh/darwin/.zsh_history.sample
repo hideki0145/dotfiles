@@ -1,5 +1,5 @@
-: 1000000000:0;bash -c "$(curl -L https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/install.sh)" -s --setup
-: 1000000000:0;bash -c "$(curl -L https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/install.sh)" -s --deploy
+: 1000000000:0;bash -c "$(curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/install.sh)" -s --setup
+: 1000000000:0;bash -c "$(curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/install.sh)" -s --deploy
 : 1000000000:0;brew update && brew upgrade && brew autoremove && brew cleanup
 : 1000000000:0;git config --local user.email ""
 : 1000000000:0;tig --all
