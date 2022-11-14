@@ -10,8 +10,8 @@ readonly DOT_DIR="$HOME/.dotfiles"
 # homebrew
 echo "***** homebrew *****"
 if ! has "brew"; then
-  xcode-select --install
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 else
   brew --version
 fi
