@@ -34,16 +34,3 @@ fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit
 compinit
-
-if has "genie"; then
-  # Are we in the bottle?
-  if [[ ! -v INSIDE_GENIE ]]; then
-    read -t 3 -q "yn? * Preparing to enter genie bottle (in 3s); abort? "
-    echo
-
-    if [[ $yn != "y" ]]; then
-      echo "Starting genie:"
-      exec /usr/bin/genie -c "zsh"
-    fi
-  fi
-fi
