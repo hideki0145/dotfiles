@@ -157,6 +157,15 @@ else
 fi
 echo "*******************"
 
+# lazydocker
+echo "***** lazydocker *****"
+if ! has "lazydocker"; then
+  brew install jesseduffield/lazydocker/lazydocker
+else
+  lazydocker --version
+fi
+echo "**********************"
+
 # GUI packages
 # google chrome
 echo "***** google chrome *****"
