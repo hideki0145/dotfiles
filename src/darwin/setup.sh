@@ -20,7 +20,7 @@ echo "********************"
 # CUI packages
 # git
 echo "***** git *****"
-if ! has "git"; then
+if ! has_formula "git"; then
   brew install git
 else
   git --version
