@@ -46,7 +46,7 @@ echo "***************"
 
 # vim
 echo "***** vim *****"
-if ! has "vim"; then
+if ! has_formula "vim"; then
   brew install vim
 else
   vim --version | head -n 1
@@ -58,7 +58,7 @@ echo "***************"
 
 # zsh
 echo "***** zsh *****"
-if ! has "zsh"; then
+if ! has_formula "zsh"; then
   brew install zsh
   echo "Change login shell."
   chsh -s $(which zsh)
@@ -78,6 +78,42 @@ else
   git submodule update --init --recursive
 fi
 echo "***************"
+
+# sqlite3
+echo "***** sqlite3 *****"
+if ! has_formula "sqlite"; then
+  brew install sqlite
+else
+  sqlite3 --version
+fi
+echo "*******************"
+
+# tig
+echo "***** tig *****"
+if ! has_formula "tig"; then
+  brew install tig
+else
+  tig --version
+fi
+echo "***************"
+
+# lazygit
+echo "***** lazygit *****"
+if ! has_formula "lazygit"; then
+  brew install jesseduffield/lazygit/lazygit
+else
+  lazygit --version
+fi
+echo "*******************"
+
+# lazydocker
+echo "***** lazydocker *****"
+if ! has_formula "lazydocker"; then
+  brew install jesseduffield/lazydocker/lazydocker
+else
+  lazydocker --version
+fi
+echo "**********************"
 
 # asdf
 echo "***** asdf *****"
@@ -129,42 +165,6 @@ else
   yarn --version
 fi
 echo "****************"
-
-# sqlite3
-echo "***** sqlite3 *****"
-if ! has "sqlite3"; then
-  brew install sqlite3
-else
-  sqlite3 --version
-fi
-echo "*******************"
-
-# tig
-echo "***** tig *****"
-if ! has "tig"; then
-  brew install tig
-else
-  tig --version
-fi
-echo "***************"
-
-# lazygit
-echo "***** lazygit *****"
-if ! has "lazygit"; then
-  brew install jesseduffield/lazygit/lazygit
-else
-  lazygit --version
-fi
-echo "*******************"
-
-# lazydocker
-echo "***** lazydocker *****"
-if ! has "lazydocker"; then
-  brew install jesseduffield/lazydocker/lazydocker
-else
-  lazydocker --version
-fi
-echo "**********************"
 
 # GUI packages
 # google chrome

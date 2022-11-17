@@ -77,6 +77,44 @@ else
 fi
 echo "***************"
 
+# sqlite3
+echo "***** sqlite3 *****"
+if ! has "sqlite3"; then
+  sudo apt install -y sqlite3 libsqlite3-dev
+else
+  sqlite3 --version
+fi
+echo "*******************"
+
+# tig
+echo "***** tig *****"
+if ! has "tig"; then
+  sudo apt install -y tig
+else
+  tig --version
+fi
+echo "***************"
+
+# lazygit
+echo "***** lazygit *****"
+compose_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[\d.]+')
+if ! has "lazygit" || [ ! "$compose_version" = "$(lazygit --version | grep -Po 'version=\K[\d.]+')" ]; then
+  curl -LsS "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${compose_version}_$(uname -s)_$(uname -m).tar.gz" -o "$DOT_DIR/tmp/lazygit.tar.gz"
+  sudo tar xf "$DOT_DIR/tmp/lazygit.tar.gz" -C /usr/bin lazygit
+fi
+lazygit --version
+echo "*******************"
+
+# lazydocker
+echo "***** lazydocker *****"
+compose_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazydocker/releases/latest" | grep -Po '"tag_name": "v\K[\d.]+')
+if ! has "lazydocker" || [ ! "$compose_version" = "$(lazydocker --version | grep -Po 'Version: \K[\d.]+')" ]; then
+  curl -LsS "https://github.com/jesseduffield/lazydocker/releases/latest/download/lazydocker_${compose_version}_$(uname -s)_$(uname -m).tar.gz" -o "$DOT_DIR/tmp/lazydocker.tar.gz"
+  sudo tar xf "$DOT_DIR/tmp/lazydocker.tar.gz" -C /usr/bin lazydocker
+fi
+lazydocker --version
+echo "*******************"
+
 # asdf
 echo "***** asdf *****"
 if ! has "asdf"; then
@@ -155,44 +193,6 @@ else
   docker compose version
 fi
 echo "******************"
-
-# sqlite3
-echo "***** sqlite3 *****"
-if ! has "sqlite3"; then
-  sudo apt install -y sqlite3 libsqlite3-dev
-else
-  sqlite3 --version
-fi
-echo "*******************"
-
-# tig
-echo "***** tig *****"
-if ! has "tig"; then
-  sudo apt install -y tig
-else
-  tig --version
-fi
-echo "***************"
-
-# lazygit
-echo "***** lazygit *****"
-compose_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[\d.]+')
-if ! has "lazygit" || [ ! "$compose_version" = "$(lazygit --version | grep -Po 'version=\K[\d.]+')" ]; then
-  curl -LsS "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${compose_version}_$(uname -s)_$(uname -m).tar.gz" -o "$DOT_DIR/tmp/lazygit.tar.gz"
-  sudo tar xf "$DOT_DIR/tmp/lazygit.tar.gz" -C /usr/bin lazygit
-fi
-lazygit --version
-echo "*******************"
-
-# lazydocker
-echo "***** lazydocker *****"
-compose_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazydocker/releases/latest" | grep -Po '"tag_name": "v\K[\d.]+')
-if ! has "lazydocker" || [ ! "$compose_version" = "$(lazydocker --version | grep -Po 'Version: \K[\d.]+')" ]; then
-  curl -LsS "https://github.com/jesseduffield/lazydocker/releases/latest/download/lazydocker_${compose_version}_$(uname -s)_$(uname -m).tar.gz" -o "$DOT_DIR/tmp/lazydocker.tar.gz"
-  sudo tar xf "$DOT_DIR/tmp/lazydocker.tar.gz" -C /usr/bin lazydocker
-fi
-lazydocker --version
-echo "*******************"
 
 
 # Setup complete
