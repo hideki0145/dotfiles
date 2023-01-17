@@ -20,6 +20,7 @@ export VISUAL='vim'
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 
 . $HOME/.asdf/asdf.sh
 # append completions to fpath

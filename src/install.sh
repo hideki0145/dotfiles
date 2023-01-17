@@ -44,10 +44,13 @@ else
 fi
 
 readonly SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/setup.sh"
+readonly DEVKIT_SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/devkit_setup.sh"
 readonly DEPLOY_SCRIPT="$DOT_DIR/src/$(os_name)/deploy.sh"
 
 if [ ! -f "$SETUP_SCRIPT" ]; then
   error "not found: $SETUP_SCRIPT"
+elif [ ! -f "$DEVKIT_SETUP_SCRIPT" ]; then
+  error "not found: $DEVKIT_SETUP_SCRIPT"
 elif [ ! -f "$DEPLOY_SCRIPT" ]; then
   error "not found: $DEPLOY_SCRIPT"
 fi
@@ -67,6 +70,9 @@ while getopts sd-: opt; do
   case "-$opt" in
     -s | --setup)
       bash "$SETUP_SCRIPT"
+      ;;
+    --devkit-setup)
+      bash "$DEVKIT_SETUP_SCRIPT"
       ;;
     -d | --deploy)
       bash "$DEPLOY_SCRIPT"
