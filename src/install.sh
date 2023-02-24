@@ -68,6 +68,11 @@ while getopts sd-: opt; do
   fi
 
   case "-$opt" in
+    --all)
+      bash "$SETUP_SCRIPT"
+      bash "$DEVKIT_SETUP_SCRIPT"
+      bash "$DEPLOY_SCRIPT"
+      ;;
     -s | --setup)
       bash "$SETUP_SCRIPT"
       ;;
