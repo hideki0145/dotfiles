@@ -1,5 +1,8 @@
 #!/bin/bash
 # Development Kit Setup Script for Ubuntu.
+echo ""
+echo "Development Kit Setup start..."
+echo ""
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
@@ -19,6 +22,7 @@ while true; do
 done &> /dev/null &
 
 
+# CUI packages
 # postgresql
 echo "***** postgresql *****"
 if ! has "psql"; then
@@ -31,7 +35,6 @@ if ! has "psql"; then
 else
   psql --version
 fi
-echo "**********************"
 
 # redis
 echo "***** redis *****"
@@ -44,7 +47,6 @@ if ! has "redis-cli"; then
 else
   redis-cli --version
 fi
-echo "*****************"
 
 # graphviz
 echo "***** graphviz *****"
@@ -53,7 +55,6 @@ if ! has "dot"; then
 else
   dot -V
 fi
-echo "********************"
 
 # google chrome
 echo "***** google chrome *****"
@@ -64,7 +65,6 @@ if ! has "google-chrome"; then
 else
   google-chrome --version
 fi
-echo "*************************"
 
 
 # Development Kit Setup complete

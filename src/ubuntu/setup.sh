@@ -1,5 +1,8 @@
 #!/bin/bash
 # Setup Script for Ubuntu.
+echo ""
+echo "Setup start..."
+echo ""
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
@@ -14,6 +17,7 @@ while true; do
 done &> /dev/null &
 
 
+# CUI packages
 # git
 echo "***** git *****"
 if ! has "git"; then
@@ -40,7 +44,6 @@ if [ ! -d "$HOME/.config/git" ]; then
   mkdir -p "$HOME/.config/git"
 fi
 ln -snfv "$DOT_DIR/config/git/ignore" "$HOME/.config/git/ignore"
-echo "***************"
 
 # vim
 echo "***** vim *****"
@@ -52,7 +55,6 @@ fi
 if [ ! -d ~/.vim/autoload ]; then
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
-echo "***************"
 
 # zsh
 echo "***** zsh *****"
@@ -75,7 +77,6 @@ else
   git pull
   git submodule update --init --recursive
 fi
-echo "***************"
 
 # sqlite3
 echo "***** sqlite3 *****"
@@ -84,7 +85,6 @@ if ! has "sqlite3"; then
 else
   sqlite3 --version
 fi
-echo "*******************"
 
 # tig
 echo "***** tig *****"
@@ -93,7 +93,6 @@ if ! has "tig"; then
 else
   tig --version
 fi
-echo "***************"
 
 # lazygit
 echo "***** lazygit *****"
@@ -103,7 +102,6 @@ if ! has "lazygit" || [ ! "$compose_version" = "$(lazygit --version | grep -Po '
   sudo tar xf "$DOT_DIR/tmp/lazygit.tar.gz" -C /usr/bin lazygit
 fi
 lazygit --version
-echo "*******************"
 
 # lazydocker
 echo "***** lazydocker *****"
@@ -113,7 +111,6 @@ if ! has "lazydocker" || [ ! "$compose_version" = "$(lazydocker --version | grep
   sudo tar xf "$DOT_DIR/tmp/lazydocker.tar.gz" -C /usr/bin lazydocker
 fi
 lazydocker --version
-echo "**********************"
 
 # asdf
 echo "***** asdf *****"
@@ -155,7 +152,6 @@ if [ -z "`asdf plugin list | grep ruby`" ]; then
 else
   asdf plugin list --urls --refs | grep ruby
 fi
-echo "****************"
 
 # yarn
 echo "***** yarn *****"
@@ -168,7 +164,6 @@ if ! has "yarn"; then
 else
   yarn --version
 fi
-echo "****************"
 
 # docker
 echo "***** docker *****"
@@ -192,7 +187,6 @@ else
   docker --version
   docker compose version
 fi
-echo "******************"
 
 
 # Setup complete

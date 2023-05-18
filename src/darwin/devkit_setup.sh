@@ -1,5 +1,8 @@
 #!/bin/bash
 # Development Kit Setup Script for Darwin.
+echo ""
+echo "Development Kit Setup start..."
+echo ""
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
@@ -21,7 +24,6 @@ if ! has_formula "postgresql@15"; then
 else
   psql --version
 fi
-echo "**********************"
 
 # redis
 echo "***** redis *****"
@@ -31,7 +33,6 @@ if ! has_formula "redis"; then
 else
   redis-cli --version
 fi
-echo "*****************"
 
 # graphviz
 echo "***** graphviz *****"
@@ -40,7 +41,6 @@ if ! has_formula "graphviz"; then
 else
   dot -V
 fi
-echo "********************"
 
 
 # Development Kit Setup complete

@@ -1,5 +1,8 @@
 #!/bin/bash
 # Setup Script for Darwin.
+echo ""
+echo "Setup start..."
+echo ""
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
@@ -15,7 +18,6 @@ if ! has "brew"; then
 else
   brew --version
 fi
-echo "********************"
 
 # CUI packages
 # git
@@ -42,7 +44,6 @@ if [ ! -d "$HOME/.config/git" ]; then
   mkdir -p "$HOME/.config/git"
 fi
 ln -snfv "$DOT_DIR/config/git/ignore" "$HOME/.config/git/ignore"
-echo "***************"
 
 # vim
 echo "***** vim *****"
@@ -54,7 +55,6 @@ fi
 if [ ! -d ~/.vim/autoload ]; then
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
-echo "***************"
 
 # zsh
 echo "***** zsh *****"
@@ -77,7 +77,6 @@ else
   git pull
   git submodule update --init --recursive
 fi
-echo "***************"
 
 # sqlite3
 echo "***** sqlite3 *****"
@@ -86,7 +85,6 @@ if ! has_formula "sqlite"; then
 else
   sqlite3 --version
 fi
-echo "*******************"
 
 # tig
 echo "***** tig *****"
@@ -95,7 +93,6 @@ if ! has_formula "tig"; then
 else
   tig --version
 fi
-echo "***************"
 
 # lazygit
 echo "***** lazygit *****"
@@ -104,7 +101,6 @@ if ! has_formula "lazygit"; then
 else
   lazygit --version
 fi
-echo "*******************"
 
 # lazydocker
 echo "***** lazydocker *****"
@@ -113,7 +109,6 @@ if ! has_formula "lazydocker"; then
 else
   lazydocker --version
 fi
-echo "**********************"
 
 # asdf
 echo "***** asdf *****"
@@ -151,7 +146,6 @@ if [ -z "`asdf plugin list | grep ruby`" ]; then
 else
   asdf plugin list --urls --refs | grep ruby
 fi
-echo "****************"
 
 # yarn
 echo "***** yarn *****"
@@ -164,7 +158,6 @@ if ! has "yarn"; then
 else
   yarn --version
 fi
-echo "****************"
 
 # GUI packages
 # google chrome
@@ -174,7 +167,6 @@ if ! has_cask "google-chrome"; then
 else
   cask_version "google-chrome"
 fi
-echo "*************************"
 
 # karabiner elements
 echo "***** karabiner elements *****"
@@ -183,7 +175,6 @@ if ! has_cask "karabiner-elements"; then
 else
   cask_version "karabiner-elements"
 fi
-echo "******************************"
 
 # onedrive
 echo "***** onedrive *****"
@@ -192,7 +183,6 @@ if ! has_cask "onedrive"; then
 else
   cask_version "onedrive"
 fi
-echo "********************"
 
 # visual studio code
 echo "***** visual studio code *****"
@@ -201,7 +191,6 @@ if ! has_cask "visual-studio-code"; then
 else
   cask_version "visual-studio-code"
 fi
-echo "******************************"
 
 # deepl
 echo "***** deepl *****"
@@ -210,7 +199,6 @@ if ! has_cask "deepl"; then
 else
   cask_version "deepl"
 fi
-echo "*****************"
 
 # hackgen
 echo "***** hackgen *****"
@@ -220,7 +208,6 @@ if ! has_cask "font-hackgen"; then
 else
   cask_version "font-hackgen"
 fi
-echo "*******************"
 
 
 # Setup complete

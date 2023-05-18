@@ -1,5 +1,8 @@
 #!/bin/bash
 # Package Update Script for Darwin.
+echo ""
+echo "Package Update start..."
+echo ""
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"

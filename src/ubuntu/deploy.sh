@@ -1,5 +1,8 @@
 #!/bin/bash
 # Deploy Script for Ubuntu.
+echo ""
+echo "Deploy start..."
+echo ""
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
