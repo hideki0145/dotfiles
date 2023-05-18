@@ -14,13 +14,6 @@ if [ ! -f "$FIRST_RUN" ]; then
   error "Please run the setup script first."
 fi
 
-sudo -v &> /dev/null
-while true; do
-  sudo -n true
-  sleep 60
-  kill -0 "$$" || exit
-done &> /dev/null &
-
 
 # CUI packages
 # postgresql

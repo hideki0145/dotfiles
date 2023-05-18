@@ -58,6 +58,8 @@ elif [ ! -f "$DEPLOY_SCRIPT" ]; then
   error "not found: $DEPLOY_SCRIPT"
 fi
 
+ask_for_sudo_password
+
 while getopts sd-: opt; do
   optarg="$OPTARG"
   if [[ "$opt" = - ]]; then
