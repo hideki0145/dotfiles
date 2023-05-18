@@ -43,7 +43,7 @@ fi
 echo "********************"
 
 
-# Setup complete
+# Development Kit Setup complete
 echo ""
 echo "Development Kit Setup complete!"
 echo "Please restarting your shell."

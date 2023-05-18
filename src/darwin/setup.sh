@@ -151,7 +151,7 @@ if [ -z "`asdf plugin list | grep ruby`" ]; then
 else
   asdf plugin list --urls --refs | grep ruby
 fi
-echo "******************"
+echo "****************"
 
 # yarn
 echo "***** yarn *****"
