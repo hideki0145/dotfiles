@@ -1,17 +1,16 @@
 #!/bin/bash
 # Setup Script for Darwin.
-echo ""
-echo "Setup start..."
-echo ""
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
 . "$DOT_DIR"/src/utils.sh
 . "$DOT_DIR"/src/$(os_name)/utils.sh
 
+title "Setup start..."
+
 
 # homebrew
-echo "***** homebrew *****"
+package_name "homebrew"
 if ! has "brew"; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -21,7 +20,7 @@ fi
 
 # CUI packages
 # git
-echo "***** git *****"
+package_name "git"
 if ! has_formula "git"; then
   brew install git
 else
@@ -46,7 +45,7 @@ fi
 ln -snfv "$DOT_DIR/config/git/ignore" "$HOME/.config/git/ignore"
 
 # vim
-echo "***** vim *****"
+package_name "vim"
 if ! has_formula "vim"; then
   brew install vim
 else
@@ -57,10 +56,10 @@ if [ ! -d ~/.vim/autoload ]; then
 fi
 
 # zsh
-echo "***** zsh *****"
+package_name "zsh"
 if ! has_formula "zsh"; then
   brew install zsh
-  echo "Change login shell."
+  description "Change login shell."
   chsh -s $(which zsh)
 else
   zsh --version
@@ -79,7 +78,7 @@ else
 fi
 
 # sqlite3
-echo "***** sqlite3 *****"
+package_name "sqlite3"
 if ! has_formula "sqlite"; then
   brew install sqlite
 else
@@ -87,7 +86,7 @@ else
 fi
 
 # tig
-echo "***** tig *****"
+package_name "tig"
 if ! has_formula "tig"; then
   brew install tig
 else
@@ -95,7 +94,7 @@ else
 fi
 
 # lazygit
-echo "***** lazygit *****"
+package_name "lazygit"
 if ! has_formula "lazygit"; then
   brew install jesseduffield/lazygit/lazygit
 else
@@ -103,7 +102,7 @@ else
 fi
 
 # lazydocker
-echo "***** lazydocker *****"
+package_name "lazydocker"
 if ! has_formula "lazydocker"; then
   brew install jesseduffield/lazydocker/lazydocker
 else
@@ -111,7 +110,7 @@ else
 fi
 
 # asdf
-echo "***** asdf *****"
+package_name "asdf"
 if ! has "asdf"; then
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf
   cd ~/.asdf
@@ -148,7 +147,7 @@ else
 fi
 
 # yarn
-echo "***** yarn *****"
+package_name "yarn"
 if ! has "yarn"; then
   if has "npm"; then
     npm install -g yarn
@@ -161,7 +160,7 @@ fi
 
 # GUI packages
 # google chrome
-echo "***** google chrome *****"
+package_name "google chrome"
 if ! has_cask "google-chrome"; then
   brew install --cask google-chrome
 else
@@ -169,7 +168,7 @@ else
 fi
 
 # karabiner elements
-echo "***** karabiner elements *****"
+package_name "karabiner elements"
 if ! has_cask "karabiner-elements"; then
   brew install --cask karabiner-elements
 else
@@ -177,7 +176,7 @@ else
 fi
 
 # onedrive
-echo "***** onedrive *****"
+package_name "onedrive"
 if ! has_cask "onedrive"; then
   brew install --cask onedrive
 else
@@ -185,7 +184,7 @@ else
 fi
 
 # visual studio code
-echo "***** visual studio code *****"
+package_name "visual studio code"
 if ! has_cask "visual-studio-code"; then
   brew install --cask visual-studio-code
 else
@@ -193,7 +192,7 @@ else
 fi
 
 # deepl
-echo "***** deepl *****"
+package_name "deepl"
 if ! has_cask "deepl"; then
   brew install --cask deepl
 else
@@ -201,7 +200,7 @@ else
 fi
 
 # hackgen
-echo "***** hackgen *****"
+package_name "hackgen"
 if ! has_cask "font-hackgen"; then
   brew tap homebrew/cask-fonts
   brew install --cask font-hackgen font-hackgen-nerd
@@ -212,13 +211,12 @@ fi
 
 # Setup complete
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
-echo ""
 if [ -f "$FIRST_RUN" ]; then
-  echo "Setup complete!"
-  echo "Please restarting your shell."
+  result "Setup complete!"
+  description "Please restarting your shell."
 else
   touch "$FIRST_RUN"
-  echo "First setup complete!"
-  echo "You run it for the first time, please deployment of dotfiles, and restarting your shell."
-  echo "After that, please re-run this script again."
+  result "First setup complete!"
+  description "You run it for the first time, please deployment of dotfiles, and restarting your shell."
+  description "After that, please re-run this script again."
 fi

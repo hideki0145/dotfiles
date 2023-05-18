@@ -1,18 +1,17 @@
 #!/bin/bash
 # Setup Script for Ubuntu.
-echo ""
-echo "Setup start..."
-echo ""
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
 . "$DOT_DIR"/src/utils.sh
 . "$DOT_DIR"/src/$(os_name)/utils.sh
 
+title "Setup start..."
+
 
 # CUI packages
 # git
-echo "***** git *****"
+package_name "git"
 if ! has "git"; then
   sudo add-apt-repository -y ppa:git-core/ppa
   sudo apt update
@@ -39,7 +38,7 @@ fi
 ln -snfv "$DOT_DIR/config/git/ignore" "$HOME/.config/git/ignore"
 
 # vim
-echo "***** vim *****"
+package_name "vim"
 if ! has "vim"; then
   sudo apt install -y vim
 else
@@ -50,10 +49,10 @@ if [ ! -d ~/.vim/autoload ]; then
 fi
 
 # zsh
-echo "***** zsh *****"
+package_name "zsh"
 if ! has "zsh"; then
   sudo apt install -y zsh
-  echo "Change login shell."
+  description "Change login shell."
   chsh -s $(which zsh)
 else
   zsh --version
@@ -72,7 +71,7 @@ else
 fi
 
 # sqlite3
-echo "***** sqlite3 *****"
+package_name "sqlite3"
 if ! has "sqlite3"; then
   sudo apt install -y sqlite3 libsqlite3-dev
 else
@@ -80,7 +79,7 @@ else
 fi
 
 # tig
-echo "***** tig *****"
+package_name "tig"
 if ! has "tig"; then
   sudo apt install -y tig
 else
@@ -88,7 +87,7 @@ else
 fi
 
 # lazygit
-echo "***** lazygit *****"
+package_name "lazygit"
 compose_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[\d.]+')
 if ! has "lazygit" || [ ! "$compose_version" = "$(lazygit --version | grep -Po 'version=\K[\d.]+')" ]; then
   curl -LsS "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${compose_version}_$(uname -s)_$(uname -m).tar.gz" -o "$DOT_DIR/tmp/lazygit.tar.gz"
@@ -97,7 +96,7 @@ fi
 lazygit --version
 
 # lazydocker
-echo "***** lazydocker *****"
+package_name "lazydocker"
 compose_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazydocker/releases/latest" | grep -Po '"tag_name": "v\K[\d.]+')
 if ! has "lazydocker" || [ ! "$compose_version" = "$(lazydocker --version | grep -Po 'Version: \K[\d.]+')" ]; then
   curl -LsS "https://github.com/jesseduffield/lazydocker/releases/latest/download/lazydocker_${compose_version}_$(uname -s)_$(uname -m).tar.gz" -o "$DOT_DIR/tmp/lazydocker.tar.gz"
@@ -106,7 +105,7 @@ fi
 lazydocker --version
 
 # asdf
-echo "***** asdf *****"
+package_name "asdf"
 if ! has "asdf"; then
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf
   cd ~/.asdf
@@ -147,7 +146,7 @@ else
 fi
 
 # yarn
-echo "***** yarn *****"
+package_name "yarn"
 if ! has "yarn"; then
   if has "npm"; then
     npm install -g yarn
@@ -159,7 +158,7 @@ else
 fi
 
 # docker
-echo "***** docker *****"
+package_name "docker"
 if ! has "docker"; then
   if ! check_wsl1; then
     sudo apt install -y ca-certificates curl gnupg lsb-release
@@ -184,13 +183,12 @@ fi
 
 # Setup complete
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
-echo ""
 if [ -f "$FIRST_RUN" ]; then
-  echo "Setup complete!"
-  echo "Please restarting your shell."
+  result "Setup complete!"
+  description "Please restarting your shell."
 else
   touch "$FIRST_RUN"
-  echo "First setup complete!"
-  echo "You run it for the first time, please deployment of dotfiles, and restarting your shell."
-  echo "After that, please re-run this script again."
+  result "First setup complete!"
+  description "You run it for the first time, please deployment of dotfiles, and restarting your shell."
+  description "After that, please re-run this script again."
 fi

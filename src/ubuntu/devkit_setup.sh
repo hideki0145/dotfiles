@@ -1,13 +1,12 @@
 #!/bin/bash
 # Development Kit Setup Script for Ubuntu.
-echo ""
-echo "Development Kit Setup start..."
-echo ""
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
 . "$DOT_DIR"/src/utils.sh
 . "$DOT_DIR"/src/$(os_name)/utils.sh
+
+title "Development Kit Setup start..."
 
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
 if [ ! -f "$FIRST_RUN" ]; then
@@ -17,7 +16,7 @@ fi
 
 # CUI packages
 # postgresql
-echo "***** postgresql *****"
+package_name "postgresql"
 if ! has "psql"; then
   sudo apt install -y curl ca-certificates gnupg
   curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null
@@ -30,7 +29,7 @@ else
 fi
 
 # redis
-echo "***** redis *****"
+package_name "redis"
 if ! has "redis-cli"; then
   curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
   echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
@@ -42,7 +41,7 @@ else
 fi
 
 # graphviz
-echo "***** graphviz *****"
+package_name "graphviz"
 if ! has "dot"; then
   sudo apt install -y graphviz
 else
@@ -50,7 +49,7 @@ else
 fi
 
 # google chrome
-echo "***** google chrome *****"
+package_name "google chrome"
 if ! has "google-chrome"; then
   curl -LsS "https://dl.google.com/linux/direct/google-chrome-stable_current_$(dpkg --print-architecture).deb" -o "$DOT_DIR/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb"
   sudo apt install -y "$DOT_DIR/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb"
@@ -61,6 +60,5 @@ fi
 
 
 # Development Kit Setup complete
-echo ""
-echo "Development Kit Setup complete!"
-echo "Please restarting your shell."
+result "Development Kit Setup complete!"
+description "Please restarting your shell."

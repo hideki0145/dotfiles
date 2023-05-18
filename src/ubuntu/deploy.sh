@@ -1,12 +1,11 @@
 #!/bin/bash
 # Deploy Script for Ubuntu.
-echo ""
-echo "Deploy start..."
-echo ""
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
 . "$DOT_DIR"/src/utils.sh
+
+title "Deploy start..."
 
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
 if [ ! -f "$FIRST_RUN" ]; then
@@ -24,5 +23,4 @@ for f in "${SYMLINK_FILES[@]}"; do
 done
 
 # Deploy complete
-echo ""
-echo "Deploy complete!"
+result "Deploy complete!"

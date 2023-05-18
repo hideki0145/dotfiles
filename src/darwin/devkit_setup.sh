@@ -1,13 +1,12 @@
 #!/bin/bash
 # Development Kit Setup Script for Darwin.
-echo ""
-echo "Development Kit Setup start..."
-echo ""
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
 . "$DOT_DIR"/src/utils.sh
 . "$DOT_DIR"/src/$(os_name)/utils.sh
+
+title "Development Kit Setup start..."
 
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
 if [ ! -f "$FIRST_RUN" ]; then
@@ -17,7 +16,7 @@ fi
 
 # CUI packages
 # postgresql
-echo "***** postgresql *****"
+package_name "postgresql"
 if ! has_formula "postgresql@15"; then
   brew install postgresql@15
   brew services start postgresql@15
@@ -26,7 +25,7 @@ else
 fi
 
 # redis
-echo "***** redis *****"
+package_name "redis"
 if ! has_formula "redis"; then
   brew install redis
   brew services start redis
@@ -35,7 +34,7 @@ else
 fi
 
 # graphviz
-echo "***** graphviz *****"
+package_name "graphviz"
 if ! has_formula "graphviz"; then
   brew install graphviz
 else
@@ -44,6 +43,5 @@ fi
 
 
 # Development Kit Setup complete
-echo ""
-echo "Development Kit Setup complete!"
-echo "Please restarting your shell."
+result "Development Kit Setup complete!"
+description "Please restarting your shell."

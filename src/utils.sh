@@ -56,13 +56,53 @@ has() {
   return $?
 }
 
+# Print in color text.
+# https://github.com/alrra/dotfiles/blob/main/src/os/utils.sh#L218
+print_in_color() {
+  printf "%b" "$(tput setaf "$2" 2> /dev/null)$1$(tput sgr0 2> /dev/null)"
+}
+print_in_red() {
+  print_in_color "$1" 1
+}
+print_in_green() {
+  print_in_color "$1" 2
+}
+print_in_yellow() {
+  print_in_color "$1" 3
+}
+print_in_blue() {
+  print_in_color "$1" 4
+}
+print_in_magenta() {
+  print_in_color "$1" 5
+}
+print_in_cyan() {
+  print_in_color "$1" 6
+}
+
+# Display title message.
+title() {
+  print_in_magenta "\n$1\n"
+}
+# Display package name.
+package_name() {
+  print_in_cyan "\n***** $1 *****\n"
+}
+# Display result message.
+result() {
+  print_in_green "\n$1\n"
+}
+# Display description message.
+description() {
+  print_in_green "$1\n"
+}
 # Display setup skip message.
 skip() {
-  echo "Skip $1 setup."
+  print_in_yellow "Skip $1 setup.\n"
 }
 
 # Display error message and returns exit code error.
 error() {
-  echo "$1" 1>&2
+  print_in_red "$1\n" 1>&2
   exit 1
 }
