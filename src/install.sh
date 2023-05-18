@@ -43,11 +43,14 @@ else
   git pull
 fi
 
+readonly PACKAGE_UPDATE_SCRIPT="$DOT_DIR/src/$(os_name)/package_update.sh"
 readonly SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/setup.sh"
 readonly DEVKIT_SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/devkit_setup.sh"
 readonly DEPLOY_SCRIPT="$DOT_DIR/src/$(os_name)/deploy.sh"
 
-if [ ! -f "$SETUP_SCRIPT" ]; then
+if [ ! -f "$PACKAGE_UPDATE_SCRIPT" ]; then
+  error "not found: $PACKAGE_UPDATE_SCRIPT"
+elif [ ! -f "$SETUP_SCRIPT" ]; then
   error "not found: $SETUP_SCRIPT"
 elif [ ! -f "$DEVKIT_SETUP_SCRIPT" ]; then
   error "not found: $DEVKIT_SETUP_SCRIPT"
@@ -69,9 +72,13 @@ while getopts sd-: opt; do
 
   case "-$opt" in
     --all)
+      bash "$PACKAGE_UPDATE_SCRIPT"
       bash "$SETUP_SCRIPT"
       bash "$DEVKIT_SETUP_SCRIPT"
       bash "$DEPLOY_SCRIPT"
+      ;;
+    --package-update)
+      bash "$PACKAGE_UPDATE_SCRIPT"
       ;;
     -s | --setup)
       bash "$SETUP_SCRIPT"

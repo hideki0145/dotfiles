@@ -9,6 +9,10 @@ This repository is dotfiles available for **Ubuntu** or **macOS** setups.
 bash -c "$(curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/install.sh)" -s --all
 bash -c "$(wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/install.sh)" -s --all
 
+# Package update by executing one of the one-liners.
+bash -c "$(curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/install.sh)" -s --package-update
+bash -c "$(wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/install.sh)" -s --package-update
+
 # Setup the packages by executing one of the one-liners.
 bash -c "$(curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/install.sh)" -s --setup
 bash -c "$(wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/install.sh)" -s --setup
