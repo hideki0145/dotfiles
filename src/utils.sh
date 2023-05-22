@@ -80,9 +80,13 @@ print_in_cyan() {
   print_in_color "$1" 6
 }
 
+# Display download message.
+download() {
+  print_in_blue "⬇ $1\n"
+}
 # Display title message.
 title() {
-  print_in_magenta "\n$1\n"
+  print_in_magenta "\n▶ $1\n"
 }
 # Display package name.
 package_name() {
@@ -90,7 +94,7 @@ package_name() {
 }
 # Display result message.
 result() {
-  print_in_green "\n$1\n"
+  print_in_green "\n✔ $1\n"
 }
 # Display description message.
 description() {
@@ -98,11 +102,11 @@ description() {
 }
 # Display setup skip message.
 skip() {
-  print_in_yellow "Skip $1 setup.\n"
+  print_in_yellow "‼ Skip $1 setup.\n"
 }
 
 # Display error message and returns exit code error.
 error() {
-  print_in_red "$1\n" 1>&2
+  print_in_red "✖ $1\n" 1>&2
   exit 1
 }

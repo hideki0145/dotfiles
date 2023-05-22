@@ -23,8 +23,10 @@ if [ ! -d "$DOT_DIR/.git" ]; then
   fi
   rm -rf "$DOT_DIR"
   if has "git"; then
+    download "Clone dotfiles repository..."
     git clone "$DOTFILES_ORIGIN_URL" "$DOT_DIR"
   elif has "curl" || has "wget"; then
+    download "Download dotfiles repository..."
     if has "curl"; then
       curl -L "$DOTFILES_TARBALL_URL"
     elif has "wget"; then
@@ -40,6 +42,7 @@ if [ ! -d "$DOT_DIR/.git" ]; then
   fi
 else
   cd "$DOT_DIR"
+  download "Pull dotfiles repository..."
   git pull
 fi
 
