@@ -23,7 +23,7 @@ if ! has "psql"; then
   sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
   sudo apt update
   sudo apt install -y postgresql libpq-dev
-  sudo su postgres -c "createuser -s $LOGNAME"
+  sudo -u postgres createuser -s $LOGNAME
 else
   psql --version
 fi
