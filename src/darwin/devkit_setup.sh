@@ -10,7 +10,7 @@ title "Development Kit Setup start..."
 
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
 if [ ! -f "$FIRST_RUN" ]; then
-  error "Please run the setup script first."
+  error "Please run the package setup script first."
 fi
 
 

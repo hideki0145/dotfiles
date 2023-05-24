@@ -1,5 +1,5 @@
 #!/bin/bash
-# Installation Script.
+# Run Script.
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
@@ -47,23 +47,23 @@ else
 fi
 
 readonly PACKAGE_UPDATE_SCRIPT="$DOT_DIR/src/$(os_name)/package_update.sh"
-readonly SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/setup.sh"
+readonly PACKAGE_SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/package_setup.sh"
 readonly DEVKIT_SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/devkit_setup.sh"
-readonly DEPLOY_SCRIPT="$DOT_DIR/src/$(os_name)/deploy.sh"
+readonly CONFIG_DEPLOY_SCRIPT="$DOT_DIR/src/$(os_name)/config_deploy.sh"
 
 if [ ! -f "$PACKAGE_UPDATE_SCRIPT" ]; then
   error "not found: $PACKAGE_UPDATE_SCRIPT"
-elif [ ! -f "$SETUP_SCRIPT" ]; then
-  error "not found: $SETUP_SCRIPT"
+elif [ ! -f "$PACKAGE_SETUP_SCRIPT" ]; then
+  error "not found: $PACKAGE_SETUP_SCRIPT"
 elif [ ! -f "$DEVKIT_SETUP_SCRIPT" ]; then
   error "not found: $DEVKIT_SETUP_SCRIPT"
-elif [ ! -f "$DEPLOY_SCRIPT" ]; then
-  error "not found: $DEPLOY_SCRIPT"
+elif [ ! -f "$CONFIG_DEPLOY_SCRIPT" ]; then
+  error "not found: $CONFIG_DEPLOY_SCRIPT"
 fi
 
 ask_for_sudo_password
 
-while getopts sd-: opt; do
+while getopts usdc-: opt; do
   optarg="$OPTARG"
   if [[ "$opt" = - ]]; then
     opt="-${OPTARG%%=*}"
@@ -78,21 +78,21 @@ while getopts sd-: opt; do
   case "-$opt" in
     --all)
       bash "$PACKAGE_UPDATE_SCRIPT"
-      bash "$SETUP_SCRIPT"
+      bash "$PACKAGE_SETUP_SCRIPT"
       bash "$DEVKIT_SETUP_SCRIPT"
-      bash "$DEPLOY_SCRIPT"
+      bash "$CONFIG_DEPLOY_SCRIPT"
       ;;
-    --package-update)
+    -u | --package-update)
       bash "$PACKAGE_UPDATE_SCRIPT"
       ;;
-    -s | --setup)
-      bash "$SETUP_SCRIPT"
+    -s | --package-setup)
+      bash "$PACKAGE_SETUP_SCRIPT"
       ;;
-    --devkit-setup)
+    -d | --devkit-setup)
       bash "$DEVKIT_SETUP_SCRIPT"
       ;;
-    -d | --deploy)
-      bash "$DEPLOY_SCRIPT"
+    -c | --config-deploy)
+      bash "$CONFIG_DEPLOY_SCRIPT"
       ;;
     -*)
       error "invalid option $1."

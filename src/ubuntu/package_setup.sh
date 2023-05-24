@@ -1,12 +1,12 @@
 #!/bin/bash
-# Setup Script for Ubuntu.
+# Package Setup Script for Ubuntu.
 
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
 . "$DOT_DIR"/src/utils.sh
 . "$DOT_DIR"/src/$(os_name)/utils.sh
 
-title "Setup start..."
+title "Package Setup start..."
 
 
 # CUI packages
@@ -181,14 +181,14 @@ else
 fi
 
 
-# Setup complete
+# Package Setup complete
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
 if [ -f "$FIRST_RUN" ]; then
-  result "Setup complete!"
+  result "Package Setup complete!"
   description "Please restarting your shell."
 else
   touch "$FIRST_RUN"
-  result "First setup complete!"
-  description "You run it for the first time, please deployment of dotfiles, and restarting your shell."
+  result "First Package Setup complete!"
+  description "You run it for the first time, please deployment of config, and restarting your shell."
   description "After that, please re-run this script again."
 fi
