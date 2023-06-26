@@ -149,8 +149,9 @@ fi
 # yarn
 package_name "yarn"
 if ! has "yarn"; then
-  if has "npm"; then
-    npm install -g yarn
+  if has "corepack"; then
+    corepack enable
+    asdf reshim nodejs
   else
     skip "yarn"
   fi
