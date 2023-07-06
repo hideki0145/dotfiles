@@ -128,7 +128,6 @@ asdf update
 asdf plugin update --all
 
 if [ -z "`asdf plugin list | grep nodejs`" ]; then
-  brew install gpg gawk
   asdf plugin add nodejs
 else
   asdf plugin list --urls --refs | grep nodejs
@@ -140,7 +139,7 @@ else
   asdf plugin list --urls --refs | grep python
 fi
 if [ -z "`asdf plugin list | grep ruby`" ]; then
-  brew install openssl@1.1 readline libyaml
+  brew install openssl@3 readline libyaml gmp
   asdf plugin add ruby
 else
   asdf plugin list --urls --refs | grep ruby
