@@ -17,9 +17,9 @@ fi
 # CUI packages
 # postgresql
 package_name "postgresql"
-if ! has_formula "postgresql@15"; then
-  brew install postgresql@15
-  brew services start postgresql@15
+if ! has_formula "postgresql@16"; then
+  brew install postgresql@16
+  brew services start postgresql@16
 else
   psql --version
 fi
