@@ -144,6 +144,11 @@ if [ -z "`asdf plugin list | grep ruby`" ]; then
 else
   asdf plugin list --urls --refs | grep ruby
 fi
+if [ -z "`asdf plugin list | grep rust`" ]; then
+  asdf plugin add rust
+else
+  asdf plugin list --urls --refs | grep rust
+fi
 
 # yarn
 package_name "yarn"
