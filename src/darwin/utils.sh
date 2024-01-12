@@ -17,3 +17,8 @@ has_cask() {
 cask_version() {
   brew list --cask --versions | grep "^$1 "
 }
+
+# Check information property list.
+plist_version() {
+  /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$1/Info.plist"
+}

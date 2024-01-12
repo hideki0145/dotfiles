@@ -169,7 +169,7 @@ package_name "google chrome"
 if ! has_cask "google-chrome"; then
   brew install --cask google-chrome
 else
-  cask_version "google-chrome"
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --version
 fi
 
 # karabiner elements
@@ -177,7 +177,7 @@ package_name "karabiner elements"
 if ! has_cask "karabiner-elements"; then
   brew install --cask karabiner-elements
 else
-  cask_version "karabiner-elements"
+  plist_version "/Applications/Karabiner-Elements.app/Contents"
 fi
 
 # onedrive
@@ -185,7 +185,7 @@ package_name "onedrive"
 if ! has_cask "onedrive"; then
   brew install --cask onedrive
 else
-  cask_version "onedrive"
+  plist_version "/Applications/OneDrive.app/Contents"
 fi
 
 # visual studio code
@@ -193,7 +193,7 @@ package_name "visual studio code"
 if ! has_cask "visual-studio-code"; then
   brew install --cask visual-studio-code
 else
-  cask_version "visual-studio-code"
+  "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" --version
 fi
 
 # deepl
@@ -201,7 +201,7 @@ package_name "deepl"
 if ! has_cask "deepl"; then
   brew install --cask deepl
 else
-  cask_version "deepl"
+  plist_version "/Applications/DeepL.app/Contents"
 fi
 
 # hackgen
