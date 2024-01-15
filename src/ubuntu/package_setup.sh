@@ -120,7 +120,7 @@ else
   asdf --version
 fi
 asdf update
-asdf plugin update --all
+asdf plugin update --all > /dev/null
 
 if [ -z "`asdf plugin list | grep nodejs`" ]; then
   asdf plugin add nodejs
