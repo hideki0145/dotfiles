@@ -24,6 +24,14 @@ else
   psql --version
 fi
 
+# sqlite3
+package_name "sqlite3"
+if ! has_formula "sqlite"; then
+  brew install sqlite
+else
+  sqlite3 --version
+fi
+
 # redis
 package_name "redis"
 if ! has_formula "redis"; then
@@ -39,6 +47,22 @@ if ! has_formula "graphviz"; then
   brew install graphviz
 else
   dot -V
+fi
+
+# lazygit
+package_name "lazygit"
+if ! has_formula "lazygit"; then
+  brew install jesseduffield/lazygit/lazygit
+else
+  lazygit --version
+fi
+
+# lazydocker
+package_name "lazydocker"
+if ! has_formula "lazydocker"; then
+  brew install jesseduffield/lazydocker/lazydocker
+else
+  lazydocker --version
 fi
 
 

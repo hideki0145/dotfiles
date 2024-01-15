@@ -77,36 +77,12 @@ else
   git submodule update --init --recursive
 fi
 
-# sqlite3
-package_name "sqlite3"
-if ! has_formula "sqlite"; then
-  brew install sqlite
-else
-  sqlite3 --version
-fi
-
 # tig
 package_name "tig"
 if ! has_formula "tig"; then
   brew install tig
 else
   tig --version
-fi
-
-# lazygit
-package_name "lazygit"
-if ! has_formula "lazygit"; then
-  brew install jesseduffield/lazygit/lazygit
-else
-  lazygit --version
-fi
-
-# lazydocker
-package_name "lazydocker"
-if ! has_formula "lazydocker"; then
-  brew install jesseduffield/lazydocker/lazydocker
-else
-  lazydocker --version
 fi
 
 # asdf
