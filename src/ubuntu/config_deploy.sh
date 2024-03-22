@@ -13,6 +13,7 @@ if [ ! -f "$FIRST_RUN" ]; then
 fi
 
 declare -a SYMLINK_FILES=(
+  "asdf/.default-gems"
   "vim/.vimrc"
   "zsh/.zpreztorc"
   "zsh/$(os_name)/.zshrc"
