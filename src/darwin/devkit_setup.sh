@@ -19,6 +19,8 @@ fi
 package_name "postgresql"
 if ! has_formula "postgresql@16"; then
   brew install postgresql@16
+  rm -rf $(brew --prefix)/var/postgresql@16
+  initdb --locale=ja_JP.UTF-8 -E UTF-8 $(brew --prefix)/var/postgresql@16
   brew services start postgresql@16
 else
   psql --version
