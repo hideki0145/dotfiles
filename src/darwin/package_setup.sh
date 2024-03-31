@@ -172,6 +172,14 @@ else
   "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" --version
 fi
 
+# clibor
+package_name "clibor"
+if ! has_cask "clibor"; then
+  brew install --cask clibor
+else
+  plist_version "/Applications/Clibor.app/Contents"
+fi
+
 # deepl
 package_name "deepl"
 if ! has_cask "deepl"; then
