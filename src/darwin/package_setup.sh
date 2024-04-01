@@ -172,6 +172,14 @@ else
   "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" --version
 fi
 
+# iterm2
+package_name "iterm2"
+if ! has_cask "iterm2"; then
+  brew install --cask iterm2
+else
+  plist_version "/Applications/iTerm.app/Contents"
+fi
+
 # clibor
 package_name "clibor"
 if ! has_cask "clibor"; then
