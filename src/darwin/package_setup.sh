@@ -204,6 +204,14 @@ else
   plist_version "/Applications/DeepL.app/Contents"
 fi
 
+# gimp
+package_name "gimp"
+if ! has_cask "gimp"; then
+  brew install --cask gimp
+else
+  gimp --version
+fi
+
 # hackgen
 package_name "hackgen"
 if ! has_cask "font-hackgen"; then
