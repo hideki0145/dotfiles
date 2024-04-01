@@ -180,6 +180,14 @@ else
   plist_version "/Applications/iTerm.app/Contents"
 fi
 
+# slack
+package_name "slack"
+if ! has_cask "slack"; then
+  brew install --cask slack
+else
+  plist_version "/Applications/Slack.app/Contents"
+fi
+
 # clibor
 package_name "clibor"
 if ! has_cask "clibor"; then
