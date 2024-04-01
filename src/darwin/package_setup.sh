@@ -188,6 +188,14 @@ else
   plist_version "/Applications/Slack.app/Contents"
 fi
 
+# zoom
+package_name "zoom"
+if ! has_cask "zoom"; then
+  brew install --cask zoom
+else
+  plist_version "/Applications/zoom.us.app/Contents"
+fi
+
 # clibor
 package_name "clibor"
 if ! has_cask "clibor"; then
