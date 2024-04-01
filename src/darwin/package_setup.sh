@@ -196,6 +196,14 @@ else
   plist_version "/Applications/zoom.us.app/Contents"
 fi
 
+# joplin
+package_name "joplin"
+if ! has_cask "joplin"; then
+  brew install --cask joplin
+else
+  plist_version "/Applications/Joplin.app/Contents"
+fi
+
 # clibor
 package_name "clibor"
 if ! has_cask "clibor"; then
