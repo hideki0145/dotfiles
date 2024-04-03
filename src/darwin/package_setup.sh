@@ -245,6 +245,14 @@ else
   cask_version "font-hackgen"
 fi
 
+# AllMyBatteries
+package_name "AllMyBatteries"
+if ! has_mas 1621263412; then
+  mas install 1621263412
+else
+  mas_version 1621263412
+fi
+
 
 # Package Setup complete
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
