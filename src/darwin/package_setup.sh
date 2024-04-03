@@ -253,6 +253,14 @@ else
   mas_version 1621263412
 fi
 
+# Magnet
+package_name "Magnet"
+if ! has_mas 441258766; then
+  mas install 441258766
+else
+  mas_version 441258766
+fi
+
 
 # Package Setup complete
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
