@@ -253,6 +253,14 @@ else
   mas_version 1621263412
 fi
 
+# Amphetamine
+package_name "Amphetamine"
+if ! has_mas 937984704; then
+  mas install 937984704
+else
+  mas_version 937984704
+fi
+
 # Magnet
 package_name "Magnet"
 if ! has_mas 441258766; then
