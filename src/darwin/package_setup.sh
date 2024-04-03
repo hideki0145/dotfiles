@@ -236,6 +236,14 @@ else
   gimp --version
 fi
 
+# keyclu
+package_name "keyclu"
+if ! has_cask "keyclu"; then
+  brew install --cask keyclu
+else
+  plist_version "/Applications/KeyClu.app/Contents"
+fi
+
 # hackgen
 package_name "hackgen"
 if ! has_cask "font-hackgen"; then
