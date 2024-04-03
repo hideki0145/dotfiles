@@ -18,6 +18,17 @@ cask_version() {
   brew list --cask --versions | grep "^$1 "
 }
 
+# Check mas apps.
+has_mas() {
+  if [ -z "`mas list | grep \"^$1 \"`" ]; then
+    return 1
+  fi
+  return 0
+}
+mas_version() {
+  mas list | grep "^$1 "
+}
+
 # Check information property list.
 plist_version() {
   /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$1/Info.plist"

@@ -18,6 +18,14 @@ else
   brew --version
 fi
 
+# mas
+package_name "mas"
+if ! has_formula "mas"; then
+  brew install mas
+else
+  mas version
+fi
+
 # CUI packages
 # git
 package_name "git"

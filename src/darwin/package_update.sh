@@ -8,7 +8,12 @@ readonly DOT_DIR="$HOME/.dotfiles"
 
 title "Package Update start..."
 
-brew update && brew upgrade && brew autoremove && brew cleanup
+if has "brew"; then
+  brew update && brew upgrade && brew autoremove && brew cleanup
+fi
+if has_formula "mas"; then
+  mas upgrade
+fi
 
 # Package Update complete
 result "Package Update complete!"
