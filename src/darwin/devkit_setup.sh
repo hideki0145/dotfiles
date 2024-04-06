@@ -67,6 +67,20 @@ else
   lazydocker --version
 fi
 
+# docker
+package_name "docker"
+if ! has_formula "docker"; then
+  brew install docker
+  brew install docker-compose
+else
+  docker --version
+  docker compose version
+fi
+if [ ! -d "$HOME/.docker" ]; then
+  mkdir "$HOME/.docker"
+fi
+ln -snfv "$DOT_DIR/config/docker/darwin/config.json" "$HOME/.docker/config.json"
+
 
 # Development Kit Setup complete
 result "Development Kit Setup complete!"
