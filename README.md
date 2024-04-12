@@ -41,4 +41,6 @@ sudo apt install wget
 ```sh
 # Xcode Command Line Tools must be installed.
 xcode-select --install
+# Rosetta 2 must be installed.
+softwareupdate --install-rosetta --agree-to-license
 ```
