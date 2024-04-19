@@ -196,6 +196,14 @@ else
   plist_version "/Applications/Slack.app/Contents"
 fi
 
+# asana
+package_name "asana"
+if ! has_cask "asana"; then
+  brew install --cask asana
+else
+  plist_version "/Applications/Asana.app/Contents"
+fi
+
 # zoom
 package_name "zoom"
 if ! has_cask "zoom"; then
