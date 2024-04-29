@@ -15,6 +15,7 @@ fi
 declare -a SYMLINK_FILES=(
   "asdf/.default-gems"
   "vim/.vimrc"
+  "zsh/.p10k.zsh"
   "zsh/.zpreztorc"
   "zsh/$(os_name)/.zshrc"
 )
