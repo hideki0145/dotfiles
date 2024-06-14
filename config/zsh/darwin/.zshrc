@@ -29,12 +29,16 @@ export EDITOR='vim'
 export VISUAL='vim'
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
 
+# homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# asdf
+. $HOME/.asdf/asdf.sh
+fpath=(${ASDF_DIR}/completions $fpath)
+
+# postgresql
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 
-. $HOME/.asdf/asdf.sh
-# append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
-# initialise completions with ZSH's compinit
+# Initialise completions with ZSH's compinit.
 autoload -Uz compinit
 compinit

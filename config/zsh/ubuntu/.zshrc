@@ -28,6 +28,7 @@ readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
 export EDITOR='vim'
 export VISUAL='vim'
 
+# ssh-agent
 if [ -z $SSH_AUTH_SOCK ]; then
   readonly SSH_KEY_LIFE_TIME_SEC=3600
   readonly SSH_AGENT_FILE="$HOME/.ssh_agent"
@@ -38,9 +39,10 @@ if [ -z $SSH_AUTH_SOCK ]; then
   fi
 fi
 
+# asdf
 . $HOME/.asdf/asdf.sh
-# append completions to fpath
 fpath=(${ASDF_DIR}/completions $fpath)
-# initialise completions with ZSH's compinit
+
+# Initialise completions with ZSH's compinit.
 autoload -Uz compinit
 compinit
