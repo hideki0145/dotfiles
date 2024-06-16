@@ -19,7 +19,7 @@ fi
 package_name "postgresql"
 if ! has "psql"; then
   sudo apt install -y curl ca-certificates gnupg
-  curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null
+  curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg > /dev/null
   sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
   sudo apt update
   sudo apt install -y postgresql libpq-dev
@@ -55,6 +55,21 @@ if ! has "dot"; then
 else
   dot -V
 fi
+
+# gh
+package_name "gh"
+if ! has "gh"; then
+  type -p wget > /dev/null || (sudo apt update && sudo apt-get install wget -y)
+  sudo mkdir -p -m 755 /etc/apt/keyrings
+  wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
+  sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+  sudo apt update
+  sudo apt install -y gh
+else
+  gh --version
+fi
+gh completion -s zsh | sudo tee /usr/local/share/zsh/site-functions/_gh > /dev/null
 
 # lazygit
 package_name "lazygit"

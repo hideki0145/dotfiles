@@ -51,6 +51,14 @@ else
   dot -V
 fi
 
+# gh
+package_name "gh"
+if ! has_formula "gh"; then
+  brew install gh
+else
+  gh --version
+fi
+
 # lazygit
 package_name "lazygit"
 if ! has_formula "lazygit"; then
