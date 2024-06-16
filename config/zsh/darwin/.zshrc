@@ -24,6 +24,7 @@ fi
 readonly DOT_DIR="$HOME/.dotfiles"
 readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
 . "$UTILS_SCRIPT"
+. "$DOT_DIR"/src/$(os_name)/utils.sh
 
 export EDITOR='vim'
 export VISUAL='vim'
@@ -31,6 +32,7 @@ export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
 
 # homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 # asdf
 . $HOME/.asdf/asdf.sh

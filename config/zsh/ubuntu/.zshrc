@@ -24,6 +24,7 @@ fi
 readonly DOT_DIR="$HOME/.dotfiles"
 readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
 . "$UTILS_SCRIPT"
+. "$DOT_DIR"/src/$(os_name)/utils.sh
 
 export EDITOR='vim'
 export VISUAL='vim'
@@ -42,6 +43,11 @@ fi
 # asdf
 . $HOME/.asdf/asdf.sh
 fpath=(${ASDF_DIR}/completions $fpath)
+
+# gh
+if check_wsl1_or_wsl2; then
+  export GH_BROWSER="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe -NoProfile -c start"
+fi
 
 # Initialise completions with ZSH's compinit.
 autoload -Uz compinit
