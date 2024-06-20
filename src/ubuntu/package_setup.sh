@@ -18,24 +18,8 @@ if ! has "git"; then
   sudo apt install -y git
 else
   git --version
+  git --no-pager config --global --list
 fi
-if [ -z "`git config --list | grep user.name`" ]; then
-  git config --global user.name "Hideki Miyamoto"
-fi
-if [ -z "`git config --list | grep user.useConfigOnly`" ]; then
-  git config --global user.useConfigOnly true
-fi
-if [ -z "`git config --list | grep color.ui`" ]; then
-  git config --global color.ui auto
-fi
-if [ -z "`git config --list | grep pull.rebase`" ]; then
-  git config --global pull.rebase false
-fi
-git --no-pager config --global --list
-if [ ! -d "$HOME/.config/git" ]; then
-  mkdir -p "$HOME/.config/git"
-fi
-ln -snfv "$DOT_DIR/config/git/ignore" "$HOME/.config/git/ignore"
 
 # vim
 package_name "vim"

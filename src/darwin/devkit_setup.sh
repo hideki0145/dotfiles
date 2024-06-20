@@ -84,10 +84,6 @@ else
   docker --version
   docker compose version
 fi
-if [ ! -d "$HOME/.docker" ]; then
-  mkdir "$HOME/.docker"
-fi
-ln -snfv "$DOT_DIR/config/docker/darwin/config.json" "$HOME/.docker/config.json"
 
 # lima
 package_name "lima"

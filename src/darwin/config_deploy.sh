@@ -14,6 +14,9 @@ fi
 
 declare -a SYMLINK_ENTRIES=(
   "asdf/.default-gems|$HOME/"
+  "docker/$(os_name)/config.json|$HOME/.docker/"
+  "git/.gitconfig|$HOME/"
+  "git/ignore|$HOME/.config/git/"
   "vim/.vimrc|$HOME/"
   "zsh/.p10k.zsh|$HOME/"
   "zsh/.zpreztorc|$HOME/"

@@ -14,6 +14,8 @@ fi
 
 declare -a SYMLINK_ENTRIES=(
   "asdf/.default-gems|$HOME/"
+  "git/.gitconfig|$HOME/"
+  "git/ignore|$HOME/.config/git/"
   "vim/.vimrc|$HOME/"
   "zsh/.p10k.zsh|$HOME/"
   "zsh/.zpreztorc|$HOME/"
