@@ -12,16 +12,21 @@ if [ ! -f "$FIRST_RUN" ]; then
   error "Please run the package setup script first."
 fi
 
-declare -a SYMLINK_FILES=(
-  "asdf/.default-gems"
-  "vim/.vimrc"
-  "zsh/.p10k.zsh"
-  "zsh/.zpreztorc"
-  "zsh/$(os_name)/.zshrc"
+declare -a SYMLINK_ENTRIES=(
+  "asdf/.default-gems|$HOME/"
+  "vim/.vimrc|$HOME/"
+  "zsh/.p10k.zsh|$HOME/"
+  "zsh/.zpreztorc|$HOME/"
+  "zsh/$(os_name)/.zshrc|$HOME/"
 )
 
-for f in "${SYMLINK_FILES[@]}"; do
-  ln -snfv "$DOT_DIR/config/$f" "$HOME/${f##*/}"
+for entry in "${SYMLINK_ENTRIES[@]}"; do
+  file=${entry%%|*}
+  dir=${entry##*|}
+  if [ ! -d "$dir" ]; then
+    mkdir -p "$dir"
+  fi
+  ln -snfv "$DOT_DIR/config/$file" "$dir${file##*/}"
 done
 
 # Config Deployment complete
