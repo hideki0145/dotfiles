@@ -1,0 +1,28 @@
+name: dotfiles
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: postgres/Dockerfile
+    restart: always
+    ports:
+      - "${IP:-127.0.0.1}:5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      LC_ALL: ja_JP.UTF-8
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "${IP:-127.0.0.1}:6379:6379"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  postgres-data:
+  redis-data:

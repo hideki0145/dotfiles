@@ -17,11 +17,8 @@ fi
 # CUI packages
 # postgresql
 package_name "postgresql"
-if ! has_formula "postgresql@16"; then
-  brew install postgresql@16
-  rm -rf $(brew --prefix)/var/postgresql@16
-  initdb --locale=ja_JP.UTF-8 -E UTF-8 $(brew --prefix)/var/postgresql@16
-  brew services start postgresql@16
+if ! has_formula "libpq"; then
+  brew install libpq
 else
   psql --version
 fi
@@ -38,7 +35,6 @@ fi
 package_name "redis"
 if ! has_formula "redis"; then
   brew install redis
-  brew services start redis
 else
   redis-cli --version
 fi
@@ -83,6 +79,9 @@ if ! has_formula "docker"; then
 else
   docker --version
   docker compose version
+  if [ -z "`docker compose ls --all | grep dotfiles`" ]; then
+    docker compose -f "$DOT_DIR/config/docker/compose.yaml" up -d
+  fi
 fi
 
 # lima

@@ -22,8 +22,7 @@ if ! has "psql"; then
   curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg > /dev/null
   sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
   sudo apt update
-  sudo apt install -y postgresql libpq-dev
-  sudo -u postgres createuser -s $LOGNAME
+  sudo apt install -y postgresql-client libpq-dev
 else
   psql --version
 fi
@@ -42,8 +41,7 @@ if ! has "redis-cli"; then
   curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
   echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
   sudo apt update
-  sudo apt install -y redis
-  sudo systemctl enable redis-server.service
+  sudo apt install -y redis-tools
 else
   redis-cli --version
 fi
@@ -108,6 +106,9 @@ if ! has "docker"; then
 else
   docker --version
   docker compose version
+  if [ -z "`docker compose ls --all | grep dotfiles`" ]; then
+    docker compose -f "$DOT_DIR/config/docker/compose.yaml" up -d
+  fi
 fi
 
 

@@ -39,7 +39,7 @@ FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fpath=(${ASDF_DIR}/completions $fpath)
 
 # postgresql
-export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 # Initialise completions with ZSH's compinit.
 autoload -Uz compinit
