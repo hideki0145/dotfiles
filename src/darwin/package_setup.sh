@@ -52,7 +52,8 @@ package_name "zsh"
 if ! has_formula "zsh"; then
   brew install zsh
   description "Change login shell."
-  chsh -s $(which zsh)
+  sudo sh -c 'echo "/opt/homebrew/bin/zsh" >> /etc/shells'
+  chsh -s /opt/homebrew/bin/zsh
 else
   zsh --version
 fi

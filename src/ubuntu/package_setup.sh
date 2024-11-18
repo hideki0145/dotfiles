@@ -37,7 +37,9 @@ package_name "zsh"
 if ! has "zsh"; then
   sudo apt install -y zsh
   description "Change login shell."
+  sudo sed -i.bak -e "/auth.*required.*pam_shells.so/s/required/sufficient/g" /etc/pam.d/chsh
   chsh -s $(which zsh)
+  sudo sed -i.bak -e "/auth.*sufficient.*pam_shells.so/s/sufficient/required/g" /etc/pam.d/chsh
 else
   zsh --version
 fi
