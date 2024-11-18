@@ -40,6 +40,9 @@ if [ -z $SSH_AUTH_SOCK ]; then
   fi
 fi
 
+# rustup
+. "$HOME/.cargo/env"
+
 # asdf
 . $HOME/.asdf/asdf.sh
 fpath=(${ASDF_DIR}/completions $fpath)

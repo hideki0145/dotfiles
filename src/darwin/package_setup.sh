@@ -78,6 +78,18 @@ else
   tig --version
 fi
 
+# rustup
+package_name "rustup"
+if ! has "rustup"; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+  echo '' >> ~/.bashrc
+  echo '. "$HOME/.cargo/env"' >> ~/.bashrc
+else
+  rustup update
+  rustup --version
+  rustc --version
+fi
+
 # asdf
 package_name "asdf"
 if ! has "asdf"; then
@@ -112,11 +124,6 @@ if [ -z "`asdf plugin list | grep ruby`" ]; then
   asdf plugin add ruby
 else
   asdf plugin list --urls --refs | grep ruby
-fi
-if [ -z "`asdf plugin list | grep rust`" ]; then
-  asdf plugin add rust
-else
-  asdf plugin list --urls --refs | grep rust
 fi
 
 # yarn
