@@ -61,7 +61,9 @@ elif [ ! -f "$CONFIG_DEPLOY_SCRIPT" ]; then
   error "not found: $CONFIG_DEPLOY_SCRIPT"
 fi
 
-ask_for_sudo_password
+if [ "$(os_name)" != "darwin" ]; then
+  ask_for_sudo_password
+fi
 
 while getopts usdc-: opt; do
   optarg="$OPTARG"
