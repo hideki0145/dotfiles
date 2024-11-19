@@ -71,7 +71,7 @@ gh completion -s zsh | sudo tee /usr/local/share/zsh/site-functions/_gh > /dev/n
 
 # lazygit
 package_name "lazygit"
-package_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[\d.]+')
+package_version=$(get_github_repository "/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name":\s*"v\K[\d.]+')
 if ! has "lazygit" || [ ! "$package_version" = "$(lazygit --version | grep -Po 'version=\K[\d.]+')" ]; then
   curl -LsS "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${package_version}_$(uname -s)_$(uname -m).tar.gz" -o "$DOT_DIR/tmp/lazygit.tar.gz"
   sudo tar xf "$DOT_DIR/tmp/lazygit.tar.gz" -C /usr/bin lazygit
@@ -80,7 +80,7 @@ lazygit --version
 
 # lazydocker
 package_name "lazydocker"
-package_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazydocker/releases/latest" | grep -Po '"tag_name": "v\K[\d.]+')
+package_version=$(get_github_repository "/repos/jesseduffield/lazydocker/releases/latest" | grep -Po '"tag_name":\s*"v\K[\d.]+')
 if ! has "lazydocker" || [ ! "$package_version" = "$(lazydocker --version | grep -Po 'Version: \K[\d.]+')" ]; then
   curl -LsS "https://github.com/jesseduffield/lazydocker/releases/latest/download/lazydocker_${package_version}_$(uname -s)_$(uname -m).tar.gz" -o "$DOT_DIR/tmp/lazydocker.tar.gz"
   sudo tar xf "$DOT_DIR/tmp/lazydocker.tar.gz" -C /usr/bin lazydocker

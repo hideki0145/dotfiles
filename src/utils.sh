@@ -110,3 +110,12 @@ error() {
   print_in_red "✖ $1\n" 1>&2
   exit 1
 }
+
+# Get GitHub repository.
+get_github_repository() {
+  if has "gh" && gh auth token &> /dev/null; then
+    gh api $1
+  else
+    curl -s "https://api.github.com$1"
+  fi
+}
