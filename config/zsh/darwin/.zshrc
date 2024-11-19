@@ -34,12 +34,17 @@ export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
+# zsh
+FPATH="$HOME/.zsh/completions:$FPATH"
+
 # rustup
 . "$HOME/.cargo/env"
 
-# asdf
-. $HOME/.asdf/asdf.sh
-fpath=(${ASDF_DIR}/completions $fpath)
+# mise
+eval "$(~/.local/bin/mise activate zsh)"
+mise_select() {
+  [[ -z "$1" ]] && return 1 || mise use "$1@$(mise ls-remote "$1" | sort -rV | fzf)"
+}
 
 # postgresql
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"

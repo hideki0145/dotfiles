@@ -43,9 +43,11 @@ fi
 # rustup
 . "$HOME/.cargo/env"
 
-# asdf
-. $HOME/.asdf/asdf.sh
-fpath=(${ASDF_DIR}/completions $fpath)
+# mise
+eval "$(~/.local/bin/mise activate zsh)"
+mise_select() {
+  [[ -z "$1" ]] && return 1 || mise use "$1@$(mise ls-remote "$1" | sort -rV | fzf)"
+}
 
 # gh
 if check_wsl1_or_wsl2; then

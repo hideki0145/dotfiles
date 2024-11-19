@@ -13,9 +13,9 @@ if [ ! -f "$FIRST_RUN" ]; then
 fi
 
 declare -a SYMLINK_ENTRIES=(
-  "asdf/.default-gems|$HOME/"
   "git/.gitconfig|$HOME/"
   "git/ignore|$HOME/.config/git/"
+  "mise/.default-gems|$HOME/"
   "vim/.vimrc|$HOME/"
   "zsh/.p10k.zsh|$HOME/"
   "zsh/.zpreztorc|$HOME/"

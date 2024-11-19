@@ -76,44 +76,52 @@ else
   rustc --version
 fi
 
-# asdf
-package_name "asdf"
-if ! has "asdf"; then
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-  cd ~/.asdf
-  git checkout "$(git describe --abbrev=0 --tags)"
-  cd -
+# mise
+package_name "mise"
+if ! has "mise"; then
+  curl https://mise.run | sh
   echo '' >> ~/.bashrc
-  echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc
-  echo '. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
-  . $HOME/.asdf/asdf.sh
-  . $HOME/.asdf/completions/asdf.bash
+  echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+  eval "$(~/.local/bin/mise activate bash)"
 else
-  asdf --version
+  mise --version
 fi
-asdf update
-asdf plugin update --all > /dev/null
+mise completion zsh | sudo tee /usr/local/share/zsh/site-functions/_mise > /dev/null
 
-if [ -z "`asdf plugin list | grep nodejs`" ]; then
-  asdf plugin add nodejs
+mise self-update
+mise upgrade
+mise plugins upgrade
+
+if [ -z "`mise list usage | grep usage`" ]; then
+  mise use --global usage@latest
 else
-  asdf plugin list --urls --refs | grep nodejs
+  mise list usage | grep usage
 fi
-if [ -z "`asdf plugin list | grep python`" ]; then
+if [ -z "`mise list fzf | grep fzf`" ]; then
+  mise use --global fzf@latest
+else
+  mise list fzf | grep fzf
+fi
+if [ -z "`mise list node | grep node`" ]; then
+  mise use node@latest
+else
+  mise list node | grep node
+fi
+if [ -z "`mise list python | grep python`" ]; then
   sudo apt install -y build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-  asdf plugin add python
+  mise use python@latest
 else
-  asdf plugin list --urls --refs | grep python
+  mise list python | grep python
 fi
-if [ -z "`asdf plugin list | grep ruby`" ]; then
+if [ -z "`mise list ruby | grep ruby`" ]; then
   if [ "$(os_version)" = "18.04" ]; then
     sudo apt install -y autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev libdb-dev uuid-dev
   else
     sudo apt install -y autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
   fi
-  asdf plugin add ruby
+  mise use ruby@latest
 else
-  asdf plugin list --urls --refs | grep ruby
+  mise list ruby | grep ruby
 fi
 
 # yarn
@@ -121,7 +129,6 @@ package_name "yarn"
 if ! has "yarn"; then
   if has "corepack"; then
     corepack enable
-    asdf reshim nodejs
   else
     skip "yarn"
   fi
