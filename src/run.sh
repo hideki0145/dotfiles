@@ -101,3 +101,10 @@ while getopts usdc-: opt; do
       ;;
   esac
 done
+
+if ! check_gh_auth_status; then
+  hint "You are not logged in to GitHub. Please run 'gh auth login'."
+fi
+if [ -z $MISE_GITHUB_TOKEN ]; then
+  hint "The environment variable MISE_GITHUB_TOKEN is not set."
+fi

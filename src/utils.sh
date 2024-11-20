@@ -104,6 +104,10 @@ description() {
 skip() {
   print_in_yellow "‼ Skip $1 setup.\n"
 }
+# Display hint message.
+hint() {
+  print_in_yellow "✎ Hint: $1\n"
+}
 
 # Display error message and returns exit code error.
 error() {
@@ -111,9 +115,16 @@ error() {
   exit 1
 }
 
+# Check GitHub CLI.
+check_gh_auth_status() {
+  if ! has "gh" || ! gh auth status &> /dev/null; then
+    return 1
+  fi
+  return 0
+}
 # Get GitHub repository.
 get_github_repository() {
-  if has "gh" && gh auth token &> /dev/null; then
+  if check_gh_auth_status; then
     gh api $1
   else
     curl -s "https://api.github.com$1"
