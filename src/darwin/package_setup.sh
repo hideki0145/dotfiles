@@ -103,7 +103,7 @@ else
 fi
 mise completion zsh | tee ~/.zsh/completions/_mise > /dev/null
 
-mise self-update
+mise self-update -y
 mise upgrade
 mise plugins upgrade
 

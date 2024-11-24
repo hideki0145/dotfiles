@@ -88,7 +88,7 @@ else
 fi
 mise completion zsh | sudo tee /usr/local/share/zsh/site-functions/_mise > /dev/null
 
-mise self-update
+mise self-update -y
 mise upgrade
 mise plugins upgrade
 
