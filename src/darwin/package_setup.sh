@@ -285,6 +285,14 @@ else
   mas_version 441258766
 fi
 
+# WireGuard
+package_name "WireGuard"
+if ! has_mas 1451685025; then
+  mas install 1451685025
+else
+  mas_version 1451685025
+fi
+
 
 # Package Setup complete
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
