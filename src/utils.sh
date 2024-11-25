@@ -39,8 +39,8 @@ os_version() {
 }
 
 # Ask for sudo password upfront.
-# https://github.com/alrra/dotfiles/blob/main/src/os/utils.sh#L20
-# https://gist.github.com/cowboy/3118588
+# For reference, see: https://github.com/alrra/dotfiles/blob/main/src/os/utils.sh#L20
+#                     https://gist.github.com/cowboy/3118588
 ask_for_sudo_password() {
   sudo -v &> /dev/null
   while true; do
@@ -57,7 +57,7 @@ has() {
 }
 
 # Print in color text.
-# https://github.com/alrra/dotfiles/blob/main/src/os/utils.sh#L218
+# For reference, see: https://github.com/alrra/dotfiles/blob/main/src/os/utils.sh#L218
 print_in_color() {
   printf "%b" "$(tput setaf "$2" 2> /dev/null)$1$(tput sgr0 2> /dev/null)"
 }

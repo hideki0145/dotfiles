@@ -1,31 +1,31 @@
 """"""""""""""""""""""""""""""
-" defaults.vimの読込
+" Loading defaults.vim
 """"""""""""""""""""""""""""""
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 """"""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""
-" プラグインのセットアップ
+" Setup plugins
 """"""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
-" ディレクトリのファイル一覧を表示する
+" Listing the files in a directory.
 Plug 'scrooloose/nerdtree'
-" Rubyのendキーワードを自動挿入する
+" Automatically inserting the end keyword in Ruby.
 Plug 'tpope/vim-endwise'
-" コメントON/OFFを手軽に実行する
+" Easily toggle comments ON/OFF.
 Plug 'tomtom/tcomment_vim'
 
-" インデントに色を付けて見易くする
+" Coloring indentation for better readability.
 Plug 'nathanaelkane/vim-indent-guides'
-" Vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
+" Automatically enabling vim-indent-guides when Vim starts.
 let g:indent_guides_enable_on_vim_startup=1
-" ガイドをスタートするインデントの量を指定する
+" Specify the amount of indentation to start the guide.
 let g:indent_guides_start_level=2
-" ガイドの幅を指定する
+" Specify the width of the guide.
 let g:indent_guides_guide_size=1
-" ガイドの色を指定する
+" Specify the color of the guide.
 let g:indent_guides_auto_colors=0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=red ctermbg=3
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
@@ -34,42 +34,42 @@ call plug#end()
 """"""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""
-" 各種オプションの設定
+" Setting various options
 """"""""""""""""""""""""""""""
-" タブ入力を複数の空白入力に置き換える
+" Replace tab input with multiple spaces.
 set expandtab
-" タブ、空白、改行を可視化する
+" Visualize tabs, spaces, and newlines.
 set list
 set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%
-" 行番号を表示する
+" Display line numbers.
 set number
-" タブ文字の表示幅を変更する
+" Change the display width of tab characters.
 set tabstop=2
-" Vimが挿入するインデントの幅を変更する
+" Change the width of the indentation inserted by Vim.
 set shiftwidth=2
-" カラースキーマを指定する
+" Specify the color scheme.
 colorscheme desert
 """"""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""
-" モードによってカーソル形状変更
-" https://qiita.com/Linda_pp/items/9e0c94eb82b18071db34
-" https://qiita.com/usamik26/items/f733add9ca910f6c5784
+" Change the cursor shape based on the mode
+" For reference, see: https://qiita.com/Linda_pp/items/9e0c94eb82b18071db34
+"                     https://qiita.com/usamik26/items/f733add9ca910f6c5784
 """"""""""""""""""""""""""""""
 if has('vim_starting')
-  " ノーマルモード時に点滅のブロックタイプのカーソル
+  " A blinking block-type cursor in normal mode.
   let &t_EI.="\e[1 q"
-  " 挿入モード時に点滅の縦棒タイプのカーソル
+  " A blinking vertical bar-type cursor in insert mode.
   let &t_SI.="\e[5 q"
-  " 置換モード時に点滅の下線タイプのカーソル
+  " A blinking underline-type cursor in replace mode.
   let &t_SR.="\e[3 q"
 endif
 """"""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""
-" 全角スペースの表示
-" https://qiita.com/jnchito/items/5141b3b01bced9f7f48f
-" https://inari111.hatenablog.com/entry/2014/05/05/231307
+" Display full-width spaces
+" For reference, see: https://qiita.com/jnchito/items/5141b3b01bced9f7f48f
+"                     https://inari111.hatenablog.com/entry/2014/05/05/231307
 """"""""""""""""""""""""""""""
 function! ZenkakuSpace()
   highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
@@ -86,9 +86,9 @@ endif
 """"""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""
-" 挿入モード時、ステータスラインの色を変更
-" https://qiita.com/jnchito/items/5141b3b01bced9f7f48f
-" https://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-color#color-insertmode
+" Change the status line color in insert mode
+" For reference, see: https://qiita.com/jnchito/items/5141b3b01bced9f7f48f
+"                     https://sites.google.com/site/fudist/Home/vim-nihongo-ban/vim-color#color-insertmode
 """"""""""""""""""""""""""""""
 let g:hi_insert='highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
 
