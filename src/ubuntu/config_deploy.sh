@@ -16,6 +16,7 @@ declare -a SYMLINK_ENTRIES=(
   "git/.gitconfig|$HOME/"
   "git/ignore|$HOME/.config/git/"
   "mise/.default-gems|$HOME/"
+  "mise/.p10k.mise.zsh|$HOME/"
   "vim/.vimrc|$HOME/"
   "zsh/.p10k.zsh|$HOME/"
   "zsh/.zpreztorc|$HOME/"
