@@ -219,6 +219,14 @@ else
   plist_version "/Applications/Joplin.app/Contents"
 fi
 
+# chatgpt
+package_name "chatgpt"
+if ! has_cask "chatgpt"; then
+  brew install --cask chatgpt
+else
+  plist_version "/Applications/ChatGPT.app/Contents"
+fi
+
 # clibor
 package_name "clibor"
 if ! has_cask "clibor"; then
