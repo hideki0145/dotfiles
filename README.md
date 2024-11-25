@@ -6,24 +6,27 @@ This repository is dotfiles available for **Ubuntu** or **macOS** setups.
 
 ```sh
 # All process by executing one of the one-liners.
-bash -c "$(curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh)" -s --all
-bash -c "$(wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh)" -s --all
+curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash
+wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash
+# or...
+curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --all
+wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --all
 
 # Package update by executing one of the one-liners.
-bash -c "$(curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh)" -s --package-update
-bash -c "$(wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh)" -s --package-update
+curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-update
+wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-update
 
 # Package setup by executing one of the one-liners.
-bash -c "$(curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh)" -s --package-setup
-bash -c "$(wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh)" -s --package-setup
+curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-setup
+wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-setup
 
 # Development kit package setup by executing one of the one-liners.
-bash -c "$(curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh)" -s --devkit-setup
-bash -c "$(wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh)" -s --devkit-setup
+curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --devkit-setup
+wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --devkit-setup
 
 # Config deployment by executing one of the one-liners.
-bash -c "$(curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh)" -s --config-deploy
-bash -c "$(wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh)" -s --config-deploy
+curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --config-deploy
+wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --config-deploy
 ```
 
 ## Dependencies
