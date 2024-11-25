@@ -2,13 +2,11 @@
 # Development Kit Setup Script for Darwin.
 
 # main
-readonly DOT_DIR="$HOME/.dotfiles"
 . "$DOT_DIR"/src/utils.sh
 . "$DOT_DIR"/src/$(os_name)/utils.sh
 
 title "Development Kit Setup start..."
 
-readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
 if [ ! -f "$FIRST_RUN" ]; then
   error "Please run the package setup script first."
 fi

@@ -2,7 +2,6 @@
 # Package Setup Script for Ubuntu.
 
 # main
-readonly DOT_DIR="$HOME/.dotfiles"
 . "$DOT_DIR"/src/utils.sh
 . "$DOT_DIR"/src/$(os_name)/utils.sh
 
@@ -149,7 +148,6 @@ fi
 
 
 # Package Setup complete
-readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
 if [ -f "$FIRST_RUN" ]; then
   result "Package Setup complete!"
   description "Please restarting your shell."

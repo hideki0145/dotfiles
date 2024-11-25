@@ -8,6 +8,7 @@ readonly DOTFILES_ORIGIN_URL="https://github.com/$GITHUB_REPOSITORY.git"
 readonly DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/archive/main.tar.gz"
 readonly DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/main/src/utils.sh"
 readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
+readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
 
 if [ ! -f "$UTILS_SCRIPT" ]; then
   mkdir -p "$DOT_DIR/src"
@@ -16,7 +17,6 @@ fi
 . "$UTILS_SCRIPT"
 
 if [ ! -d "$DOT_DIR/.git" ]; then
-  readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
   exist_first_run=0
   if [ -f "$FIRST_RUN" ]; then
     exist_first_run=1
@@ -50,22 +50,32 @@ readonly PACKAGE_UPDATE_SCRIPT="$DOT_DIR/src/$(os_name)/package_update.sh"
 readonly PACKAGE_SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/package_setup.sh"
 readonly DEVKIT_SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/devkit_setup.sh"
 readonly CONFIG_DEPLOY_SCRIPT="$DOT_DIR/src/$(os_name)/config_deploy.sh"
+readonly SCRIPTS=(
+  "$PACKAGE_UPDATE_SCRIPT"
+  "$PACKAGE_SETUP_SCRIPT"
+  "$DEVKIT_SETUP_SCRIPT"
+  "$CONFIG_DEPLOY_SCRIPT"
+)
 
-if [ ! -f "$PACKAGE_UPDATE_SCRIPT" ]; then
-  error "not found: $PACKAGE_UPDATE_SCRIPT"
-elif [ ! -f "$PACKAGE_SETUP_SCRIPT" ]; then
-  error "not found: $PACKAGE_SETUP_SCRIPT"
-elif [ ! -f "$DEVKIT_SETUP_SCRIPT" ]; then
-  error "not found: $DEVKIT_SETUP_SCRIPT"
-elif [ ! -f "$CONFIG_DEPLOY_SCRIPT" ]; then
-  error "not found: $CONFIG_DEPLOY_SCRIPT"
-fi
+for script in "${SCRIPTS[@]}"; do
+  if [ ! -f "$script" ]; then
+    error "not found: $script"
+  fi
+done
 
 if [ "$(os_name)" != "darwin" ]; then
   ask_for_sudo_password
 fi
 
+run_scripts() {
+  for script in "${SCRIPTS[@]}"; do
+    source "$script"
+  done
+}
+
+all_flag=true
 while getopts usdc-: opt; do
+  all_flag=false
   optarg="$OPTARG"
   if [[ "$opt" = - ]]; then
     opt="-${OPTARG%%=*}"
@@ -79,28 +89,28 @@ while getopts usdc-: opt; do
 
   case "-$opt" in
     --all)
-      bash "$PACKAGE_UPDATE_SCRIPT"
-      bash "$PACKAGE_SETUP_SCRIPT"
-      bash "$DEVKIT_SETUP_SCRIPT"
-      bash "$CONFIG_DEPLOY_SCRIPT"
+      run_scripts
       ;;
     -u | --package-update)
-      bash "$PACKAGE_UPDATE_SCRIPT"
+      source "$PACKAGE_UPDATE_SCRIPT"
       ;;
     -s | --package-setup)
-      bash "$PACKAGE_SETUP_SCRIPT"
+      source "$PACKAGE_SETUP_SCRIPT"
       ;;
     -d | --devkit-setup)
-      bash "$DEVKIT_SETUP_SCRIPT"
+      source "$DEVKIT_SETUP_SCRIPT"
       ;;
     -c | --config-deploy)
-      bash "$CONFIG_DEPLOY_SCRIPT"
+      source "$CONFIG_DEPLOY_SCRIPT"
       ;;
     -*)
-      error "invalid option $1."
+      error "invalid option ${opt#-}."
       ;;
   esac
 done
+if $all_flag; then
+  run_scripts
+fi
 
 if ! check_gh_auth_status; then
   hint "You are not logged in to GitHub. Please run 'gh auth login'."
