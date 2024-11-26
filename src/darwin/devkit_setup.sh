@@ -2,15 +2,14 @@
 # Development Kit Setup Script for Darwin.
 
 # main
-. "$DOT_DIR"/src/utils.sh
-. "$DOT_DIR"/src/$(os_name)/utils.sh
+. "$DOT_DIR/src/utils.sh"
+. "$DOT_DIR/src/$(os_name)/utils.sh"
 
 title "Development Kit Setup start..."
 
 if [ ! -f "$FIRST_RUN" ]; then
   error "Please run the package setup script first."
 fi
-
 
 # CUI packages
 # postgresql
@@ -77,7 +76,7 @@ if ! has_formula "docker"; then
 else
   docker --version
   docker compose version
-  if [ -z "`docker compose ls --all | grep dotfiles`" ]; then
+  if ! docker compose ls --all | grep -q dotfiles; then
     docker compose -f "$DOT_DIR/config/docker/compose.yaml" up -d
   fi
 fi
@@ -93,7 +92,6 @@ if ! has_formula "lima"; then
 else
   limactl --version
 fi
-
 
 # Development Kit Setup complete
 result "Development Kit Setup complete!"

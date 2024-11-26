@@ -2,7 +2,7 @@
 # Config Deployment Script for Darwin.
 
 # main
-. "$DOT_DIR"/src/utils.sh
+. "$DOT_DIR/src/utils.sh"
 
 title "Config Deployment start..."
 

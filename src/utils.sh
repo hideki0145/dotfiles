@@ -5,35 +5,40 @@
 os_name() {
   local os=""
   case "$(uname -s)" in
-    Linux)
-      if [ -f "/etc/os-release" ]; then
-        os="$(. /etc/os-release; printf "%s" "$ID")"
-      else
-        os="linux"
-      fi
-      ;;
-    Darwin)
-      os="darwin"
-      ;;
-    *)
-      os="$(uname -s | tr '[:upper:]' '[:lower:]')"
-      ;;
+  Linux)
+    if [ -f "/etc/os-release" ]; then
+      os="$(
+        . /etc/os-release
+        printf "%s" "$ID"
+      )"
+    else
+      os="linux"
+    fi
+    ;;
+  Darwin)
+    os="darwin"
+    ;;
+  *)
+    os="$(uname -s | tr '[:upper:]' '[:lower:]')"
+    ;;
   esac
   printf "%s" "$os"
 }
 os_version() {
   local version=""
   case "$(uname -s)" in
-    Linux)
-      if [ -f "/etc/os-release" ]; then
-        version="$(. /etc/os-release; printf "%s" "$VERSION_ID")"
-      fi
-      ;;
-    Darwin)
-      version="$(sw_vers -productVersion)"
-      ;;
-    *)
-      ;;
+  Linux)
+    if [ -f "/etc/os-release" ]; then
+      version="$(
+        . /etc/os-release
+        printf "%s" "$VERSION_ID"
+      )"
+    fi
+    ;;
+  Darwin)
+    version="$(sw_vers -productVersion)"
+    ;;
+  *) ;;
   esac
   printf "%s" "$version"
 }
@@ -42,24 +47,24 @@ os_version() {
 # For reference, see: https://github.com/alrra/dotfiles/blob/main/src/os/utils.sh#L20
 #                     https://gist.github.com/cowboy/3118588
 ask_for_sudo_password() {
-  sudo -v &> /dev/null
+  sudo -v &>/dev/null
   while true; do
     sudo -n true
     sleep 60
     kill -0 "$$" || exit
-  done &> /dev/null &
+  done &>/dev/null &
 }
 
 # Check existence of the command.
 has() {
-  type "$1" > /dev/null 2>&1
+  type "$1" >/dev/null 2>&1
   return $?
 }
 
 # Print in color text.
 # For reference, see: https://github.com/alrra/dotfiles/blob/main/src/os/utils.sh#L218
 print_in_color() {
-  printf "%b" "$(tput setaf "$2" 2> /dev/null)$1$(tput sgr0 2> /dev/null)"
+  printf "%b" "$(tput setaf "$2" 2>/dev/null)$1$(tput sgr0 2>/dev/null)"
 }
 print_in_red() {
   print_in_color "$1" 1
@@ -117,7 +122,7 @@ error() {
 
 # Check GitHub CLI.
 check_gh_auth_status() {
-  if ! has "gh" || ! gh auth status &> /dev/null; then
+  if ! has "gh" || ! gh auth status &>/dev/null; then
     return 1
   fi
   return 0
@@ -125,7 +130,7 @@ check_gh_auth_status() {
 # Get GitHub repository.
 get_github_repository() {
   if check_gh_auth_status; then
-    gh api $1
+    gh api "$1"
   else
     curl -s "https://api.github.com$1"
   fi

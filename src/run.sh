@@ -41,15 +41,19 @@ if [ ! -d "$DOT_DIR/.git" ]; then
     touch "$FIRST_RUN"
   fi
 else
-  cd "$DOT_DIR"
+  cd "$DOT_DIR" || exit
   download "Pull dotfiles repository..."
   git pull
 fi
 
-readonly PACKAGE_UPDATE_SCRIPT="$DOT_DIR/src/$(os_name)/package_update.sh"
-readonly PACKAGE_SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/package_setup.sh"
-readonly DEVKIT_SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/devkit_setup.sh"
-readonly CONFIG_DEPLOY_SCRIPT="$DOT_DIR/src/$(os_name)/config_deploy.sh"
+PACKAGE_UPDATE_SCRIPT="$DOT_DIR/src/$(os_name)/package_update.sh"
+readonly PACKAGE_UPDATE_SCRIPT
+PACKAGE_SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/package_setup.sh"
+readonly PACKAGE_SETUP_SCRIPT
+DEVKIT_SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/devkit_setup.sh"
+readonly DEVKIT_SETUP_SCRIPT
+CONFIG_DEPLOY_SCRIPT="$DOT_DIR/src/$(os_name)/config_deploy.sh"
+readonly CONFIG_DEPLOY_SCRIPT
 readonly SCRIPTS=(
   "$PACKAGE_UPDATE_SCRIPT"
   "$PACKAGE_SETUP_SCRIPT"
@@ -88,24 +92,24 @@ while getopts usdc-: opt; do
   fi
 
   case "-$opt" in
-    --all)
-      run_scripts
-      ;;
-    -u | --package-update)
-      source "$PACKAGE_UPDATE_SCRIPT"
-      ;;
-    -s | --package-setup)
-      source "$PACKAGE_SETUP_SCRIPT"
-      ;;
-    -d | --devkit-setup)
-      source "$DEVKIT_SETUP_SCRIPT"
-      ;;
-    -c | --config-deploy)
-      source "$CONFIG_DEPLOY_SCRIPT"
-      ;;
-    -*)
-      error "invalid option ${opt#-}."
-      ;;
+  --all)
+    run_scripts
+    ;;
+  -u | --package-update)
+    source "$PACKAGE_UPDATE_SCRIPT"
+    ;;
+  -s | --package-setup)
+    source "$PACKAGE_SETUP_SCRIPT"
+    ;;
+  -d | --devkit-setup)
+    source "$DEVKIT_SETUP_SCRIPT"
+    ;;
+  -c | --config-deploy)
+    source "$CONFIG_DEPLOY_SCRIPT"
+    ;;
+  -*)
+    error "invalid option ${opt#-}."
+    ;;
   esac
 done
 if $all_flag; then
@@ -115,6 +119,6 @@ fi
 if ! check_gh_auth_status; then
   hint "You are not logged in to GitHub. Please run 'gh auth login'."
 fi
-if [ -z $MISE_GITHUB_TOKEN ]; then
+if [ -z "$MISE_GITHUB_TOKEN" ]; then
   hint "The environment variable MISE_GITHUB_TOKEN is not set."
 fi

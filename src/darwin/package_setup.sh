@@ -2,11 +2,10 @@
 # Package Setup Script for Darwin.
 
 # main
-. "$DOT_DIR"/src/utils.sh
-. "$DOT_DIR"/src/$(os_name)/utils.sh
+. "$DOT_DIR/src/utils.sh"
+. "$DOT_DIR/src/$(os_name)/utils.sh"
 
 title "Package Setup start..."
-
 
 # homebrew
 package_name "homebrew"
@@ -65,7 +64,7 @@ if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
   done
   cp "$DOT_DIR/config/zsh/$(os_name)/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
 else
-  cd "${ZDOTDIR:-$HOME}/.zprezto"
+  cd "${ZDOTDIR:-$HOME}/.zprezto" || exit
   git pull
   git submodule update --init --recursive
 fi
@@ -82,8 +81,9 @@ fi
 package_name "rustup"
 if ! has "rustup"; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
-  echo '' >> ~/.bashrc
-  echo '. "$HOME/.cargo/env"' >> ~/.bashrc
+  echo '' >>~/.bashrc
+  # shellcheck disable=SC2016
+  echo '. "$HOME/.cargo/env"' >>~/.bashrc
 else
   rustup update
   rustup --version
@@ -94,50 +94,51 @@ fi
 package_name "mise"
 if ! has "mise"; then
   curl https://mise.run | sh
-  echo '' >> ~/.bashrc
-  echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+  echo '' >>~/.bashrc
+  # shellcheck disable=SC2016
+  echo 'eval "$(~/.local/bin/mise activate bash)"' >>~/.bashrc
   eval "$(~/.local/bin/mise activate bash)"
 else
   mise --version
 fi
-mise completion zsh | tee ~/.zsh/completions/_mise > /dev/null
+mise completion zsh | tee ~/.zsh/completions/_mise >/dev/null
 
 mise self-update -y
 mise upgrade
 mise plugins upgrade
 
-if [ -z "`mise list usage | grep usage`" ]; then
+if ! mise list usage | grep -q usage; then
   mise use --global usage@latest
 else
   mise list usage | grep usage
 fi
-if [ -z "`mise list fzf | grep fzf`" ]; then
+if ! mise list fzf | grep -q fzf; then
   mise use --global fzf@latest
 else
   mise list fzf | grep fzf
 fi
-if [ -z "`mise list shellcheck | grep shellcheck`" ]; then
+if ! mise list shellcheck | grep -q shellcheck; then
   mise use --global shellcheck@latest
 else
   mise list shellcheck | grep shellcheck
 fi
-if [ -z "`mise list shfmt | grep shfmt`" ]; then
+if ! mise list shfmt | grep -q shfmt; then
   mise use --global shfmt@latest
 else
   mise list shfmt | grep shfmt
 fi
-if [ -z "`mise list node | grep node`" ]; then
+if ! mise list node | grep -q node; then
   mise use node@latest
 else
   mise list node | grep node
 fi
-if [ -z "`mise list python | grep python`" ]; then
+if ! mise list python | grep -q python; then
   brew install openssl readline sqlite3 xz zlib tcl-tk
   mise use python@latest
 else
   mise list python | grep python
 fi
-if [ -z "`mise list ruby | grep ruby`" ]; then
+if ! mise list ruby | grep -q ruby; then
   brew install openssl@3 readline libyaml gmp
   mise use ruby@latest
 else
@@ -309,7 +310,6 @@ if ! has_mas 1451685025; then
 else
   mas_version 1451685025
 fi
-
 
 # Package Setup complete
 if [ -f "$FIRST_RUN" ]; then

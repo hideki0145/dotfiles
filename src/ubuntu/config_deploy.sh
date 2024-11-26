@@ -2,7 +2,7 @@
 # Config Deployment Script for Ubuntu.
 
 # main
-. "$DOT_DIR"/src/utils.sh
+. "$DOT_DIR/src/utils.sh"
 
 title "Config Deployment start..."
 

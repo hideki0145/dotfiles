@@ -3,13 +3,13 @@
 
 # Check homebrew formulae.
 has_formula() {
-  if [ -z "`brew list --formula -1 | grep ^$1$`" ]; then
+  if ! brew list --formula -1 | grep -q "^$1$"; then
     return 1
   fi
   return 0
 }
 has_cask() {
-  if [ -z "`brew list --cask -1 | grep ^$1$`" ]; then
+  if ! brew list --cask -1 | grep -q "^$1$"; then
     return 1
   fi
   return 0
@@ -20,7 +20,7 @@ cask_version() {
 
 # Check mas apps.
 has_mas() {
-  if [ -z "`mas list | grep \"^$1 \"`" ]; then
+  if ! mas list | grep -q "^$1 "; then
     return 1
   fi
   return 0

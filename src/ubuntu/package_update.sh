@@ -2,8 +2,8 @@
 # Package Update Script for Ubuntu.
 
 # main
-. "$DOT_DIR"/src/utils.sh
-. "$DOT_DIR"/src/$(os_name)/utils.sh
+. "$DOT_DIR/src/utils.sh"
+. "$DOT_DIR/src/$(os_name)/utils.sh"
 
 title "Package Update start..."
 
