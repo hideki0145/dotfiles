@@ -116,6 +116,16 @@ if [ -z "`mise list fzf | grep fzf`" ]; then
 else
   mise list fzf | grep fzf
 fi
+if [ -z "`mise list shellcheck | grep shellcheck`" ]; then
+  mise use --global shellcheck@latest
+else
+  mise list shellcheck | grep shellcheck
+fi
+if [ -z "`mise list shfmt | grep shfmt`" ]; then
+  mise use --global shfmt@latest
+else
+  mise list shfmt | grep shfmt
+fi
 if [ -z "`mise list node | grep node`" ]; then
   mise use node@latest
 else
