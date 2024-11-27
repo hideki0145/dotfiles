@@ -25,11 +25,12 @@ fi
 readonly DOT_DIR="$HOME/.dotfiles"
 readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
 . "$UTILS_SCRIPT"
-. "$DOT_DIR"/src/$(os_name)/utils.sh
+. "$DOT_DIR/src/$(os_name)/utils.sh"
 
-export EDITOR='vim'
-export VISUAL='vim'
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
+export EDITOR="vim"
+export VISUAL="vim"
+RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
+export RUBY_CONFIGURE_OPTS
 
 # homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -43,9 +44,6 @@ FPATH="$HOME/.zsh/completions:$FPATH"
 
 # mise
 eval "$(~/.local/bin/mise activate zsh)"
-mise_select() {
-  [[ -z "$1" ]] && return 1 || mise use "$1@$(mise ls-remote "$1" | sort -rV | fzf)"
-}
 
 # postgresql
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"

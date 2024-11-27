@@ -25,19 +25,19 @@ fi
 readonly DOT_DIR="$HOME/.dotfiles"
 readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
 . "$UTILS_SCRIPT"
-. "$DOT_DIR"/src/$(os_name)/utils.sh
+. "$DOT_DIR/src/$(os_name)/utils.sh"
 
-export EDITOR='vim'
-export VISUAL='vim'
+export EDITOR="vim"
+export VISUAL="vim"
 
 # ssh-agent
-if [ -z $SSH_AUTH_SOCK ]; then
+if [ -z "$SSH_AUTH_SOCK" ]; then
   readonly SSH_KEY_LIFE_TIME_SEC=3600
   readonly SSH_AGENT_FILE="$HOME/.ssh_agent"
-  test -f $SSH_AGENT_FILE && source $SSH_AGENT_FILE > /dev/null 2>&1
-  if [ $(ps -ef | grep ssh-agent | grep -v grep | wc -l) -eq 0 ]; then
-    ssh-agent -t $SSH_KEY_LIFE_TIME_SEC >! $SSH_AGENT_FILE
-    source $SSH_AGENT_FILE > /dev/null 2>&1
+  test -f "$SSH_AGENT_FILE" && source "$SSH_AGENT_FILE" >/dev/null 2>&1
+  if ! pgrep -x ssh-agent >/dev/null; then
+    ssh-agent -t "$SSH_KEY_LIFE_TIME_SEC" | tee "$SSH_AGENT_FILE" >/dev/null
+    source "$SSH_AGENT_FILE" >/dev/null 2>&1
   fi
 fi
 
@@ -46,9 +46,6 @@ fi
 
 # mise
 eval "$(~/.local/bin/mise activate zsh)"
-mise_select() {
-  [[ -z "$1" ]] && return 1 || mise use "$1@$(mise ls-remote "$1" | sort -rV | fzf)"
-}
 
 # gh
 if check_wsl1_or_wsl2; then
