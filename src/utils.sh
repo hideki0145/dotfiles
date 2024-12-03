@@ -116,7 +116,7 @@ hint() {
 
 # Display error message and returns exit code error.
 error() {
-  print_in_red "✖ $1\n" 1>&2
+  print_in_red "✖ Error: $1\n" 1>&2
   exit 1
 }
 

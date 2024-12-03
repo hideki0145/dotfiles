@@ -12,7 +12,13 @@ readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
 
 if [ ! -f "$UTILS_SCRIPT" ]; then
   mkdir -p "$DOT_DIR/src"
-  curl -SL "$DOTFILES_UTILS_URL" -o "$UTILS_SCRIPT"
+  if type "curl" >/dev/null 2>&1; then
+    curl -fSL "$DOTFILES_UTILS_URL" -o "$UTILS_SCRIPT"
+  elif type "wget" >/dev/null 2>&1; then
+    wget -O "$UTILS_SCRIPT" "$DOTFILES_UTILS_URL"
+  else
+    error "curl or wget required."
+  fi
 fi
 . "$UTILS_SCRIPT"
 
@@ -28,9 +34,9 @@ if [ ! -d "$DOT_DIR/.git" ]; then
   elif has "curl" || has "wget"; then
     download "Download dotfiles repository..."
     if has "curl"; then
-      curl -L "$DOTFILES_TARBALL_URL"
+      curl -fSL "$DOTFILES_TARBALL_URL"
     elif has "wget"; then
-      wget -O - "$DOTFILES_TARBALL_URL"
+      wget -O- "$DOTFILES_TARBALL_URL"
     fi | tar zxv
     mv -f dotfiles-main "$DOT_DIR"
   else

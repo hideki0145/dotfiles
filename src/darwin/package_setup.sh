@@ -7,6 +7,7 @@
 
 title "Package Setup start..."
 
+# Required packages
 # homebrew
 package_name "homebrew"
 if ! has "brew"; then

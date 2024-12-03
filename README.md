@@ -6,27 +6,27 @@ This repository is dotfiles available for **Ubuntu** or **macOS** setups.
 
 ```sh
 # All process by executing one of the one-liners.
-curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash
-wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash
+curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash
+wget -qO- https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash
 # or...
-curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --all
-wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --all
+curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --all
+wget -qO- https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --all
 
 # Package update by executing one of the one-liners.
-curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-update
-wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-update
+curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-update
+wget -qO- https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-update
 
 # Package setup by executing one of the one-liners.
-curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-setup
-wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-setup
+curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-setup
+wget -qO- https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-setup
 
 # Development kit package setup by executing one of the one-liners.
-curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --devkit-setup
-wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --devkit-setup
+curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --devkit-setup
+wget -qO- https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --devkit-setup
 
 # Config deployment by executing one of the one-liners.
-curl -LsS https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --config-deploy
-wget -qO - https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --config-deploy
+curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --config-deploy
+wget -qO- https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --config-deploy
 ```
 
 ## Dependencies

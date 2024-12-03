@@ -7,6 +7,12 @@
 
 title "Package Setup start..."
 
+# Required packages
+# curl
+if ! has "curl"; then
+  sudo apt install -y curl
+fi
+
 # CUI packages
 # git
 package_name "git"
