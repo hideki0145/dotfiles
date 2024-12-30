@@ -29,8 +29,6 @@ readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
 
 export EDITOR="vim"
 export VISUAL="vim"
-RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
-export RUBY_CONFIGURE_OPTS
 
 # homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"

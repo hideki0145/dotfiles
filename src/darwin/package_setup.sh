@@ -133,14 +133,16 @@ if ! mise list node | grep -q node; then
 else
   mise list node | grep node
 fi
+# For reference, see: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
 if ! mise list python | grep -q python; then
-  brew install openssl readline sqlite3 xz zlib tcl-tk
+  brew install openssl readline sqlite3 xz zlib tcl-tk@8
   mise use python@latest
 else
   mise list python | grep python
 fi
+# For reference, see: https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
 if ! mise list ruby | grep -q ruby; then
-  brew install openssl@3 readline libyaml gmp
+  brew install openssl@3 readline libyaml gmp autoconf
   mise use ruby@latest
 else
   mise list ruby | grep ruby
