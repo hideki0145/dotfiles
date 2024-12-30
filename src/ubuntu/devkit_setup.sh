@@ -35,9 +35,12 @@ else
 fi
 
 # redis
+# For reference, see: https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/install-redis-on-linux/
 package_name "redis"
 if ! has "redis-cli"; then
+  sudo apt install -y lsb-release curl gpg
   curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+  sudo chmod 644 /usr/share/keyrings/redis-archive-keyring.gpg
   echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
   sudo apt update
   sudo apt install -y redis-tools
