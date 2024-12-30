@@ -13,11 +13,13 @@ fi
 
 # CUI packages
 # postgresql
+# For reference, see: https://www.postgresql.org/download/linux/ubuntu/
 package_name "postgresql"
 if ! has "psql"; then
-  sudo apt install -y curl ca-certificates gnupg
-  curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null
-  sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+  sudo apt install -y curl ca-certificates
+  sudo install -d /usr/share/postgresql-common/pgdg
+  sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
+  sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
   sudo apt update
   sudo apt install -y postgresql-client libpq-dev
 else
