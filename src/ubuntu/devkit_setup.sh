@@ -96,6 +96,7 @@ fi
 lazydocker --version
 
 # docker
+# For reference, see: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 package_name "docker"
 if ! has "docker"; then
   if ! check_wsl1; then
