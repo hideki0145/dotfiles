@@ -85,11 +85,13 @@ fi
 lazygit --version
 
 # lazydocker
+# For reference, see: https://github.com/jesseduffield/lazydocker?tab=readme-ov-file#binary-release-linuxosxwindows
 package_name "lazydocker"
-package_version=$(get_github_repository "/repos/jesseduffield/lazydocker/releases/latest" | grep -Po '"tag_name":\s*"v\K[\d.]+')
-if ! has "lazydocker" || [ ! "$package_version" = "$(lazydocker --version | grep -Po 'Version: \K[\d.]+')" ]; then
-  curl -LsS "https://github.com/jesseduffield/lazydocker/releases/latest/download/lazydocker_${package_version}_$(uname -s)_$(uname -m).tar.gz" -o "$DOT_DIR/tmp/lazydocker.tar.gz"
-  sudo tar xf "$DOT_DIR/tmp/lazydocker.tar.gz" -C /usr/bin lazydocker
+LAZYDOCKER_VERSION=$(get_github_repository "/repos/jesseduffield/lazydocker/releases/latest" | grep -Po '"tag_name": *"v\K[^"]*')
+if ! has "lazydocker" || [ ! "$LAZYDOCKER_VERSION" = "$(lazydocker --version | grep -Po 'Version: \K[\d.]+')" ]; then
+  curl -LsSo "$DOT_DIR/tmp/lazydocker.tar.gz" "https://github.com/jesseduffield/lazydocker/releases/download/v${LAZYDOCKER_VERSION}/lazydocker_${LAZYDOCKER_VERSION}_$(uname -s)_$(uname -m).tar.gz"
+  tar xf "$DOT_DIR/tmp/lazydocker.tar.gz" -C "$DOT_DIR/tmp"
+  sudo install "$DOT_DIR/tmp/lazydocker" -D -t /usr/local/bin/
 fi
 lazydocker --version
 
