@@ -74,11 +74,13 @@ fi
 gh completion -s zsh | sudo tee /usr/local/share/zsh/site-functions/_gh >/dev/null
 
 # lazygit
+# For reference, see: https://github.com/jesseduffield/lazygit?tab=readme-ov-file#ubuntu
 package_name "lazygit"
-package_version=$(get_github_repository "/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name":\s*"v\K[\d.]+')
-if ! has "lazygit" || [ ! "$package_version" = "$(lazygit --version | grep -Po 'version=\K[\d.]+')" ]; then
-  curl -LsS "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${package_version}_$(uname -s)_$(uname -m).tar.gz" -o "$DOT_DIR/tmp/lazygit.tar.gz"
-  sudo tar xf "$DOT_DIR/tmp/lazygit.tar.gz" -C /usr/bin lazygit
+LAZYGIT_VERSION=$(get_github_repository "/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": *"v\K[^"]*')
+if ! has "lazygit" || [ ! "$LAZYGIT_VERSION" = "$(lazygit --version | grep -Po ', version=\K[\d.]+')" ]; then
+  curl -LsSo "$DOT_DIR/tmp/lazygit.tar.gz" "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_$(uname -s)_$(uname -m).tar.gz"
+  tar xf "$DOT_DIR/tmp/lazygit.tar.gz" -C "$DOT_DIR/tmp"
+  sudo install "$DOT_DIR/tmp/lazygit" -D -t /usr/local/bin/
 fi
 lazygit --version
 
