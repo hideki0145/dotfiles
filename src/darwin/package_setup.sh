@@ -273,6 +273,14 @@ else
   plist_version "/Applications/KeyClu.app/Contents"
 fi
 
+# scroll reverser
+package_name "scroll reverser"
+if ! has_cask "scroll-reverser"; then
+  brew install --cask scroll-reverser
+else
+  plist_version "/Applications/Scroll Reverser.app/Contents"
+fi
+
 # hackgen
 package_name "hackgen"
 if ! has_cask "font-hackgen"; then
