@@ -284,10 +284,10 @@ fi
 # hackgen
 package_name "hackgen"
 if ! has_cask "font-hackgen"; then
-  brew tap homebrew/cask-fonts
   brew install --cask font-hackgen font-hackgen-nerd
 else
   cask_version "font-hackgen"
+  cask_version "font-hackgen-nerd"
 fi
 
 # AllMyBatteries
