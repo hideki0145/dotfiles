@@ -22,7 +22,12 @@ if ! has "git"; then
   sudo apt install -y git
 else
   git --version
-  git --no-pager config --global --list
+  if [ -f "$HOME/.gitconfig" ]; then
+    git --no-pager config --global --list
+  fi
+fi
+if ! git config --list | grep -q include.path; then
+  git config --global include.path ~/.gitconfig.local
 fi
 
 # vim

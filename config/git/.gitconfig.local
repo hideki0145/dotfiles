@@ -5,3 +5,5 @@
   ui = auto
 [pull]
   rebase = false
+[alias]
+  safe-force-push = push --force-with-lease --force-if-includes

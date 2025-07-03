@@ -12,7 +12,7 @@ fi
 
 declare -a SYMLINK_ENTRIES=(
   "docker/$(os_name)/config.json|$HOME/.docker/"
-  "git/.gitconfig|$HOME/"
+  "git/.gitconfig.local|$HOME/"
   "git/ignore|$HOME/.config/git/"
   "mise/.default-gems|$HOME/"
   "mise/.gemrc|$HOME/"

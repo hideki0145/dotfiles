@@ -11,7 +11,7 @@ if [ ! -f "$FIRST_RUN" ]; then
 fi
 
 declare -a SYMLINK_ENTRIES=(
-  "git/.gitconfig|$HOME/"
+  "git/.gitconfig.local|$HOME/"
   "git/ignore|$HOME/.config/git/"
   "mise/.default-gems|$HOME/"
   "mise/.gemrc|$HOME/"
