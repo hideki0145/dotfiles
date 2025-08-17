@@ -93,6 +93,16 @@ else
   limactl --version
 fi
 
+# ansible
+# For reference, see: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pipx
+package_name "ansible"
+if ! has "ansible"; then
+  pipx install --include-deps ansible
+else
+  pipx upgrade --include-injected ansible
+  ansible --version
+fi
+
 # Development Kit Setup complete
 result "Development Kit Setup complete!"
 description "Please restarting your shell."
