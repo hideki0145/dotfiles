@@ -25,6 +25,15 @@ else
   mas version
 fi
 
+# pipx
+package_name "pipx"
+if ! has_formula "pipx"; then
+  brew install pipx
+  pipx ensurepath
+else
+  pipx --version
+fi
+
 # CUI packages
 # git
 package_name "git"

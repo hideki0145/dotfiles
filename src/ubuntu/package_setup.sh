@@ -13,6 +13,15 @@ if ! has "curl"; then
   sudo apt install -y curl
 fi
 
+# pipx
+package_name "pipx"
+if ! has "pipx"; then
+  sudo apt install -y pipx
+  pipx ensurepath
+else
+  pipx --version
+fi
+
 # CUI packages
 # git
 package_name "git"
