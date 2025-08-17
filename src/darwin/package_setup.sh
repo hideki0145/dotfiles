@@ -286,6 +286,14 @@ else
   plist_version "/Applications/Scroll Reverser.app/Contents"
 fi
 
+# tailscale
+package_name "tailscale"
+if ! has_cask "tailscale-app"; then
+  brew install --cask tailscale-app
+else
+  plist_version "/Applications/Tailscale.app/Contents"
+fi
+
 # hackgen
 package_name "hackgen"
 if ! has_cask "font-hackgen"; then
