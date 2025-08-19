@@ -336,6 +336,14 @@ else
   mas_version 441258766
 fi
 
+# Windows App
+package_name "Windows App"
+if ! has_mas 1295203466; then
+  mas install 1295203466
+else
+  mas_version 1295203466
+fi
+
 # WireGuard
 package_name "WireGuard"
 if ! has_mas 1451685025; then
