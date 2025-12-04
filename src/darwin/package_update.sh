@@ -11,7 +11,7 @@ if has "brew"; then
   brew update && brew upgrade && brew autoremove && brew cleanup
 fi
 if has_formula "mas"; then
-  mas upgrade
+  sudo mas update
 fi
 
 # Package Update complete

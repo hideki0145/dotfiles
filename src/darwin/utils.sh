@@ -20,13 +20,13 @@ cask_version() {
 
 # Check mas apps.
 has_mas() {
-  if ! mas list | grep -q "^$1 "; then
+  if ! mas list | grep -q "^ *$1 "; then
     return 1
   fi
   return 0
 }
 mas_version() {
-  mas list | grep "^$1 "
+  mas list | grep "^ *$1 "
 }
 
 # Check information property list.
