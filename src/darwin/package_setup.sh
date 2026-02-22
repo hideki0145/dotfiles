@@ -162,6 +162,18 @@ else
   mise list ruby | grep ruby
 fi
 
+# uv
+package_name "uv"
+if ! has "uv"; then
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+else
+  uv --version
+fi
+uv generate-shell-completion zsh | tee ~/.zsh/completions/_uv >/dev/null
+uvx --generate-shell-completion zsh | tee ~/.zsh/completions/_uvx >/dev/null
+
+uv self update
+
 # yarn
 package_name "yarn"
 if ! has "yarn"; then
