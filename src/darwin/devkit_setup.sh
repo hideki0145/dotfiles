@@ -85,7 +85,7 @@ fi
 package_name "lima"
 if ! has_formula "lima"; then
   brew install lima
-  limactl start --name=docker --vm-type=vz --mount-type=virtiofs --network=vzNAT --mount-writable --rosetta template://docker
+  limactl start --name=docker --vm-type=vz --mount-type=virtiofs --network=vzNAT --mount-writable --rosetta template:docker
   limactl start-at-login docker
   docker context create lima-docker --docker "host=unix:///$HOME/.lima/docker/sock/docker.sock"
   docker context use lima-docker
