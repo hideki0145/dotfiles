@@ -11,7 +11,7 @@ source $VIMRUNTIME/defaults.vim
 call plug#begin('~/.vim/plugged')
 
 " Listing the files in a directory.
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 " Automatically inserting the end keyword in Ruby.
 Plug 'tpope/vim-endwise'
 " Easily toggle comments ON/OFF.
@@ -41,6 +41,8 @@ set expandtab
 " Visualize tabs, spaces, and newlines.
 set list
 set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%
+" Disable mouse support to keep terminal text selection behavior.
+set mouse-=a
 " Display line numbers.
 set number
 " Change the display width of tab characters.
