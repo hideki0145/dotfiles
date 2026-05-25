@@ -5,5 +5,16 @@
   ui = auto
 [pull]
   rebase = false
+[core]
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+  dark = true
+  line-numbers = true
+[merge]
+  conflictStyle = zdiff3
 [alias]
   safe-force-push = push --force-with-lease --force-if-includes
+  diff-side-by-side = -c delta.features=side-by-side diff

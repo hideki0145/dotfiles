@@ -92,6 +92,15 @@ else
   tig --version
 fi
 
+# delta
+package_name "delta"
+if ! has_formula "git-delta"; then
+  brew install git-delta
+else
+  delta --version
+fi
+delta --generate-completion zsh | tee ~/.zsh/completions/_delta >/dev/null
+
 # rustup
 package_name "rustup"
 if ! has "rustup"; then
