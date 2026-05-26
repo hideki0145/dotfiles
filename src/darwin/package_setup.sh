@@ -195,6 +195,14 @@ else
   yarn --version
 fi
 
+# claude
+package_name "claude"
+if ! has "claude"; then
+  curl -fsSL https://claude.ai/install.sh | bash
+else
+  claude --version
+fi
+
 # GUI packages
 # google chrome
 package_name "google chrome"
