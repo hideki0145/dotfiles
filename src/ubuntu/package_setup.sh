@@ -199,6 +199,14 @@ else
   claude --version
 fi
 
+# codex
+package_name "codex"
+if ! has "codex"; then
+  curl -fsSL https://chatgpt.com/codex/install.sh | sh
+else
+  codex --version
+fi
+
 # GUI packages
 # google chrome
 package_name "google chrome"
