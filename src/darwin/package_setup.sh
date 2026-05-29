@@ -206,7 +206,7 @@ fi
 # codex
 package_name "codex"
 if ! has "codex"; then
-  curl -fsSL https://chatgpt.com/codex/install.sh | sh
+  curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=1 sh
 else
   codex --version
 fi
