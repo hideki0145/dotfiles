@@ -158,7 +158,7 @@ else
 fi
 # For reference, see: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
 if ! mise list python | grep -q python; then
-  brew install openssl readline sqlite3 xz zlib tcl-tk@8
+  brew install openssl@3 readline sqlite3 xz tcl-tk@8 libb2 zstd zlib pkgconfig
   mise use python@latest
 else
   mise list python | grep python
