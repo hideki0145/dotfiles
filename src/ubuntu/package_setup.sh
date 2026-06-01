@@ -82,6 +82,17 @@ else
   tig --version
 fi
 
+# delta
+package_name "delta"
+DELTA_VERSION=$(get_github_repository "/repos/dandavison/delta/releases/latest" | grep -Po '"tag_name": *"\K[^"]*')
+if ! has "delta" || [ ! "$DELTA_VERSION" = "$(delta --version | grep -Po 'delta \K[\d.]+')" ]; then
+  curl -LsS "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb" -o "/tmp/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb"
+  sudo apt install -y "/tmp/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb"
+  rm "/tmp/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb"
+fi
+delta --version
+delta --generate-completion zsh | sudo tee /usr/local/share/zsh/site-functions/_delta >/dev/null
+
 # rustup
 package_name "rustup"
 if ! has "rustup"; then
@@ -184,9 +195,9 @@ fi
 # google chrome
 package_name "google chrome"
 if ! has "google-chrome"; then
-  curl -LsS "https://dl.google.com/linux/direct/google-chrome-stable_current_$(dpkg --print-architecture).deb" -o "$DOT_DIR/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb"
-  sudo apt install -y "$DOT_DIR/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb"
-  rm "$DOT_DIR/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb"
+  curl -LsS "https://dl.google.com/linux/direct/google-chrome-stable_current_$(dpkg --print-architecture).deb" -o "/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb"
+  sudo apt install -y "/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb"
+  rm "/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb"
 else
   google-chrome --version
 fi
