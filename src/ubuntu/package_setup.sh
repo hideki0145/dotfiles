@@ -143,25 +143,23 @@ if ! mise list shfmt | grep -q shfmt; then
 else
   mise list shfmt | grep shfmt
 fi
+# For reference, see: https://github.com/nodejs/node/blob/main/BUILDING.md#official-binary-platforms-and-toolchains
 if ! mise list node | grep -q node; then
+  sudo apt install -y libatomic1
   mise use node@latest
 else
   mise list node | grep node
 fi
 # For reference, see: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
 if ! mise list python | grep -q python; then
-  sudo apt install -y build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl git libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+  sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl git libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev libzstd-dev
   mise use python@latest
 else
   mise list python | grep python
 fi
 # For reference, see: https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
 if ! mise list ruby | grep -q ruby; then
-  if [ "$(os_version)" = "18.04" ]; then
-    sudo apt install -y autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev libdb-dev uuid-dev
-  else
-    sudo apt install -y autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
-  fi
+  sudo apt install -y build-essential autoconf libssl-dev libyaml-dev zlib1g-dev libffi-dev libgmp-dev rustc
   mise use ruby@latest
 else
   mise list ruby | grep ruby
