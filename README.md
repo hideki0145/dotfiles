@@ -12,6 +12,10 @@ wget -qO- https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh 
 curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --all
 wget -qO- https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --all
 
+# Use a specific branch.
+curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --branch specific-branch-name
+wget -qO- https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --branch specific-branch-name
+
 # Package update by executing one of the one-liners.
 curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-update
 wget -qO- https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --package-update
