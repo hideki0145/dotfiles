@@ -84,6 +84,14 @@ else
   git submodule update --init --recursive
 fi
 
+# starship
+package_name "starship"
+if ! has_formula "starship"; then
+  brew install starship
+else
+  starship --version
+fi
+
 # tig
 package_name "tig"
 if ! has_formula "tig"; then

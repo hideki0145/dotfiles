@@ -30,6 +30,9 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
   fi
 fi
 
+# starship
+eval "$(starship init zsh)"
+
 # rustup
 . "$HOME/.cargo/env"
 

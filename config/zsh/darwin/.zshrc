@@ -26,6 +26,9 @@ FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 # zsh
 FPATH="$HOME/.zsh/completions:$FPATH"
 
+# starship
+eval "$(starship init zsh)"
+
 # rustup
 . "$HOME/.cargo/env"
 

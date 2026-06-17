@@ -76,6 +76,11 @@ else
   git submodule update --init --recursive
 fi
 
+# starship
+package_name "starship"
+curl -sS https://starship.rs/install.sh | sh -s -- --force >/dev/null
+starship --version
+
 # tig
 package_name "tig"
 if ! has "tig"; then

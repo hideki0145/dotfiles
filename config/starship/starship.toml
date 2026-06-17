@@ -1,0 +1,217 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$os\
+$directory\
+$git_branch\
+$git_status\
+[](fg:surface)\
+$fill\
+[](fg:surface)\
+$status\
+$cmd_duration\
+$jobs\
+$nodejs\
+$python\
+$ruby\
+$rust\
+$mise\
+$sudo\
+$username\
+$hostname\
+$time\
+[ ](bg:surface)\
+\n\
+$character\
+"""
+palette = 'powerlevel10k'
+
+[palettes.powerlevel10k]
+surface = '#303030'
+os = '#eeeeee'
+dir = '#00afff'
+dir_short = '#8787d7'
+read_only = '#d75f87'
+git_branch = '#5fd700'
+git_status = '#d7af00'
+fill = '#808080'
+status = '#d70000'
+cmd_duration = '#a8a8a8'
+jobs = '#5f87af'
+nodejs = '#5faf00'
+python = '#00afaf'
+ruby = '#d75f87'
+rust = '#00afaf'
+mise = '#af5fd7'
+sudo = '#5f87af'
+context = '#d7af87'
+time = '#5f8787'
+
+[os]
+format = '[ $symbol ](fg:os bg:surface)'
+disabled = false
+
+[os.symbols]
+AIX = ''
+Alpaquita = ''
+AlmaLinux = ''
+Alpine = ''
+ALTLinux = ''
+Amazon = ''
+Android = ''
+AOSC = ''
+Arch = ''
+Artix = ''
+Bluefin = ''
+CachyOS = ''
+CentOS = ''
+Debian = ''
+Elementary = ''
+DragonFly = ''
+Emscripten = ''
+EndeavourOS = ''
+Fedora = ''
+FreeBSD = ''
+Garuda = ''
+Gentoo = ''
+HardenedBSD = ''
+Illumos = ''
+Ios = ''
+InstantOS = ''
+Kali = ''
+Linux = ''
+Mabox = ''
+Macos = ''
+Manjaro = ''
+Mariner = ''
+MidnightBSD = ''
+Mint = ''
+NetBSD = ''
+NixOS = ''
+Nobara = ''
+OpenBSD = ''
+OpenCloudOS = ''
+openEuler = ''
+openSUSE = ''
+OracleLinux = ''
+PikaOS = ''
+Pop = ''
+Raspbian = ''
+Redhat = ''
+RedHatEnterprise = ''
+RockyLinux = ''
+Redox = ''
+Solus = ''
+SUSE = ''
+Ubuntu = ''
+Ultramarine = ''
+Unknown = ''
+Uos = ''
+Void = ''
+Windows = ''
+Zorin = ''
+
+[directory]
+format = '[ $path]($style)[$read_only ]($read_only_style)'
+style = 'fg:dir bg:surface bold'
+read_only = ' '
+read_only_style = 'fg:read_only bg:surface'
+truncation_symbol = '…/'
+before_repo_root_style = 'fg:dir_short bg:surface'
+repo_root_style = 'fg:dir bg:surface bold'
+repo_root_format = '[ $before_root_path]($before_repo_root_style)[${repo_root}]($repo_root_style)[$path]($style)[$read_only ]($read_only_style)'
+
+[git_branch]
+format = '[ $symbol$branch(:$remote_branch)]($style)'
+symbol = ' '
+style = 'fg:git_branch bg:surface'
+
+[git_status]
+format = '[$all_status$ahead_behind ]($style)'
+conflicted = ' ~${count}'
+ahead = ' ⇡${count}'
+behind = ' ⇣${count}'
+diverged = ' ⇕⇡${ahead_count}⇣${behind_count}'
+untracked = ' ?${count}'
+stashed = ' *${count}'
+modified = ' !${count}'
+staged = ' +${count}'
+renamed = ' »${count}'
+deleted = ' x${count}'
+style = 'fg:git_status bg:surface'
+
+[fill]
+symbol = '─'
+style = 'fg:fill'
+
+[status]
+format = '[ $symbol$status ]($style)'
+symbol = '✘ '
+not_executable_symbol = '✘ '
+not_found_symbol = '✘ '
+sigint_symbol = '✘ '
+signal_symbol = '✘ '
+style = 'fg:status bg:surface'
+disabled = false
+
+[cmd_duration]
+format = '[  $duration ]($style)'
+style = 'fg:cmd_duration bg:surface'
+
+[jobs]
+format = '[ $symbol$number ]($style)'
+symbol = '󰫢 '
+style = 'fg:jobs bg:surface'
+
+[nodejs]
+format = '[ $symbol$version ]($style)'
+version_format = '${raw}'
+symbol = ' '
+style = 'fg:nodejs bg:surface'
+
+[python]
+format = '[ $symbol$pyenv_prefix$version( \($virtualenv\)) ]($style)'
+version_format = '${raw}'
+symbol = ' '
+style = 'fg:python bg:surface'
+
+[ruby]
+format = '[ $symbol$version ]($style)'
+version_format = '${raw}'
+symbol = ' '
+style = 'fg:ruby bg:surface'
+
+[rust]
+format = '[ $symbol$version ]($style)'
+version_format = '${raw}'
+symbol = ' '
+style = 'fg:rust bg:surface'
+
+[mise]
+symbol = ' '
+style = 'fg:mise bg:surface'
+format = '[ $symbol( $health) ]($style)'
+healthy_symbol = ''
+unhealthy_symbol = 'error'
+disabled = false
+
+[sudo]
+format = '[ $symbol ]($style)'
+symbol = ' '
+style = 'fg:sudo bg:surface'
+disabled = false
+
+[username]
+format = '[  $user]($style)'
+style_root = 'fg:context bg:surface bold'
+style_user = 'fg:context bg:surface'
+
+[hostname]
+format = '[@$hostname ]($style)'
+style = 'fg:context bg:surface'
+
+[time]
+format = '[  $time ]($style)'
+time_format = '%H:%M:%S'
+style = 'fg:time bg:surface'
+disabled = false
