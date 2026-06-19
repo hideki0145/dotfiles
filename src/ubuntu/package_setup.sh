@@ -25,9 +25,11 @@ fi
 # CUI packages
 # git
 package_name "git"
-if ! has "git"; then
+if ! grep -qsR git-core/ppa /etc/apt/sources.list /etc/apt/sources.list.d/; then
   sudo add-apt-repository -y ppa:git-core/ppa
   sudo apt update
+fi
+if ! has "git"; then
   sudo apt install -y git
 else
   git --version
