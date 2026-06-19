@@ -167,7 +167,7 @@ fi
 
 run_scripts() {
   for script in "${SCRIPTS[@]}"; do
-    source "$script"
+    . "$script"
   done
 }
 
@@ -175,16 +175,16 @@ if $RUN_ALL; then
   run_scripts
 else
   if $RUN_PACKAGE_UPDATE; then
-    source "$PACKAGE_UPDATE_SCRIPT"
+    . "$PACKAGE_UPDATE_SCRIPT"
   fi
   if $RUN_PACKAGE_SETUP; then
-    source "$PACKAGE_SETUP_SCRIPT"
+    . "$PACKAGE_SETUP_SCRIPT"
   fi
   if $RUN_DEVKIT_SETUP; then
-    source "$DEVKIT_SETUP_SCRIPT"
+    . "$DEVKIT_SETUP_SCRIPT"
   fi
   if $RUN_CONFIG_DEPLOY; then
-    source "$CONFIG_DEPLOY_SCRIPT"
+    . "$CONFIG_DEPLOY_SCRIPT"
   fi
 fi
 
