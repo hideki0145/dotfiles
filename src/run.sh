@@ -95,6 +95,11 @@ if [ ! -f "$UTILS_SCRIPT" ]; then
 fi
 . "$UTILS_SCRIPT"
 
+# shellcheck disable=SC2034
+readonly DOTFILES_COLLECT_SUMMARY=true
+# shellcheck disable=SC2034
+declare -a DOTFILES_SUMMARY_MESSAGES=()
+
 if [ ! -d "$DOT_DIR/.git" ]; then
   exist_first_run=0
   if [ -f "$FIRST_RUN" ]; then
@@ -189,8 +194,9 @@ else
 fi
 
 if ! check_gh_auth_status; then
-  hint "You are not logged in to GitHub. Please run 'gh auth login'."
+  summary_hint "You are not logged in to GitHub. Please run 'gh auth login'."
 fi
 if [ -z "$MISE_GITHUB_TOKEN" ]; then
-  hint "The environment variable MISE_GITHUB_TOKEN is not set."
+  summary_hint "The environment variable MISE_GITHUB_TOKEN is not set."
 fi
+print_summary

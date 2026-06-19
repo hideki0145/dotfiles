@@ -104,5 +104,5 @@ else
 fi
 
 # Development Kit Setup complete
-result "Development Kit Setup complete!"
-description "Please restarting your shell."
+summary_result "Development Kit Setup complete!"
+summary_description "Please restarting your shell."

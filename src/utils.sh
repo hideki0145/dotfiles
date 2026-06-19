@@ -114,6 +114,55 @@ hint() {
   print_in_yellow "✎ Hint: $1\n"
 }
 
+# Collect or display summary result message.
+summary_result() {
+  if ${DOTFILES_COLLECT_SUMMARY:-false}; then
+    DOTFILES_SUMMARY_MESSAGES+=("result|$1")
+  else
+    result "$1"
+  fi
+}
+# Collect or display summary description message.
+summary_description() {
+  if ${DOTFILES_COLLECT_SUMMARY:-false}; then
+    DOTFILES_SUMMARY_MESSAGES+=("description|$1")
+  else
+    description "$1"
+  fi
+}
+# Collect or display summary hint message.
+summary_hint() {
+  if ${DOTFILES_COLLECT_SUMMARY:-false}; then
+    DOTFILES_SUMMARY_MESSAGES+=("hint|$1")
+  else
+    hint "$1"
+  fi
+}
+# Display summary messages.
+print_summary() {
+  if [ "${#DOTFILES_SUMMARY_MESSAGES[@]}" -eq 0 ]; then
+    return
+  fi
+
+  title "Summary..."
+  for entry in "${DOTFILES_SUMMARY_MESSAGES[@]}"; do
+    message_type=${entry%%|*}
+    message=${entry#*|}
+    case "$message_type" in
+    result)
+      result "$message"
+      ;;
+    description)
+      description "$message"
+      ;;
+    hint)
+      hint "$message"
+      ;;
+    *) ;;
+    esac
+  done
+}
+
 # Display error message and returns exit code error.
 error() {
   print_in_red "✖ Error: $1\n" 1>&2

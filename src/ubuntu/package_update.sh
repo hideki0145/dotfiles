@@ -10,5 +10,5 @@ title "Package Update start..."
 sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
 
 # Package Update complete
-result "Package Update complete!"
-description "Rebooting may be required."
+summary_result "Package Update complete!"
+summary_description "Rebooting may be required."

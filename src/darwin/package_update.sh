@@ -15,4 +15,4 @@ if has "brew"; then
 fi
 
 # Package Update complete
-result "Package Update complete!"
+summary_result "Package Update complete!"

@@ -23,7 +23,7 @@ declare -a SYMLINK_ENTRIES=(
 
 for entry in "${SYMLINK_ENTRIES[@]}"; do
   file=${entry%%|*}
-  dir=${entry##*|}
+  dir=${entry#*|}
   if [ ! -d "$dir" ]; then
     mkdir -p "$dir"
   fi
@@ -31,4 +31,4 @@ for entry in "${SYMLINK_ENTRIES[@]}"; do
 done
 
 # Config Deployment complete
-result "Config Deployment complete!"
+summary_result "Config Deployment complete!"

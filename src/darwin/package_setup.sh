@@ -399,11 +399,11 @@ fi
 
 # Package Setup complete
 if [ -f "$FIRST_RUN" ]; then
-  result "Package Setup complete!"
-  description "Please restarting your shell."
+  summary_result "Package Setup complete!"
+  summary_description "Please restarting your shell."
 else
   touch "$FIRST_RUN"
-  result "First Package Setup complete!"
-  description "You run it for the first time, please deployment of config, and restarting your shell."
-  description "After that, please re-run this script again."
+  summary_result "First Package Setup complete!"
+  summary_description "You run it for the first time, please deployment of config, and restarting your shell."
+  summary_description "After that, please re-run this script again."
 fi
