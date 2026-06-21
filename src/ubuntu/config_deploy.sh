@@ -15,7 +15,7 @@ declare -a SYMLINK_ENTRIES=(
   "git/ignore|$HOME/.config/git/"
   "mise/.default-gems|$HOME/"
   "mise/.gemrc|$HOME/"
-  "prezto/.zpreztorc|$HOME/"
+  "sheldon/plugins.toml|$HOME/.config/sheldon/"
   "starship/starship.toml|$HOME/.config/"
   "vim/.vimrc|$HOME/"
   "zsh/$(os_name)/.zshrc|$HOME/"

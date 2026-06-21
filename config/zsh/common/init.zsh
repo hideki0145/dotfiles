@@ -1,16 +1,3 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
-
-# Customize to your needs...
 readonly DOT_DIR="$HOME/.dotfiles"
 readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
 . "$UTILS_SCRIPT"
@@ -24,6 +11,9 @@ export VISUAL="vim"
 
 # mise
 eval "$(~/.local/bin/mise activate zsh)"
+
+# sheldon
+eval "$(sheldon source)"
 
 # starship
 eval "$(starship init zsh)"

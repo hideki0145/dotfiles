@@ -65,20 +65,14 @@ else
   zsh --version
 fi
 
-# prezto
-package_name "prezto"
-if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
-  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/*; do
-    [ "${rcfile##*/}" = "README.md" ] && continue
-    ln -snfv "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
-  done
-else
-  cd "${ZDOTDIR:-$HOME}/.zprezto" || exit
-  git pull
-  git submodule sync --recursive
-  git submodule update --init --recursive
+# sheldon
+package_name "sheldon"
+SHELDON_VERSION=$(get_github_repository "/repos/rossmacarthur/sheldon/releases/latest" | grep -Po '"tag_name": *"\K[^"]*')
+if ! has "sheldon" || [ ! "$SHELDON_VERSION" = "$(sheldon --version | grep -Po 'sheldon \K[\d.]+')" ]; then
+  curl --proto '=https' -fLsS https://rossmacarthur.github.io/install/crate.sh | bash -s -- --force --repo rossmacarthur/sheldon --to ~/.local/bin
 fi
+sheldon --version
+sheldon lock --update
 
 # starship
 package_name "starship"
