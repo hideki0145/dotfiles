@@ -27,6 +27,19 @@ zsh-defer -c "$(cat <<'SHELDON_DEFER'
 # [plugins.base16]
 # github = "chriskempson/base16-shell"
 
+[plugins.dotfiles-core]
+local = "~/.dotfiles/config/sheldon/modules"
+use = [
+  "environment/init.zsh",
+  "helper/init.zsh",
+  "editor/init.zsh",
+  "history/init.zsh",
+  "directory/init.zsh",
+  "spectrum/init.zsh",
+  "utility/init.zsh",
+]
+apply = ["source"]
+
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
 apply = ["source"]
@@ -34,6 +47,7 @@ apply = ["source"]
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 apply = ["defer"]
+hooks.post = "zsh-defer source ~/.dotfiles/config/sheldon/modules/zsh-autosuggestions/init.zsh"
 
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
@@ -42,6 +56,7 @@ apply = ["defer"]
 [plugins.zsh-history-substring-search]
 github = "zsh-users/zsh-history-substring-search"
 apply = ["defer"]
+hooks.post = "zsh-defer source ~/.dotfiles/config/sheldon/modules/zsh-history-substring-search/init.zsh"
 
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
