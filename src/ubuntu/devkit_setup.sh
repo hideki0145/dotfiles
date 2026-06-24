@@ -2,8 +2,8 @@
 # Development Kit Setup Script for Ubuntu.
 
 # main
-. "$DOT_DIR/src/utils.sh"
-. "$DOT_DIR/src/$(os_name)/utils.sh"
+source "$DOT_DIR/src/utils.sh"
+source "$DOT_DIR/src/$(os_name)/utils.sh"
 
 title "Development Kit Setup start..."
 

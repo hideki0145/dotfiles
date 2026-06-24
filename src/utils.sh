@@ -8,7 +8,7 @@ os_name() {
   Linux)
     if [ -f "/etc/os-release" ]; then
       os="$(
-        . /etc/os-release
+        source /etc/os-release
         printf "%s" "$ID"
       )"
     else
@@ -30,7 +30,7 @@ os_version() {
   Linux)
     if [ -f "/etc/os-release" ]; then
       version="$(
-        . /etc/os-release
+        source /etc/os-release
         printf "%s" "$VERSION_ID"
       )"
     fi

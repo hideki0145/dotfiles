@@ -93,7 +93,7 @@ if [ ! -f "$UTILS_SCRIPT" ]; then
     exit 1
   fi
 fi
-. "$UTILS_SCRIPT"
+source "$UTILS_SCRIPT"
 
 # shellcheck disable=SC2034
 readonly DOTFILES_COLLECT_SUMMARY=true
@@ -172,7 +172,7 @@ fi
 
 run_scripts() {
   for script in "${SCRIPTS[@]}"; do
-    . "$script"
+    source "$script"
   done
 }
 
@@ -180,16 +180,16 @@ if $RUN_ALL; then
   run_scripts
 else
   if $RUN_PACKAGE_UPDATE; then
-    . "$PACKAGE_UPDATE_SCRIPT"
+    source "$PACKAGE_UPDATE_SCRIPT"
   fi
   if $RUN_PACKAGE_SETUP; then
-    . "$PACKAGE_SETUP_SCRIPT"
+    source "$PACKAGE_SETUP_SCRIPT"
   fi
   if $RUN_DEVKIT_SETUP; then
-    . "$DEVKIT_SETUP_SCRIPT"
+    source "$DEVKIT_SETUP_SCRIPT"
   fi
   if $RUN_CONFIG_DEPLOY; then
-    . "$CONFIG_DEPLOY_SCRIPT"
+    source "$CONFIG_DEPLOY_SCRIPT"
   fi
 fi
 

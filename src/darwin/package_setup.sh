@@ -2,8 +2,8 @@
 # Package Setup Script for Darwin.
 
 # main
-. "$DOT_DIR/src/utils.sh"
-. "$DOT_DIR/src/$(os_name)/utils.sh"
+source "$DOT_DIR/src/utils.sh"
+source "$DOT_DIR/src/$(os_name)/utils.sh"
 
 title "Package Setup start..."
 
@@ -12,7 +12,7 @@ title "Package Setup start..."
 package_name "homebrew"
 if ! has "brew"; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+  eval "$(/opt/homebrew/bin/brew shellenv bash)"
 else
   brew --version
 fi
@@ -68,19 +68,23 @@ if ! has_formula "zsh"; then
   description "Change login shell."
   sudo sh -c 'echo "/opt/homebrew/bin/zsh" >> /etc/shells'
   chsh -s /opt/homebrew/bin/zsh
+  cp "$DOT_DIR/config/zsh/$(os_name)/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
 else
   zsh --version
 fi
+
+# prezto
+package_name "prezto"
 if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
   for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/*; do
     [ "${rcfile##*/}" = "README.md" ] && continue
     ln -snfv "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
   done
-  cp "$DOT_DIR/config/zsh/$(os_name)/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
 else
   cd "${ZDOTDIR:-$HOME}/.zprezto" || exit
   git pull
+  git submodule sync --recursive
   git submodule update --init --recursive
 fi
 

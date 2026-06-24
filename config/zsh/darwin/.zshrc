@@ -1,13 +1,15 @@
-. "$HOME/.dotfiles/config/zsh/common/pre.zsh"
+# Source common pre-initialization.
+source "$HOME/.dotfiles/config/zsh/common/preinit.zsh"
 
 # homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 
 # zsh
-FPATH="$HOME/.zsh/completions:$FPATH"
+fpath=("$HOME/.zsh/completions" ${fpath:#"$HOME/.zsh/completions"})
+
+# Source common initialization.
+# Update fpath before sourcing init.zsh.
+source "$HOME/.dotfiles/config/zsh/common/init.zsh"
 
 # postgresql
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-
-. "$HOME/.dotfiles/config/zsh/common/post.zsh"
+path=("/opt/homebrew/opt/libpq/bin" ${path:#"/opt/homebrew/opt/libpq/bin"})

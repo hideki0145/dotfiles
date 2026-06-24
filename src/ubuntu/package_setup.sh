@@ -2,8 +2,8 @@
 # Package Setup Script for Ubuntu.
 
 # main
-. "$DOT_DIR/src/utils.sh"
-. "$DOT_DIR/src/$(os_name)/utils.sh"
+source "$DOT_DIR/src/utils.sh"
+source "$DOT_DIR/src/$(os_name)/utils.sh"
 
 title "Package Setup start..."
 
@@ -60,19 +60,23 @@ if ! has "zsh"; then
   sudo sed -i.bak -e "/auth.*required.*pam_shells.so/s/required/sufficient/g" /etc/pam.d/chsh
   chsh -s "$(which zsh)"
   sudo sed -i.bak -e "/auth.*sufficient.*pam_shells.so/s/sufficient/required/g" /etc/pam.d/chsh
+  cp "$DOT_DIR/config/zsh/$(os_name)/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
 else
   zsh --version
 fi
+
+# prezto
+package_name "prezto"
 if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
   for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/*; do
     [ "${rcfile##*/}" = "README.md" ] && continue
     ln -snfv "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
   done
-  cp "$DOT_DIR/config/zsh/$(os_name)/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
 else
   cd "${ZDOTDIR:-$HOME}/.zprezto" || exit
   git pull
+  git submodule sync --recursive
   git submodule update --init --recursive
 fi
 

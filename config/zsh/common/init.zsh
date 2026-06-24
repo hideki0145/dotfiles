@@ -13,17 +13,17 @@ fi
 # Customize to your needs...
 readonly DOT_DIR="$HOME/.dotfiles"
 readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
-. "$UTILS_SCRIPT"
-. "$DOT_DIR/src/$(os_name)/utils.sh"
+source "$UTILS_SCRIPT"
+source "$DOT_DIR/src/$(os_name)/utils.sh"
 
 export EDITOR="vim"
 export VISUAL="vim"
 
-# starship
-eval "$(starship init zsh)"
-
 # rustup
-. "$HOME/.cargo/env"
+source "$HOME/.cargo/env"
 
 # mise
 eval "$(~/.local/bin/mise activate zsh)"
+
+# starship
+eval "$(starship init zsh)"
