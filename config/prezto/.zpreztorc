@@ -29,29 +29,24 @@ zstyle ':prezto:*:*' color 'yes'
 
 # Set the Prezto modules to load (browse modules).
 # The order matters.
-zstyle ':prezto:load' pmodule \
-  'environment' \
-  'terminal' \
-  'editor' \
-  'history' \
-  'directory' \
-  'spectrum' \
-  'utility' \
-  'completion' \
-  'git' \
-  'ruby' \
-  'rails' \
-  'syntax-highlighting' \
-  'history-substring-search' \
-  'autosuggestions' \
-  'prompt'
+# zstyle ':prezto:load' pmodule \
+#   'environment' \
+#   'terminal' \
+#   'editor' \
+#   'history' \
+#   'directory' \
+#   'spectrum' \
+#   'utility' \
+#   'completion' \
+#   'history-substring-search' \
+#   'prompt'
 
 #
 # Autosuggestions
 #
 
 # Set the query found color.
-zstyle ':prezto:module:autosuggestions:color' found 'fg=#808080'
+# zstyle ':prezto:module:autosuggestions:color' found ''
 
 #
 # Completions
@@ -65,8 +60,11 @@ zstyle ':prezto:module:autosuggestions:color' found 'fg=#808080'
 # Editor
 #
 
+# Set the characters that are considered to be part of a word.
+# zstyle ':prezto:module:editor' wordchars '*?_-.[]~&;!#$%^(){}<>'
+
 # Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':prezto:module:editor' key-bindings 'vi'
+# zstyle ':prezto:module:editor' key-bindings 'emacs'
 
 # Auto convert .... to ../..
 # zstyle ':prezto:module:editor' dot-expansion 'yes'
@@ -147,7 +145,7 @@ zstyle ':prezto:module:editor' key-bindings 'vi'
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
-zstyle ':prezto:module:prompt' theme 'off'
+# zstyle ':prezto:module:prompt' theme 'sorin'
 
 # Set the working directory prompt display length.
 # By default, it is set to 'short'. Set it to 'long' (without '~' expansion)
@@ -255,4 +253,22 @@ zstyle ':prezto:module:prompt' theme 'off'
 # Enabled safe options. This aliases cp, ln, mv and rm so that they prompt
 # before deleting or overwriting files. Set to 'no' to disable this safer
 # behavior.
+# zstyle ':prezto:module:utility' safe-ops 'yes'
+
+zstyle ':prezto:load' pmodule \
+  'environment' \
+  'terminal' \
+  'editor' \
+  'history' \
+  'directory' \
+  'spectrum' \
+  'utility' \
+  'git' \
+  'completion' \
+  'syntax-highlighting' \
+  'history-substring-search' \
+  'autosuggestions'
+zstyle ':prezto:module:autosuggestions:color' found 'fg=#808080'
+zstyle ':prezto:module:editor' key-bindings 'vi'
+zstyle ':prezto:module:git:alias' skip 'yes'
 zstyle ':prezto:module:utility' safe-ops 'no'

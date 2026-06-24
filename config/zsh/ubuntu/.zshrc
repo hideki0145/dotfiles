@@ -1,4 +1,5 @@
-. "$HOME/.dotfiles/config/zsh/common/pre.zsh"
+# Update FPATH before sourcing init.zsh.
+. "$HOME/.dotfiles/config/zsh/common/init.zsh"
 
 # ssh-agent
 if [ -z "$SSH_AUTH_SOCK" ]; then
@@ -15,5 +16,3 @@ fi
 if check_wsl1_or_wsl2; then
   export GH_BROWSER="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe -NoProfile -c start"
 fi
-
-. "$HOME/.dotfiles/config/zsh/common/post.zsh"

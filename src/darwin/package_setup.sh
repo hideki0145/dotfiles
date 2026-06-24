@@ -68,19 +68,23 @@ if ! has_formula "zsh"; then
   description "Change login shell."
   sudo sh -c 'echo "/opt/homebrew/bin/zsh" >> /etc/shells'
   chsh -s /opt/homebrew/bin/zsh
+  cp "$DOT_DIR/config/zsh/$(os_name)/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
 else
   zsh --version
 fi
+
+# prezto
+package_name "prezto"
 if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
   for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/*; do
     [ "${rcfile##*/}" = "README.md" ] && continue
     ln -snfv "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
   done
-  cp "$DOT_DIR/config/zsh/$(os_name)/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
 else
   cd "${ZDOTDIR:-$HOME}/.zprezto" || exit
   git pull
+  git submodule sync --recursive
   git submodule update --init --recursive
 fi
 

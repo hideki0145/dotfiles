@@ -19,11 +19,11 @@ readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
 export EDITOR="vim"
 export VISUAL="vim"
 
-# starship
-eval "$(starship init zsh)"
-
 # rustup
 . "$HOME/.cargo/env"
 
 # mise
 eval "$(~/.local/bin/mise activate zsh)"
+
+# starship
+eval "$(starship init zsh)"
