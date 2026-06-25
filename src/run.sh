@@ -130,18 +130,17 @@ if [ ! -d "$DOT_DIR/.git" ]; then
     touch "$FIRST_RUN"
   fi
 else
-  cd "$DOT_DIR" || exit
   download "Pull dotfiles repository ($DOTFILES_BRANCH)..."
-  git fetch origin "$DOTFILES_BRANCH:refs/remotes/origin/$DOTFILES_BRANCH" ||
+  git -C "$DOT_DIR" fetch origin "$DOTFILES_BRANCH:refs/remotes/origin/$DOTFILES_BRANCH" ||
     error "failed to fetch dotfiles repository branch: $DOTFILES_BRANCH"
-  if git show-ref --verify --quiet "refs/heads/$DOTFILES_BRANCH"; then
-    git switch "$DOTFILES_BRANCH" ||
+  if git -C "$DOT_DIR" show-ref --verify --quiet "refs/heads/$DOTFILES_BRANCH"; then
+    git -C "$DOT_DIR" switch "$DOTFILES_BRANCH" ||
       error "failed to switch dotfiles repository branch: $DOTFILES_BRANCH"
   else
-    git switch --track -c "$DOTFILES_BRANCH" "origin/$DOTFILES_BRANCH" ||
+    git -C "$DOT_DIR" switch --track -c "$DOTFILES_BRANCH" "origin/$DOTFILES_BRANCH" ||
       error "failed to switch dotfiles repository branch: $DOTFILES_BRANCH"
   fi
-  git merge --ff-only "origin/$DOTFILES_BRANCH" ||
+  git -C "$DOT_DIR" merge --ff-only "origin/$DOTFILES_BRANCH" ||
     error "failed to merge dotfiles repository branch: $DOTFILES_BRANCH"
 fi
 

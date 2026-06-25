@@ -255,6 +255,7 @@ zstyle ':prezto:*:*' color 'yes'
 # behavior.
 # zstyle ':prezto:module:utility' safe-ops 'yes'
 
+zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto-contrib
 zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
@@ -267,6 +268,7 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'syntax-highlighting' \
   'history-substring-search' \
+  'zsh-fzf-history-search' \
   'autosuggestions'
 zstyle ':prezto:module:autosuggestions:color' found 'fg=#808080'
 zstyle ':prezto:module:editor' key-bindings 'vi'
