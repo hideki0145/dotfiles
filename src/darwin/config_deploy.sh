@@ -1,6 +1,11 @@
 #!/bin/bash
 # Config Deployment Script for Darwin.
 
+if ! ${DOTFILES_RUNNER:-false}; then
+  printf "Error: Please run this script via src/run.sh.\n" 1>&2
+  exit 1
+fi
+
 # main
 source "$DOT_DIR/src/utils.sh"
 

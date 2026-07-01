@@ -19,7 +19,7 @@ while [ "$#" -gt 0 ]; do
   case "$1" in
   --branch)
     if [ "$#" -lt 2 ] || [[ "$2" = -* ]]; then
-      echo "--branch requires a value." >&2
+      printf "Error: --branch requires a value.\n" 1>&2
       exit 1
     fi
     DOTFILES_BRANCH="$2"
@@ -64,7 +64,7 @@ EOF
     exit 0
     ;;
   *)
-    echo "Unknown argument: $1" >&2
+    printf "Error: Unknown argument: %s\n" "$1" 1>&2
     exit 1
     ;;
   esac
@@ -79,13 +79,13 @@ if [ ! -f "$UTILS_SCRIPT" ]; then
   if type "curl" >/dev/null 2>&1; then
     curl -fSL "$DOTFILES_UTILS_URL" -o "$UTILS_SCRIPT" ||
       {
-        printf "Error: failed to download utils script.\n" 1>&2
+        printf "Error: Failed to download utils script.\n" 1>&2
         exit 1
       }
   elif type "wget" >/dev/null 2>&1; then
     wget -O "$UTILS_SCRIPT" "$DOTFILES_UTILS_URL" ||
       {
-        printf "Error: failed to download utils script.\n" 1>&2
+        printf "Error: Failed to download utils script.\n" 1>&2
         exit 1
       }
   else
@@ -95,6 +95,8 @@ if [ ! -f "$UTILS_SCRIPT" ]; then
 fi
 source "$UTILS_SCRIPT"
 
+# shellcheck disable=SC2034
+readonly DOTFILES_RUNNER=true
 # shellcheck disable=SC2034
 readonly DOTFILES_COLLECT_SUMMARY=true
 # shellcheck disable=SC2034
@@ -109,7 +111,7 @@ if [ ! -d "$DOT_DIR/.git" ]; then
   if has "git"; then
     download "Clone dotfiles repository ($DOTFILES_BRANCH)..."
     git clone --branch "$DOTFILES_BRANCH" "$DOTFILES_ORIGIN_URL" "$DOT_DIR" ||
-      error "failed to clone dotfiles repository branch: $DOTFILES_BRANCH"
+      error "Failed to clone dotfiles repository branch: $DOTFILES_BRANCH"
   elif has "curl" || has "wget"; then
     download "Download dotfiles repository ($DOTFILES_BRANCH)..."
     mkdir -p "$DOT_DIR/tmp"
@@ -119,9 +121,9 @@ if [ ! -d "$DOT_DIR/.git" ]; then
     elif has "wget"; then
       wget -O "$dotfiles_tarball" "$DOTFILES_TARBALL_URL"
     fi ||
-      error "failed to download dotfiles repository branch: $DOTFILES_BRANCH"
+      error "Failed to download dotfiles repository branch: $DOTFILES_BRANCH"
     tar zxf "$dotfiles_tarball" --strip-components=1 -C "$DOT_DIR" ||
-      error "failed to download dotfiles repository branch: $DOTFILES_BRANCH"
+      error "Failed to download dotfiles repository branch: $DOTFILES_BRANCH"
   else
     error "curl or wget required."
   fi
@@ -132,16 +134,16 @@ if [ ! -d "$DOT_DIR/.git" ]; then
 else
   download "Pull dotfiles repository ($DOTFILES_BRANCH)..."
   git -C "$DOT_DIR" fetch origin "$DOTFILES_BRANCH:refs/remotes/origin/$DOTFILES_BRANCH" ||
-    error "failed to fetch dotfiles repository branch: $DOTFILES_BRANCH"
+    error "Failed to fetch dotfiles repository branch: $DOTFILES_BRANCH"
   if git -C "$DOT_DIR" show-ref --verify --quiet "refs/heads/$DOTFILES_BRANCH"; then
     git -C "$DOT_DIR" switch "$DOTFILES_BRANCH" ||
-      error "failed to switch dotfiles repository branch: $DOTFILES_BRANCH"
+      error "Failed to switch dotfiles repository branch: $DOTFILES_BRANCH"
   else
     git -C "$DOT_DIR" switch --track -c "$DOTFILES_BRANCH" "origin/$DOTFILES_BRANCH" ||
-      error "failed to switch dotfiles repository branch: $DOTFILES_BRANCH"
+      error "Failed to switch dotfiles repository branch: $DOTFILES_BRANCH"
   fi
   git -C "$DOT_DIR" merge --ff-only "origin/$DOTFILES_BRANCH" ||
-    error "failed to merge dotfiles repository branch: $DOTFILES_BRANCH"
+    error "Failed to merge dotfiles repository branch: $DOTFILES_BRANCH"
 fi
 
 PACKAGE_UPDATE_SCRIPT="$DOT_DIR/src/$(os_name)/package_update.sh"
@@ -161,7 +163,7 @@ readonly SCRIPTS=(
 
 for script in "${SCRIPTS[@]}"; do
   if [ ! -f "$script" ]; then
-    error "not found: $script"
+    error "Not found: $script"
   fi
 done
 
