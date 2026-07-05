@@ -2,6 +2,9 @@
 
 This repository is dotfiles available for **Ubuntu** or **macOS** setups.
 
+Unsupported OSes are blocked before setup starts.
+To run on unsupported OSes at your own risk, set `DOTFILES_ALLOW_UNSUPPORTED_OS=true`.
+
 ## How to use
 
 ```sh
@@ -31,6 +34,9 @@ wget -qO- https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh 
 # Config deployment by executing one of the one-liners.
 curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --config-deploy
 wget -qO- https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --config-deploy
+
+# Run on unsupported OSes at your own risk.
+curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | DOTFILES_ALLOW_UNSUPPORTED_OS=true bash
 ```
 
 ## Dependencies

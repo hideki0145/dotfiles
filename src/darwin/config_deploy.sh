@@ -16,7 +16,7 @@ if [ ! -f "$FIRST_RUN" ]; then
 fi
 
 declare -a SYMLINK_ENTRIES=(
-  "docker/$(os_name)/config.json|$HOME/.docker/"
+  "docker/$DOTFILES_OS_NAME/config.json|$HOME/.docker/"
   "git/.gitconfig.local|$HOME/"
   "git/ignore|$HOME/.config/git/"
   "mise/.default-gems|$HOME/"
@@ -24,7 +24,7 @@ declare -a SYMLINK_ENTRIES=(
   "prezto/.zpreztorc|$HOME/"
   "starship/starship.toml|$HOME/.config/"
   "vim/.vimrc|$HOME/"
-  "zsh/$(os_name)/.zshrc|$HOME/"
+  "zsh/$DOTFILES_OS_NAME/.zshrc|$HOME/"
 )
 
 for entry in "${SYMLINK_ENTRIES[@]}"; do

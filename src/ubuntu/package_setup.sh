@@ -8,7 +8,7 @@ fi
 
 # main
 source "$DOT_DIR/src/utils.sh"
-source "$DOT_DIR/src/$(os_name)/utils.sh"
+source "$DOT_DIR/src/$DOTFILES_OS_NAME/utils.sh"
 
 title "Package Setup start..."
 
@@ -62,7 +62,7 @@ if ! has "zsh"; then
   sudo sed -i.bak -e "/auth.*required.*pam_shells.so/s/required/sufficient/g" /etc/pam.d/chsh
   chsh -s "$(which zsh)"
   sudo sed -i.bak -e "/auth.*sufficient.*pam_shells.so/s/sufficient/required/g" /etc/pam.d/chsh
-  cp "$DOT_DIR/config/zsh/$(os_name)/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
+  cp "$DOT_DIR/config/zsh/$DOTFILES_OS_NAME/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
 else
   zsh --version
 fi

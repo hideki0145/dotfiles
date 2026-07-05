@@ -8,7 +8,7 @@ fi
 
 # main
 source "$DOT_DIR/src/utils.sh"
-source "$DOT_DIR/src/$(os_name)/utils.sh"
+source "$DOT_DIR/src/$DOTFILES_OS_NAME/utils.sh"
 
 title "Package Update start..."
 

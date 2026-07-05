@@ -8,7 +8,7 @@ fi
 
 # main
 source "$DOT_DIR/src/utils.sh"
-source "$DOT_DIR/src/$(os_name)/utils.sh"
+source "$DOT_DIR/src/$DOTFILES_OS_NAME/utils.sh"
 
 title "Package Setup start..."
 
@@ -70,7 +70,7 @@ if ! has_formula "zsh"; then
   description "Change login shell."
   sudo sh -c 'echo "/opt/homebrew/bin/zsh" >> /etc/shells'
   chsh -s /opt/homebrew/bin/zsh
-  cp "$DOT_DIR/config/zsh/$(os_name)/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
+  cp "$DOT_DIR/config/zsh/$DOTFILES_OS_NAME/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
 else
   zsh --version
 fi

@@ -23,7 +23,7 @@ declare -a SYMLINK_ENTRIES=(
   "prezto/.zpreztorc|$HOME/"
   "starship/starship.toml|$HOME/.config/"
   "vim/.vimrc|$HOME/"
-  "zsh/$(os_name)/.zshrc|$HOME/"
+  "zsh/$DOTFILES_OS_NAME/.zshrc|$HOME/"
 )
 
 for entry in "${SYMLINK_ENTRIES[@]}"; do

@@ -146,13 +146,16 @@ else
     error "Failed to merge dotfiles repository branch: $DOTFILES_BRANCH"
 fi
 
-PACKAGE_UPDATE_SCRIPT="$DOT_DIR/src/$(os_name)/package_update.sh"
+ensure_os_support
+DOTFILES_OS_NAME="$(os_name)"
+readonly DOTFILES_OS_NAME
+PACKAGE_UPDATE_SCRIPT="$DOT_DIR/src/$DOTFILES_OS_NAME/package_update.sh"
 readonly PACKAGE_UPDATE_SCRIPT
-PACKAGE_SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/package_setup.sh"
+PACKAGE_SETUP_SCRIPT="$DOT_DIR/src/$DOTFILES_OS_NAME/package_setup.sh"
 readonly PACKAGE_SETUP_SCRIPT
-DEVKIT_SETUP_SCRIPT="$DOT_DIR/src/$(os_name)/devkit_setup.sh"
+DEVKIT_SETUP_SCRIPT="$DOT_DIR/src/$DOTFILES_OS_NAME/devkit_setup.sh"
 readonly DEVKIT_SETUP_SCRIPT
-CONFIG_DEPLOY_SCRIPT="$DOT_DIR/src/$(os_name)/config_deploy.sh"
+CONFIG_DEPLOY_SCRIPT="$DOT_DIR/src/$DOTFILES_OS_NAME/config_deploy.sh"
 readonly CONFIG_DEPLOY_SCRIPT
 readonly SCRIPTS=(
   "$PACKAGE_UPDATE_SCRIPT"
@@ -167,7 +170,7 @@ for script in "${SCRIPTS[@]}"; do
   fi
 done
 
-if [ "$(os_name)" != "darwin" ]; then
+if [ "$DOTFILES_OS_NAME" != "darwin" ]; then
   ask_for_sudo_password
 fi
 

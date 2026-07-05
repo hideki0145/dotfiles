@@ -42,6 +42,36 @@ os_version() {
   esac
   printf "%s" "$version"
 }
+check_os_support_override() {
+  case "${DOTFILES_ALLOW_UNSUPPORTED_OS:-false}" in
+  true)
+    return 0
+    ;;
+  *)
+    return 1
+    ;;
+  esac
+}
+check_os_supported() {
+  case "$(os_name)" in
+  ubuntu | darwin)
+    return 0
+    ;;
+  *)
+    return 1
+    ;;
+  esac
+}
+ensure_os_support() {
+  if check_os_supported; then
+    return
+  fi
+  if check_os_support_override; then
+    hint "Unsupported OS '$(os_name)' detected. Continue because DOTFILES_ALLOW_UNSUPPORTED_OS is set."
+    return
+  fi
+  error "Unsupported OS: $(os_name). Set DOTFILES_ALLOW_UNSUPPORTED_OS=true to continue at your own risk."
+}
 
 # Ask for sudo password upfront.
 # For reference, see: https://github.com/alrra/dotfiles/blob/main/src/os/utils.sh#L20
