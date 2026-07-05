@@ -53,14 +53,6 @@ else
   redis-cli --version
 fi
 
-# graphviz
-package_name "graphviz"
-if ! has "dot"; then
-  sudo apt install -y graphviz
-else
-  dot -V
-fi
-
 # gh
 # For reference, see: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 package_name "gh"

@@ -41,14 +41,6 @@ else
   redis-cli --version
 fi
 
-# graphviz
-package_name "graphviz"
-if ! has_formula "graphviz"; then
-  brew install graphviz
-else
-  dot -V
-fi
-
 # gh
 package_name "gh"
 if ! has_formula "gh"; then
