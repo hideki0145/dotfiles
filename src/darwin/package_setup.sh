@@ -170,45 +170,38 @@ mise self-update -y
 mise upgrade
 mise plugins upgrade
 
-if ! mise list usage | grep -q usage; then
-  mise use --global usage@latest
-else
-  mise list usage | grep usage
-fi
-if ! mise list fzf | grep -q fzf; then
-  mise use --global fzf@latest
-else
-  mise list fzf | grep fzf
-fi
-if ! mise list shellcheck | grep -q shellcheck; then
-  mise use --global shellcheck@latest
-else
-  mise list shellcheck | grep shellcheck
-fi
-if ! mise list shfmt | grep -q shfmt; then
-  mise use --global shfmt@latest
-else
-  mise list shfmt | grep shfmt
-fi
-if ! mise list node | grep -q node; then
-  mise use node@latest
-else
-  mise list node | grep node
-fi
+setup_mise_tool() {
+  local tool="$1"
+  local use_scope="$2"
+  shift 2
+
+  if ! mise list "$tool" | grep -q "$tool"; then
+    if [ "$#" -gt 0 ]; then
+      brew install "$@"
+    fi
+    if [ "$use_scope" = "global" ]; then
+      mise use --global "$tool@latest"
+    else
+      mise use "$tool@latest"
+    fi
+  else
+    mise list "$tool" | grep "$tool"
+  fi
+}
+readonly MISE_GLOBAL_TOOLS=(
+  usage
+  fzf
+  shellcheck
+  shfmt
+)
+for tool in "${MISE_GLOBAL_TOOLS[@]}"; do
+  setup_mise_tool "$tool" "global"
+done
+setup_mise_tool "node" "local"
 # For reference, see: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
-if ! mise list python | grep -q python; then
-  brew install openssl@3 readline sqlite3 xz tcl-tk@8 libb2 zstd zlib pkgconfig
-  mise use python@latest
-else
-  mise list python | grep python
-fi
+setup_mise_tool "python" "local" openssl@3 readline sqlite3 xz tcl-tk@8 libb2 zstd zlib pkgconfig
 # For reference, see: https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
-if ! mise list ruby | grep -q ruby; then
-  brew install openssl@3 readline libyaml gmp autoconf
-  mise use ruby@latest
-else
-  mise list ruby | grep ruby
-fi
+setup_mise_tool "ruby" "local" openssl@3 readline libyaml gmp autoconf
 
 # uv
 package_name "uv"

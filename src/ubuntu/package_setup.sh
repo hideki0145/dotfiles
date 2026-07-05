@@ -161,47 +161,39 @@ mise self-update -y
 mise upgrade
 mise plugins upgrade
 
-if ! mise list usage | grep -q usage; then
-  mise use --global usage@latest
-else
-  mise list usage | grep usage
-fi
-if ! mise list fzf | grep -q fzf; then
-  mise use --global fzf@latest
-else
-  mise list fzf | grep fzf
-fi
-if ! mise list shellcheck | grep -q shellcheck; then
-  mise use --global shellcheck@latest
-else
-  mise list shellcheck | grep shellcheck
-fi
-if ! mise list shfmt | grep -q shfmt; then
-  mise use --global shfmt@latest
-else
-  mise list shfmt | grep shfmt
-fi
+setup_mise_tool() {
+  local tool="$1"
+  local use_scope="$2"
+  shift 2
+
+  if ! mise list "$tool" | grep -q "$tool"; then
+    if [ "$#" -gt 0 ]; then
+      sudo apt install -y "$@"
+    fi
+    if [ "$use_scope" = "global" ]; then
+      mise use --global "$tool@latest"
+    else
+      mise use "$tool@latest"
+    fi
+  else
+    mise list "$tool" | grep "$tool"
+  fi
+}
+readonly MISE_GLOBAL_TOOLS=(
+  usage
+  fzf
+  shellcheck
+  shfmt
+)
+for tool in "${MISE_GLOBAL_TOOLS[@]}"; do
+  setup_mise_tool "$tool" "global"
+done
 # For reference, see: https://github.com/nodejs/node/blob/main/BUILDING.md#official-binary-platforms-and-toolchains
-if ! mise list node | grep -q node; then
-  sudo apt install -y libatomic1
-  mise use node@latest
-else
-  mise list node | grep node
-fi
+setup_mise_tool "node" "local" libatomic1
 # For reference, see: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
-if ! mise list python | grep -q python; then
-  sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl git libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev libzstd-dev
-  mise use python@latest
-else
-  mise list python | grep python
-fi
+setup_mise_tool "python" "local" make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl git libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev libzstd-dev
 # For reference, see: https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
-if ! mise list ruby | grep -q ruby; then
-  sudo apt install -y build-essential autoconf libssl-dev libyaml-dev zlib1g-dev libffi-dev libgmp-dev rustc
-  mise use ruby@latest
-else
-  mise list ruby | grep ruby
-fi
+setup_mise_tool "ruby" "local" build-essential autoconf libssl-dev libyaml-dev zlib1g-dev libffi-dev libgmp-dev rustc
 
 # uv
 package_name "uv"
