@@ -413,14 +413,6 @@ else
   mas_version 1295203466
 fi
 
-# WireGuard
-package_name "WireGuard"
-if ! has_mas 1451685025; then
-  mas install 1451685025
-else
-  mas_version 1451685025
-fi
-
 # Package Setup complete
 if [ -f "$FIRST_RUN" ]; then
   summary_result "Package Setup complete!"
