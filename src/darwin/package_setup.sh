@@ -324,14 +324,6 @@ else
   plist_version "/Applications/Clibor.app/Contents"
 fi
 
-# deepl
-package_name "deepl"
-if ! has_cask "deepl"; then
-  brew install --cask deepl
-else
-  plist_version "/Applications/DeepL.app/Contents"
-fi
-
 # gimp
 package_name "gimp"
 if ! has_cask "gimp"; then
