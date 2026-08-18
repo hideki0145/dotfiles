@@ -20,7 +20,7 @@ fi
 # postgresql
 package_name "postgresql"
 if ! has_formula "libpq"; then
-  brew install libpq
+  brew install -y libpq
 else
   psql --version
 fi
@@ -28,7 +28,7 @@ fi
 # sqlite3
 package_name "sqlite3"
 if ! has_formula "sqlite"; then
-  brew install sqlite
+  brew install -y sqlite
 else
   sqlite3 --version
 fi
@@ -36,7 +36,7 @@ fi
 # redis
 package_name "redis"
 if ! has_formula "redis"; then
-  brew install redis
+  brew install -y redis
 else
   redis-cli --version
 fi
@@ -44,7 +44,7 @@ fi
 # gh
 package_name "gh"
 if ! has_formula "gh"; then
-  brew install gh
+  brew install -y gh
 else
   gh --version
 fi
@@ -52,7 +52,7 @@ fi
 # lazygit
 package_name "lazygit"
 if ! has_formula "lazygit"; then
-  brew install jesseduffield/lazygit/lazygit
+  brew install -y jesseduffield/lazygit/lazygit
 else
   lazygit --version
 fi
@@ -60,7 +60,7 @@ fi
 # lazydocker
 package_name "lazydocker"
 if ! has_formula "lazydocker"; then
-  brew install jesseduffield/lazydocker/lazydocker
+  brew install -y jesseduffield/lazydocker/lazydocker
 else
   lazydocker --version
 fi
@@ -68,8 +68,8 @@ fi
 # docker
 package_name "docker"
 if ! has_formula "docker"; then
-  brew install docker
-  brew install docker-compose
+  brew install -y docker
+  brew install -y docker-compose
 else
   docker --version
   docker compose version
@@ -81,7 +81,7 @@ fi
 # lima
 package_name "lima"
 if ! has_formula "lima"; then
-  brew install lima
+  brew install -y lima
   limactl start --name=docker --vm-type=vz --mount-type=virtiofs --network=vzNAT --mount-writable --rosetta template:docker
   limactl start-at-login docker
   docker context create lima-docker --docker "host=unix:///$HOME/.lima/docker/sock/docker.sock"

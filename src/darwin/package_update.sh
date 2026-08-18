@@ -16,7 +16,7 @@ if has_formula "mas"; then
   mas update
 fi
 if has "brew"; then
-  brew update && brew upgrade && brew autoremove && brew cleanup
+  brew update && brew upgrade -y && brew autoremove && brew cleanup
 fi
 
 # Package Update complete

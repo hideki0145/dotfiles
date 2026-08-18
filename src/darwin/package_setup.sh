@@ -25,7 +25,7 @@ fi
 # mas
 package_name "mas"
 if ! has_formula "mas"; then
-  brew install mas
+  brew install -y mas
 else
   mas version
 fi
@@ -33,7 +33,7 @@ fi
 # pipx
 package_name "pipx"
 if ! has_formula "pipx"; then
-  brew install pipx
+  brew install -y pipx
   pipx ensurepath
 else
   pipx --version
@@ -43,7 +43,7 @@ fi
 # git
 package_name "git"
 if ! has_formula "git"; then
-  brew install git
+  brew install -y git
 else
   git --version
   if [ -f "$HOME/.gitconfig" ]; then
@@ -57,7 +57,7 @@ fi
 # vim
 package_name "vim"
 if ! has_formula "vim"; then
-  brew install vim
+  brew install -y vim
 else
   vim --version | head -n 1
 fi
@@ -65,7 +65,7 @@ fi
 # zsh
 package_name "zsh"
 if ! has_formula "zsh"; then
-  brew install zsh
+  brew install -y zsh
   mkdir -p ~/.zsh/completions
   description "Change login shell."
   sudo sh -c 'echo "/opt/homebrew/bin/zsh" >> /etc/shells'
@@ -118,7 +118,7 @@ done
 # starship
 package_name "starship"
 if ! has_formula "starship"; then
-  brew install starship
+  brew install -y starship
 else
   starship --version
 fi
@@ -126,7 +126,7 @@ fi
 # tig
 package_name "tig"
 if ! has_formula "tig"; then
-  brew install tig
+  brew install -y tig
 else
   tig --version
 fi
@@ -134,7 +134,7 @@ fi
 # delta
 package_name "delta"
 if ! has_formula "git-delta"; then
-  brew install git-delta
+  brew install -y git-delta
 else
   delta --version
 fi
@@ -177,7 +177,7 @@ setup_mise_tool() {
 
   if ! mise list "$tool" | grep -q "$tool"; then
     if [ "$#" -gt 0 ]; then
-      brew install "$@"
+      brew install -y "$@"
     fi
     if [ "$use_scope" = "global" ]; then
       mise use --global "$tool@latest"
@@ -247,7 +247,7 @@ fi
 # google chrome
 package_name "google chrome"
 if ! has_cask "google-chrome"; then
-  brew install --cask google-chrome
+  brew install -y --cask google-chrome
 else
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --version
 fi
@@ -255,7 +255,7 @@ fi
 # karabiner elements
 package_name "karabiner elements"
 if ! has_cask "karabiner-elements"; then
-  brew install --cask karabiner-elements
+  brew install -y --cask karabiner-elements
 else
   plist_version "/Applications/Karabiner-Elements.app/Contents"
 fi
@@ -263,7 +263,7 @@ fi
 # onedrive
 package_name "onedrive"
 if ! has_cask "onedrive"; then
-  brew install --cask onedrive
+  brew install -y --cask onedrive
 else
   plist_version "/Applications/OneDrive.app/Contents"
 fi
@@ -271,7 +271,7 @@ fi
 # visual studio code
 package_name "visual studio code"
 if ! has_cask "visual-studio-code"; then
-  brew install --cask visual-studio-code
+  brew install -y --cask visual-studio-code
 else
   "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" --version
 fi
@@ -279,7 +279,7 @@ fi
 # iterm2
 package_name "iterm2"
 if ! has_cask "iterm2"; then
-  brew install --cask iterm2
+  brew install -y --cask iterm2
 else
   plist_version "/Applications/iTerm.app/Contents"
 fi
@@ -287,7 +287,7 @@ fi
 # slack
 package_name "slack"
 if ! has_cask "slack"; then
-  brew install --cask slack
+  brew install -y --cask slack
 else
   plist_version "/Applications/Slack.app/Contents"
 fi
@@ -295,7 +295,7 @@ fi
 # asana
 package_name "asana"
 if ! has_cask "asana"; then
-  brew install --cask asana
+  brew install -y --cask asana
 else
   plist_version "/Applications/Asana.app/Contents"
 fi
@@ -303,7 +303,7 @@ fi
 # zoom
 package_name "zoom"
 if ! has_cask "zoom"; then
-  brew install --cask zoom
+  brew install -y --cask zoom
 else
   plist_version "/Applications/zoom.us.app/Contents"
 fi
@@ -311,7 +311,7 @@ fi
 # joplin
 package_name "joplin"
 if ! has_cask "joplin"; then
-  brew install --cask joplin
+  brew install -y --cask joplin
 else
   plist_version "/Applications/Joplin.app/Contents"
 fi
@@ -319,7 +319,7 @@ fi
 # clibor
 package_name "clibor"
 if ! has_cask "clibor"; then
-  brew install --cask clibor
+  brew install -y --cask clibor
 else
   plist_version "/Applications/Clibor.app/Contents"
 fi
@@ -327,7 +327,7 @@ fi
 # gimp
 package_name "gimp"
 if ! has_cask "gimp"; then
-  brew install --cask gimp
+  brew install -y --cask gimp
 else
   gimp --version
 fi
@@ -335,7 +335,7 @@ fi
 # keyclu
 package_name "keyclu"
 if ! has_cask "keyclu"; then
-  brew install --cask keyclu
+  brew install -y --cask keyclu
 else
   plist_version "/Applications/KeyClu.app/Contents"
 fi
@@ -343,7 +343,7 @@ fi
 # scroll reverser
 package_name "scroll reverser"
 if ! has_cask "scroll-reverser"; then
-  brew install --cask scroll-reverser
+  brew install -y --cask scroll-reverser
 else
   plist_version "/Applications/Scroll Reverser.app/Contents"
 fi
@@ -351,7 +351,7 @@ fi
 # tailscale
 package_name "tailscale"
 if ! has_cask "tailscale-app"; then
-  brew install --cask tailscale-app
+  brew install -y --cask tailscale-app
 else
   plist_version "/Applications/Tailscale.app/Contents"
 fi
@@ -359,7 +359,7 @@ fi
 # hackgen
 package_name "hackgen"
 if ! has_cask "font-hackgen"; then
-  brew install --cask font-hackgen font-hackgen-nerd
+  brew install -y --cask font-hackgen font-hackgen-nerd
 else
   cask_version "font-hackgen"
   cask_version "font-hackgen-nerd"
