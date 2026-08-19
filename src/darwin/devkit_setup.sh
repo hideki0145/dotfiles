@@ -52,7 +52,7 @@ fi
 # lazygit
 package_name "lazygit"
 if ! has_formula "lazygit"; then
-  brew install -y jesseduffield/lazygit/lazygit
+  brew install -y lazygit
 else
   lazygit --version
 fi
@@ -60,7 +60,7 @@ fi
 # lazydocker
 package_name "lazydocker"
 if ! has_formula "lazydocker"; then
-  brew install -y jesseduffield/lazydocker/lazydocker
+  brew install -y lazydocker
 else
   lazydocker --version
 fi
