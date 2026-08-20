@@ -18,6 +18,9 @@ fi
 if has "brew"; then
   brew update && brew upgrade -y && brew autoremove && brew cleanup
 fi
+if has "uv"; then
+  uv tool upgrade --all
+fi
 
 # Package Update complete
 summary_result "Package Update complete!"

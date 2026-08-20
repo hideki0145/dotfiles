@@ -18,14 +18,17 @@ if ! has "curl"; then
   sudo apt install -y curl
 fi
 
-# pipx
-package_name "pipx"
-if ! has "pipx"; then
-  sudo apt install -y pipx
-  pipx ensurepath
+# uv
+package_name "uv"
+if ! has "uv"; then
+  curl -LsSf https://astral.sh/uv/install.sh | sh
 else
-  pipx --version
+  uv --version
 fi
+uv generate-shell-completion zsh | sudo tee /usr/local/share/zsh/site-functions/_uv >/dev/null
+uvx --generate-shell-completion zsh | sudo tee /usr/local/share/zsh/site-functions/_uvx >/dev/null
+
+uv self update
 
 # CUI packages
 # git
@@ -194,18 +197,6 @@ setup_mise_tool "node" "local" libatomic1
 setup_mise_tool "python" "local" make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl git libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev libzstd-dev
 # For reference, see: https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
 setup_mise_tool "ruby" "local" build-essential autoconf libssl-dev libyaml-dev zlib1g-dev libffi-dev libgmp-dev rustc
-
-# uv
-package_name "uv"
-if ! has "uv"; then
-  curl -LsSf https://astral.sh/uv/install.sh | sh
-else
-  uv --version
-fi
-uv generate-shell-completion zsh | sudo tee /usr/local/share/zsh/site-functions/_uv >/dev/null
-uvx --generate-shell-completion zsh | sudo tee /usr/local/share/zsh/site-functions/_uvx >/dev/null
-
-uv self update
 
 # yarn
 package_name "yarn"

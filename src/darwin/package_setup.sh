@@ -30,14 +30,17 @@ else
   mas version
 fi
 
-# pipx
-package_name "pipx"
-if ! has_formula "pipx"; then
-  brew install -y pipx
-  pipx ensurepath
+# uv
+package_name "uv"
+if ! has "uv"; then
+  curl -LsSf https://astral.sh/uv/install.sh | sh
 else
-  pipx --version
+  uv --version
 fi
+uv generate-shell-completion zsh | tee ~/.zsh/completions/_uv >/dev/null
+uvx --generate-shell-completion zsh | tee ~/.zsh/completions/_uvx >/dev/null
+
+uv self update
 
 # CUI packages
 # git
@@ -202,18 +205,6 @@ setup_mise_tool "node" "local"
 setup_mise_tool "python" "local" openssl@3 readline sqlite3 xz tcl-tk@8 libb2 zstd zlib pkgconfig
 # For reference, see: https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
 setup_mise_tool "ruby" "local" openssl@3 readline libyaml gmp autoconf
-
-# uv
-package_name "uv"
-if ! has "uv"; then
-  curl -LsSf https://astral.sh/uv/install.sh | sh
-else
-  uv --version
-fi
-uv generate-shell-completion zsh | tee ~/.zsh/completions/_uv >/dev/null
-uvx --generate-shell-completion zsh | tee ~/.zsh/completions/_uvx >/dev/null
-
-uv self update
 
 # yarn
 package_name "yarn"

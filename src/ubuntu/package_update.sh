@@ -13,6 +13,9 @@ source "$DOT_DIR/src/$DOTFILES_OS_NAME/utils.sh"
 title "Package Update start..."
 
 sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean
+if has "uv"; then
+  uv tool upgrade --all
+fi
 
 # Package Update complete
 summary_result "Package Update complete!"
