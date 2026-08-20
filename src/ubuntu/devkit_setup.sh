@@ -68,7 +68,6 @@ if ! has "gh"; then
 else
   gh --version
 fi
-gh completion -s zsh | sudo tee /usr/local/share/zsh/site-functions/_gh >/dev/null
 
 # lazygit
 # For reference, see: https://github.com/jesseduffield/lazygit?tab=readme-ov-file#debian-and-ubuntu

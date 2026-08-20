@@ -12,6 +12,8 @@ source "$DOT_DIR/src/$DOTFILES_OS_NAME/utils.sh"
 
 title "Package Setup start..."
 
+mkdir -p ~/.zsh/completions
+
 # Required packages
 # homebrew
 package_name "homebrew"
@@ -37,10 +39,9 @@ if ! has "uv"; then
 else
   uv --version
 fi
+uv self update
 uv generate-shell-completion zsh | tee ~/.zsh/completions/_uv >/dev/null
 uvx --generate-shell-completion zsh | tee ~/.zsh/completions/_uvx >/dev/null
-
-uv self update
 
 # CUI packages
 # git
@@ -69,7 +70,6 @@ fi
 package_name "zsh"
 if ! has_formula "zsh"; then
   brew install -y zsh
-  mkdir -p ~/.zsh/completions
   description "Change login shell."
   sudo sh -c 'echo "/opt/homebrew/bin/zsh" >> /etc/shells'
   chsh -s /opt/homebrew/bin/zsh
@@ -141,7 +141,6 @@ if ! has_formula "git-delta"; then
 else
   delta --version
 fi
-delta --generate-completion zsh | tee ~/.zsh/completions/_delta >/dev/null
 
 # rustup
 package_name "rustup"
@@ -167,8 +166,6 @@ if ! has "mise"; then
 else
   mise --version
 fi
-mise completion zsh | tee ~/.zsh/completions/_mise >/dev/null
-
 mise self-update -y
 mise upgrade
 mise plugins upgrade
@@ -205,6 +202,8 @@ setup_mise_tool "node" "local"
 setup_mise_tool "python" "local" openssl@3 readline sqlite3 xz tcl-tk@8 libb2 zstd zlib pkgconfig
 # For reference, see: https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
 setup_mise_tool "ruby" "local" openssl@3 readline libyaml gmp autoconf
+
+mise completion zsh | tee ~/.zsh/completions/_mise >/dev/null
 
 # yarn
 package_name "yarn"

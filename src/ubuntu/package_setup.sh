@@ -12,6 +12,8 @@ source "$DOT_DIR/src/$DOTFILES_OS_NAME/utils.sh"
 
 title "Package Setup start..."
 
+mkdir -p ~/.zsh/completions
+
 # Required packages
 # curl
 if ! has "curl"; then
@@ -25,10 +27,9 @@ if ! has "uv"; then
 else
   uv --version
 fi
-uv generate-shell-completion zsh | sudo tee /usr/local/share/zsh/site-functions/_uv >/dev/null
-uvx --generate-shell-completion zsh | sudo tee /usr/local/share/zsh/site-functions/_uvx >/dev/null
-
 uv self update
+uv generate-shell-completion zsh | tee ~/.zsh/completions/_uv >/dev/null
+uvx --generate-shell-completion zsh | tee ~/.zsh/completions/_uvx >/dev/null
 
 # CUI packages
 # git
@@ -135,7 +136,7 @@ if ! has "delta" || [ ! "$DELTA_VERSION" = "$(delta --version | sed -n 's/^delta
   rm "/tmp/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb"
 fi
 delta --version
-delta --generate-completion zsh | sudo tee /usr/local/share/zsh/site-functions/_delta >/dev/null
+delta --generate-completion zsh | tee ~/.zsh/completions/_delta >/dev/null
 
 # rustup
 package_name "rustup"
@@ -161,8 +162,6 @@ if ! has "mise"; then
 else
   mise --version
 fi
-mise completion zsh | sudo tee /usr/local/share/zsh/site-functions/_mise >/dev/null
-
 mise self-update -y
 mise upgrade
 mise plugins upgrade
@@ -200,6 +199,8 @@ setup_mise_tool "node" "local" libatomic1
 setup_mise_tool "python" "local" make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl git libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev libzstd-dev
 # For reference, see: https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
 setup_mise_tool "ruby" "local" build-essential autoconf libssl-dev libyaml-dev zlib1g-dev libffi-dev libgmp-dev rustc
+
+mise completion zsh | tee ~/.zsh/completions/_mise >/dev/null
 
 # yarn
 package_name "yarn"
