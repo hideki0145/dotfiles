@@ -71,11 +71,12 @@ fi
 gh completion -s zsh | sudo tee /usr/local/share/zsh/site-functions/_gh >/dev/null
 
 # lazygit
-# For reference, see: https://github.com/jesseduffield/lazygit?tab=readme-ov-file#ubuntu
+# For reference, see: https://github.com/jesseduffield/lazygit?tab=readme-ov-file#debian-and-ubuntu
 package_name "lazygit"
-LAZYGIT_VERSION=$(get_github_repository "/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": *"v\K[^"]*')
-if ! has "lazygit" || [ ! "$LAZYGIT_VERSION" = "$(lazygit --version | grep -Po ', version=\K[\d.]+')" ]; then
-  curl -LsSo "$DOT_DIR/tmp/lazygit.tar.gz" "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_$(uname -s)_$(uname -m).tar.gz"
+LAZYGIT_VERSION=$(get_github_latest_version "jesseduffield/lazygit")
+if ! has "lazygit" || [ ! "$LAZYGIT_VERSION" = "$(lazygit --version | sed -n 's/^.*, version=\([^,[:space:]]*\).*$/\1/p')" ]; then
+  LAZYGIT_ARCH=$(uname -m | sed -e 's/aarch64/arm64/')
+  curl -LsSo "$DOT_DIR/tmp/lazygit.tar.gz" "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_$(uname -s)_${LAZYGIT_ARCH}.tar.gz"
   tar xf "$DOT_DIR/tmp/lazygit.tar.gz" -C "$DOT_DIR/tmp"
   sudo install "$DOT_DIR/tmp/lazygit" -D -t /usr/local/bin/
 fi
@@ -84,9 +85,10 @@ lazygit --version
 # lazydocker
 # For reference, see: https://github.com/jesseduffield/lazydocker?tab=readme-ov-file#binary-release-linuxosxwindows
 package_name "lazydocker"
-LAZYDOCKER_VERSION=$(get_github_repository "/repos/jesseduffield/lazydocker/releases/latest" | grep -Po '"tag_name": *"v\K[^"]*')
-if ! has "lazydocker" || [ ! "$LAZYDOCKER_VERSION" = "$(lazydocker --version | grep -Po 'Version: \K[\d.]+')" ]; then
-  curl -LsSo "$DOT_DIR/tmp/lazydocker.tar.gz" "https://github.com/jesseduffield/lazydocker/releases/download/v${LAZYDOCKER_VERSION}/lazydocker_${LAZYDOCKER_VERSION}_$(uname -s)_$(uname -m).tar.gz"
+LAZYDOCKER_VERSION=$(get_github_latest_version "jesseduffield/lazydocker")
+if ! has "lazydocker" || [ ! "$LAZYDOCKER_VERSION" = "$(lazydocker --version | sed -n 's/^Version: \([^[:space:]]*\).*$/\1/p')" ]; then
+  LAZYDOCKER_ARCH=$(uname -m | sed -e 's/aarch64/arm64/')
+  curl -LsSo "$DOT_DIR/tmp/lazydocker.tar.gz" "https://github.com/jesseduffield/lazydocker/releases/download/v${LAZYDOCKER_VERSION}/lazydocker_${LAZYDOCKER_VERSION}_$(uname -s)_${LAZYDOCKER_ARCH}.tar.gz"
   tar xf "$DOT_DIR/tmp/lazydocker.tar.gz" -C "$DOT_DIR/tmp"
   sudo install "$DOT_DIR/tmp/lazydocker" -D -t /usr/local/bin/
 fi

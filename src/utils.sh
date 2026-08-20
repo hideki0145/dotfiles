@@ -214,6 +214,14 @@ get_github_repository() {
     curl -s "https://api.github.com$1"
   fi
 }
+# Get the latest GitHub release version without a leading 'v'.
+get_github_latest_version() {
+  local repository="$1"
+  local tag
+  tag=$(get_github_repository "/repos/$repository/releases/latest" | sed -n 's/.*"tag_name":[[:space:]]*"\([^"]*\)".*/\1/p')
+  [ -n "$tag" ] || return 1
+  printf "%s" "${tag#v}"
+}
 
 # Enable selecting a specific version with 'mise use'.
 # For reference, see: https://qiita.com/suin/items/909ec1172a80091946fe
