@@ -118,12 +118,11 @@ else
 fi
 
 # ansible
-# For reference, see: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pipx
+# For reference, see: https://docs.astral.sh/uv/guides/tools/#installing-tools
 package_name "ansible"
 if ! has "ansible"; then
-  pipx install --include-deps ansible
+  uv tool install --with-executables-from ansible-core,ansible-lint ansible
 else
-  pipx upgrade --include-injected ansible
   ansible --version
 fi
 
