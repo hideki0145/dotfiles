@@ -150,7 +150,7 @@ if ! has "rustup"; then
   # shellcheck disable=SC2016
   echo '. "$HOME/.cargo/env"' >>~/.bashrc
 else
-  rustup update
+  rustup self update
   rustup --version
   rustc --version
 fi
@@ -166,9 +166,7 @@ if ! has "mise"; then
 else
   mise --version
 fi
-mise self-update -y
-mise upgrade
-mise plugins upgrade
+mise self-update -y --no-plugins
 
 setup_mise_tool() {
   local tool_spec="$1"

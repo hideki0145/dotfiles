@@ -16,6 +16,13 @@ sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo apt a
 if has "uv"; then
   uv tool upgrade --all
 fi
+if has "rustup"; then
+  rustup update --no-self-update
+fi
+if has "mise"; then
+  mise plugins update
+  mise -C "$HOME" upgrade
+fi
 
 # Package Update complete
 summary_result "Package Update complete!"
