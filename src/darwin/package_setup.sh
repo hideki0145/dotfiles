@@ -171,37 +171,33 @@ mise upgrade
 mise plugins upgrade
 
 setup_mise_tool() {
-  local tool="$1"
-  local use_scope="$2"
-  shift 2
+  local tool_spec="$1"
+  local tool_name="${tool_spec%%@*}"
+  shift
 
-  if ! mise list "$tool" | grep -q "$tool"; then
+  if ! mise list "$tool_name" | grep -q "$tool_name"; then
     if [ "$#" -gt 0 ]; then
       brew install -y "$@"
     fi
-    if [ "$use_scope" = "global" ]; then
-      mise use --global "$tool@latest"
-    else
-      mise use "$tool@latest"
-    fi
+    mise use --global "$tool_spec"
   else
-    mise list "$tool" | grep "$tool"
+    mise list --global "$tool_name" | grep "$tool_name"
   fi
 }
 readonly MISE_GLOBAL_TOOLS=(
-  usage
-  fzf
-  shellcheck
-  shfmt
+  usage@latest
+  fzf@latest
+  shellcheck@latest
+  shfmt@latest
 )
-for tool in "${MISE_GLOBAL_TOOLS[@]}"; do
-  setup_mise_tool "$tool" "global"
+for tool_spec in "${MISE_GLOBAL_TOOLS[@]}"; do
+  setup_mise_tool "$tool_spec"
 done
-setup_mise_tool "node" "local"
+setup_mise_tool "node@lts"
 # For reference, see: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
-setup_mise_tool "python" "local" openssl@3 readline sqlite3 xz tcl-tk@8 libb2 zstd zlib pkgconfig
+setup_mise_tool "python@latest" openssl@3 readline sqlite3 xz tcl-tk@8 libb2 zstd zlib pkgconfig
 # For reference, see: https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
-setup_mise_tool "ruby" "local" openssl@3 readline libyaml gmp autoconf
+setup_mise_tool "ruby@latest" openssl@3 readline libyaml gmp autoconf
 
 mise completion zsh | tee ~/.zsh/completions/_mise >/dev/null
 

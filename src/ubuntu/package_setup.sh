@@ -167,38 +167,34 @@ mise upgrade
 mise plugins upgrade
 
 setup_mise_tool() {
-  local tool="$1"
-  local use_scope="$2"
-  shift 2
+  local tool_spec="$1"
+  local tool_name="${tool_spec%%@*}"
+  shift
 
-  if ! mise list "$tool" | grep -q "$tool"; then
+  if ! mise list "$tool_name" | grep -q "$tool_name"; then
     if [ "$#" -gt 0 ]; then
       sudo apt install -y "$@"
     fi
-    if [ "$use_scope" = "global" ]; then
-      mise use --global "$tool@latest"
-    else
-      mise use "$tool@latest"
-    fi
+    mise use --global "$tool_spec"
   else
-    mise list "$tool" | grep "$tool"
+    mise list --global "$tool_name" | grep "$tool_name"
   fi
 }
 readonly MISE_GLOBAL_TOOLS=(
-  usage
-  fzf
-  shellcheck
-  shfmt
+  usage@latest
+  fzf@latest
+  shellcheck@latest
+  shfmt@latest
 )
-for tool in "${MISE_GLOBAL_TOOLS[@]}"; do
-  setup_mise_tool "$tool" "global"
+for tool_spec in "${MISE_GLOBAL_TOOLS[@]}"; do
+  setup_mise_tool "$tool_spec"
 done
 # For reference, see: https://github.com/nodejs/node/blob/main/BUILDING.md#official-binary-platforms-and-toolchains
-setup_mise_tool "node" "local" libatomic1
+setup_mise_tool "node@lts" libatomic1
 # For reference, see: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
-setup_mise_tool "python" "local" make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl git libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev libzstd-dev
+setup_mise_tool "python@latest" make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl git libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev libzstd-dev
 # For reference, see: https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
-setup_mise_tool "ruby" "local" build-essential autoconf libssl-dev libyaml-dev zlib1g-dev libffi-dev libgmp-dev rustc
+setup_mise_tool "ruby@latest" build-essential autoconf libssl-dev libyaml-dev zlib1g-dev libffi-dev libgmp-dev rustc
 
 mise completion zsh | tee ~/.zsh/completions/_mise >/dev/null
 
