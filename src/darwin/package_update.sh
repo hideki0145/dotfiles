@@ -7,7 +7,9 @@ if ! ${DOTFILES_RUNNER:-false}; then
 fi
 
 # main
+# shellcheck source=../utils.sh
 source "$DOT_DIR/src/utils.sh"
+# shellcheck source=utils.sh
 source "$DOT_DIR/src/$DOTFILES_OS_NAME/utils.sh"
 
 title "Package Update start..."

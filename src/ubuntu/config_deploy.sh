@@ -7,6 +7,7 @@ if ! ${DOTFILES_RUNNER:-false}; then
 fi
 
 # main
+# shellcheck source=../utils.sh
 source "$DOT_DIR/src/utils.sh"
 
 title "Config Deployment start..."

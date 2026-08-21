@@ -93,6 +93,7 @@ if [ ! -f "$UTILS_SCRIPT" ]; then
     exit 1
   fi
 fi
+# shellcheck source=utils.sh
 source "$UTILS_SCRIPT"
 
 # shellcheck disable=SC2034
@@ -176,6 +177,7 @@ fi
 
 run_scripts() {
   for script in "${SCRIPTS[@]}"; do
+    # shellcheck source=/dev/null
     source "$script"
   done
 }
@@ -184,15 +186,19 @@ if $RUN_ALL; then
   run_scripts
 else
   if $RUN_PACKAGE_UPDATE; then
+    # shellcheck source=/dev/null
     source "$PACKAGE_UPDATE_SCRIPT"
   fi
   if $RUN_PACKAGE_SETUP; then
+    # shellcheck source=/dev/null
     source "$PACKAGE_SETUP_SCRIPT"
   fi
   if $RUN_DEVKIT_SETUP; then
+    # shellcheck source=/dev/null
     source "$DEVKIT_SETUP_SCRIPT"
   fi
   if $RUN_CONFIG_DEPLOY; then
+    # shellcheck source=/dev/null
     source "$CONFIG_DEPLOY_SCRIPT"
   fi
 fi
