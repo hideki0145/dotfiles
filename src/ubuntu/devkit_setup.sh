@@ -47,18 +47,13 @@ else
 fi
 
 # redis
-# For reference, see: https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/install-redis-on-linux/
+# For reference, see: https://redis.io/docs/latest/operate/oss_and_stack/install/install-stack/install-redis-cli/
 package_name "redis"
-if ! has "redis-cli"; then
-  sudo apt install -y lsb-release curl gpg
-  curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
-  sudo chmod 644 /usr/share/keyrings/redis-archive-keyring.gpg
-  echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
-  sudo apt update
-  sudo apt install -y redis-tools
-else
-  redis-cli --version
+REDIS_CLI_VERSION=$(curl -fsSL https://packages.redis.io/redis-cli/stable | tr -d ' \t\r\n')
+if ! has "redis-cli" || [ ! "$REDIS_CLI_VERSION" = "$(redis-cli --version | sed -n 's/^redis-cli \([^[:space:]]*\).*$/\1/p')" ]; then
+  curl -fsSL https://packages.redis.io/redis-cli/install.sh | sh
 fi
+redis-cli --version
 
 # gh
 # For reference, see: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
