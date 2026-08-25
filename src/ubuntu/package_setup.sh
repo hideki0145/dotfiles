@@ -164,9 +164,9 @@ if ! has "mise"; then
   echo 'eval "$(~/.local/bin/mise activate bash)"' >>~/.bashrc
   eval "$(~/.local/bin/mise activate bash)"
 else
+  mise self-update -y --no-plugins
   mise --version
 fi
-mise self-update -y --no-plugins
 
 setup_mise_tool() {
   local tool_spec="$1"
