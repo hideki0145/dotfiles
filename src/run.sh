@@ -152,7 +152,7 @@ DOTFILES_OS_NAME="$(os_name)"
 readonly DOTFILES_OS_NAME
 PACKAGE_UPDATE_SCRIPT="$DOT_DIR/src/package_update.sh"
 readonly PACKAGE_UPDATE_SCRIPT
-PACKAGE_SETUP_SCRIPT="$DOT_DIR/src/$DOTFILES_OS_NAME/package_setup.sh"
+PACKAGE_SETUP_SCRIPT="$DOT_DIR/src/package_setup.sh"
 readonly PACKAGE_SETUP_SCRIPT
 DEVKIT_SETUP_SCRIPT="$DOT_DIR/src/$DOTFILES_OS_NAME/devkit_setup.sh"
 readonly DEVKIT_SETUP_SCRIPT
@@ -190,7 +190,7 @@ else
     source "$PACKAGE_UPDATE_SCRIPT"
   fi
   if $RUN_PACKAGE_SETUP; then
-    # shellcheck source=/dev/null
+    # shellcheck source=package_setup.sh
     source "$PACKAGE_SETUP_SCRIPT"
   fi
   if $RUN_DEVKIT_SETUP; then
