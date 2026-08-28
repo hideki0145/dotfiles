@@ -1,5 +1,5 @@
 #!/bin/bash
-# Config Deployment Script for Darwin.
+# Config Deployment Script.
 
 if ! ${DOTFILES_RUNNER:-false}; then
   printf "Error: Please run this script via src/run.sh.\n" 1>&2
@@ -7,7 +7,7 @@ if ! ${DOTFILES_RUNNER:-false}; then
 fi
 
 # main
-# shellcheck source=../utils.sh
+# shellcheck source=utils.sh
 source "$DOT_DIR/src/utils.sh"
 
 title "Config Deployment start..."
@@ -17,7 +17,6 @@ if [ ! -f "$FIRST_RUN" ]; then
 fi
 
 declare -a SYMLINK_ENTRIES=(
-  "docker/$DOTFILES_OS_NAME/config.json|$HOME/.docker/"
   "git/.gitconfig.local|$HOME/"
   "git/ignore|$HOME/.config/git/"
   "mise/.default-gems|$HOME/"
@@ -27,6 +26,18 @@ declare -a SYMLINK_ENTRIES=(
   "vim/.vimrc|$HOME/"
   "zsh/$DOTFILES_OS_NAME/.zshrc|$HOME/"
 )
+
+case "$DOTFILES_OS_NAME" in
+ubuntu)
+  ;;
+darwin)
+  SYMLINK_ENTRIES+=(
+    "docker/$DOTFILES_OS_NAME/config.json|$HOME/.docker/"
+  )
+  ;;
+*) ;;
+esac
+readonly SYMLINK_ENTRIES
 
 for entry in "${SYMLINK_ENTRIES[@]}"; do
   file=${entry%%|*}
