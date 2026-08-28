@@ -150,7 +150,7 @@ fi
 ensure_os_support
 DOTFILES_OS_NAME="$(os_name)"
 readonly DOTFILES_OS_NAME
-PACKAGE_UPDATE_SCRIPT="$DOT_DIR/src/$DOTFILES_OS_NAME/package_update.sh"
+PACKAGE_UPDATE_SCRIPT="$DOT_DIR/src/package_update.sh"
 readonly PACKAGE_UPDATE_SCRIPT
 PACKAGE_SETUP_SCRIPT="$DOT_DIR/src/$DOTFILES_OS_NAME/package_setup.sh"
 readonly PACKAGE_SETUP_SCRIPT
@@ -186,7 +186,7 @@ if $RUN_ALL; then
   run_scripts
 else
   if $RUN_PACKAGE_UPDATE; then
-    # shellcheck source=/dev/null
+    # shellcheck source=package_update.sh
     source "$PACKAGE_UPDATE_SCRIPT"
   fi
   if $RUN_PACKAGE_SETUP; then

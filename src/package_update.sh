@@ -1,5 +1,5 @@
 #!/bin/bash
-# Package Update Script for Ubuntu.
+# Package Update Script.
 
 if ! ${DOTFILES_RUNNER:-false}; then
   printf "Error: Please run this script via src/run.sh.\n" 1>&2
@@ -7,14 +7,28 @@ if ! ${DOTFILES_RUNNER:-false}; then
 fi
 
 # main
-# shellcheck source=../utils.sh
-source "$DOT_DIR/src/utils.sh"
 # shellcheck source=utils.sh
+source "$DOT_DIR/src/utils.sh"
+# shellcheck source=/dev/null
 source "$DOT_DIR/src/$DOTFILES_OS_NAME/utils.sh"
 
 title "Package Update start..."
 
-sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean
+case "$DOTFILES_OS_NAME" in
+ubuntu)
+  sudo apt update && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean
+  ;;
+darwin)
+  if has "brew"; then
+    if has_formula "mas"; then
+      mas update
+    fi
+    brew update && brew upgrade -y && brew autoremove && brew cleanup
+  fi
+  ;;
+*) ;;
+esac
+
 if has "uv"; then
   uv tool upgrade --all
 fi
@@ -28,4 +42,3 @@ fi
 
 # Package Update complete
 summary_result "Package Update complete!"
-summary_description "Rebooting may be required."
