@@ -20,7 +20,7 @@ ubuntu)
   ;;
 darwin)
   if has "brew"; then
-    if has_formula "mas"; then
+    if has "mas"; then
       mas update
     fi
     brew update && brew upgrade -y && brew autoremove && brew cleanup

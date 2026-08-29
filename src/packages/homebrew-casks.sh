@@ -6,6 +6,10 @@ darwin) ;;
 *) return 0 ;;
 esac
 
+if ! has "brew"; then
+  return 0
+fi
+
 readonly CASK_ENTRIES=(
   # cask|version_type|version_target|version_argument
   "karabiner-elements|plist|/Applications/Karabiner-Elements.app/Contents"

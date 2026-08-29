@@ -154,7 +154,7 @@ PACKAGE_UPDATE_SCRIPT="$DOT_DIR/src/package_update.sh"
 readonly PACKAGE_UPDATE_SCRIPT
 PACKAGE_SETUP_SCRIPT="$DOT_DIR/src/package_setup.sh"
 readonly PACKAGE_SETUP_SCRIPT
-DEVKIT_SETUP_SCRIPT="$DOT_DIR/src/$DOTFILES_OS_NAME/devkit_setup.sh"
+DEVKIT_SETUP_SCRIPT="$DOT_DIR/src/devkit_setup.sh"
 readonly DEVKIT_SETUP_SCRIPT
 CONFIG_DEPLOY_SCRIPT="$DOT_DIR/src/config_deploy.sh"
 readonly CONFIG_DEPLOY_SCRIPT
@@ -194,7 +194,7 @@ else
     source "$PACKAGE_SETUP_SCRIPT"
   fi
   if $RUN_DEVKIT_SETUP; then
-    # shellcheck source=/dev/null
+    # shellcheck source=devkit_setup.sh
     source "$DEVKIT_SETUP_SCRIPT"
   fi
   if $RUN_CONFIG_DEPLOY; then

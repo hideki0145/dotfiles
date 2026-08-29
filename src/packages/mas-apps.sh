@@ -6,6 +6,10 @@ darwin) ;;
 *) return 0 ;;
 esac
 
+if ! has "mas"; then
+  return 0
+fi
+
 readonly MAS_APP_ENTRIES=(
   # app_name|app_id
   "AllMyBatteries|1621263412"

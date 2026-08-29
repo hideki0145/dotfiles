@@ -49,10 +49,10 @@ done
 # Package Setup complete
 if [ -f "$FIRST_RUN" ]; then
   summary_result "Package Setup complete!"
-  summary_description "Please restarting your shell."
+  summary_description "Please restart your shell."
 else
   touch "$FIRST_RUN"
   summary_result "First Package Setup complete!"
-  summary_description "You run it for the first time, please deployment of config, and restarting your shell."
-  summary_description "After that, please re-run this script again."
+  summary_description "You run it for the first time, please deployment of config, and restart your shell."
+  summary_description "After that, please re-run this script."
 fi
