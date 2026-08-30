@@ -6,6 +6,12 @@ darwin) ;;
 *) return 0 ;;
 esac
 
+if [ -f "$SKIP_MAS" ]; then
+  package_name "mas-apps"
+  skip "mas-apps"
+  return 0
+fi
+
 if ! has "mas"; then
   return 0
 fi

@@ -8,6 +8,8 @@ readonly DOTFILES_ORIGIN_URL="https://github.com/$GITHUB_REPOSITORY.git"
 readonly DEFAULT_DOTFILES_BRANCH="main"
 readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
+readonly SKIP_HOMEBREW_CASK="$DOT_DIR/tmp/skip_homebrew_cask"
+readonly SKIP_MAS="$DOT_DIR/tmp/skip_mas"
 
 DOTFILES_BRANCH="$DEFAULT_DOTFILES_BRANCH"
 RUN_ALL=true
@@ -15,6 +17,8 @@ RUN_PACKAGE_UPDATE=false
 RUN_PACKAGE_SETUP=false
 RUN_DEVKIT_SETUP=false
 RUN_CONFIG_DEPLOY=false
+CREATE_SKIP_HOMEBREW_CASK=false
+CREATE_SKIP_MAS=false
 while [ "$#" -gt 0 ]; do
   case "$1" in
   --branch)
@@ -48,6 +52,12 @@ while [ "$#" -gt 0 ]; do
     RUN_ALL=false
     RUN_CONFIG_DEPLOY=true
     ;;
+  --skip-homebrew-cask)
+    CREATE_SKIP_HOMEBREW_CASK=true
+    ;;
+  --skip-mas)
+    CREATE_SKIP_MAS=true
+    ;;
   --help | -h)
     cat <<EOF
 Usage: $GITHUB_REPOSITORY run.sh [OPTIONS]
@@ -59,6 +69,8 @@ Options:
   --package-setup, -s   Install required packages.
   --devkit-setup, -d    Install development tools.
   --config-deploy, -c   Deploy configuration files.
+  --skip-homebrew-cask  Skip Homebrew cask installation.
+  --skip-mas            Skip mas and Mac App Store apps installation.
   --help, -h            Show this help.
 EOF
     exit 0
@@ -103,10 +115,19 @@ readonly DOTFILES_COLLECT_SUMMARY=true
 # shellcheck disable=SC2034
 declare -a DOTFILES_SUMMARY_MESSAGES=()
 
+preserve_first_run=false
+preserve_skip_homebrew_cask=$CREATE_SKIP_HOMEBREW_CASK
+preserve_skip_mas=$CREATE_SKIP_MAS
+
 if [ ! -d "$DOT_DIR/.git" ]; then
-  exist_first_run=0
   if [ -f "$FIRST_RUN" ]; then
-    exist_first_run=1
+    preserve_first_run=true
+  fi
+  if [ -f "$SKIP_HOMEBREW_CASK" ]; then
+    preserve_skip_homebrew_cask=true
+  fi
+  if [ -f "$SKIP_MAS" ]; then
+    preserve_skip_mas=true
   fi
   rm -rf "$DOT_DIR"
   if has "git"; then
@@ -128,10 +149,6 @@ if [ ! -d "$DOT_DIR/.git" ]; then
   else
     error "curl or wget required."
   fi
-  if [ $exist_first_run -ne 0 ]; then
-    mkdir -p "$DOT_DIR/tmp"
-    touch "$FIRST_RUN"
-  fi
 else
   download "Pull dotfiles repository ($DOTFILES_BRANCH)..."
   git -C "$DOT_DIR" fetch origin "$DOTFILES_BRANCH:refs/remotes/origin/$DOTFILES_BRANCH" ||
@@ -145,6 +162,19 @@ else
   fi
   git -C "$DOT_DIR" merge --ff-only "origin/$DOTFILES_BRANCH" ||
     error "Failed to merge dotfiles repository branch: $DOTFILES_BRANCH"
+fi
+
+if $preserve_first_run || $preserve_skip_homebrew_cask || $preserve_skip_mas; then
+  mkdir -p "$DOT_DIR/tmp"
+fi
+if $preserve_first_run; then
+  touch "$FIRST_RUN"
+fi
+if $preserve_skip_homebrew_cask; then
+  touch "$SKIP_HOMEBREW_CASK"
+fi
+if $preserve_skip_mas; then
+  touch "$SKIP_MAS"
 fi
 
 ensure_os_support

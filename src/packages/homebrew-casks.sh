@@ -6,6 +6,12 @@ darwin) ;;
 *) return 0 ;;
 esac
 
+if [ -f "$SKIP_HOMEBREW_CASK" ]; then
+  package_name "homebrew-casks"
+  skip "homebrew-casks"
+  return 0
+fi
+
 if ! has "brew"; then
   return 0
 fi

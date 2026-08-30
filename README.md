@@ -37,6 +37,12 @@ wget -qO- https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh 
 
 # Run on unsupported OSes at your own risk.
 curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | DOTFILES_ALLOW_UNSUPPORTED_OS=true bash
+
+# Persistently skip Homebrew casks, mas, and Mac App Store apps.
+curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh | bash -s -- --skip-homebrew-cask --skip-mas
+# Remove a skip flag to enable its installation again.
+rm "$HOME/.dotfiles/tmp/skip_homebrew_cask"
+rm "$HOME/.dotfiles/tmp/skip_mas"
 ```
 
 ## Dependencies
