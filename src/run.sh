@@ -114,6 +114,7 @@ readonly DOTFILES_RUNNER=true
 readonly DOTFILES_COLLECT_SUMMARY=true
 # shellcheck disable=SC2034
 declare -a DOTFILES_SUMMARY_MESSAGES=()
+trap print_summary EXIT
 
 preserve_first_run=false
 preserve_skip_homebrew_cask=$CREATE_SKIP_HOMEBREW_CASK
@@ -239,4 +240,3 @@ fi
 if [ -z "$MISE_GITHUB_TOKEN" ]; then
   summary_hint "The environment variable MISE_GITHUB_TOKEN is not set."
 fi
-print_summary
