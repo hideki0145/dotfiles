@@ -11,8 +11,8 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-readonly DOT_DIR="$HOME/.dotfiles"
-readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
+DOT_DIR="$HOME/.dotfiles"
+UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
 source "$UTILS_SCRIPT"
 source "$DOT_DIR/src/$(os_name)/utils.sh"
 
