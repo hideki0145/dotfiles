@@ -77,7 +77,7 @@ ensure_os_support() {
 # For reference, see: https://github.com/alrra/dotfiles/blob/main/src/os/utils.sh#L20
 #                     https://gist.github.com/cowboy/3118588
 ask_for_sudo_password() {
-  sudo -v &>/dev/null
+  sudo -v || error "sudo authentication failed."
   while true; do
     sudo -n true
     sleep 60
