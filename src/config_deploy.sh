@@ -42,10 +42,13 @@ readonly SYMLINK_ENTRIES
 for entry in "${SYMLINK_ENTRIES[@]}"; do
   file=${entry%%|*}
   dir=${entry#*|}
-  if [ ! -d "$dir" ]; then
-    mkdir -p "$dir"
+  target="$dir${file##*/}"
+  mkdir -p "$dir"
+  if [ -e "$target" ] && [ ! -L "$target" ]; then
+    mv "$target" "$target.bak.$(date +%Y%m%d%H%M%S)"
+    hint "Backed up existing '$target'."
   fi
-  ln -snfv "$DOT_DIR/config/$file" "$dir${file##*/}"
+  ln -snfv "$DOT_DIR/config/$file" "$target"
 done
 
 # Config Deployment complete

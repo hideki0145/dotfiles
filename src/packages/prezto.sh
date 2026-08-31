@@ -21,9 +21,7 @@ else
   git -C "$PREZTO_DIR" log -1 --format='prezto %h (%cs)'
 fi
 PREZTO_CONTRIB_DIR="${ZDOTDIR:-$HOME}/.zprezto-contrib"
-if [ ! -d "$PREZTO_CONTRIB_DIR" ]; then
-  mkdir -p "$PREZTO_CONTRIB_DIR"
-fi
+mkdir -p "$PREZTO_CONTRIB_DIR"
 PREZTO_CONTRIB_MODULES=(
   "joshskidmore/zsh-fzf-history-search"
 )
