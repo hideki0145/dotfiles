@@ -20,10 +20,10 @@ export EDITOR="vim"
 export VISUAL="vim"
 
 # rustup
-source "$HOME/.cargo/env"
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 # mise
-eval "$(~/.local/bin/mise activate zsh)"
+[[ -x "$HOME/.local/bin/mise" ]] && eval "$("$HOME/.local/bin/mise" activate zsh)"
 
 # starship
-eval "$(starship init zsh)"
+(( $+commands[starship] )) && eval "$(starship init zsh)"
