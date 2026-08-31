@@ -11,10 +11,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-DOT_DIR="$HOME/.dotfiles"
-UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
-source "$UTILS_SCRIPT"
-source "$DOT_DIR/src/$(os_name)/utils.sh"
+source "$HOME/.dotfiles/config/zsh/common/functions.zsh"
 
 export EDITOR="vim"
 export VISUAL="vim"
