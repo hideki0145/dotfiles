@@ -6,19 +6,14 @@ readonly DOT_DIR="$HOME/.dotfiles"
 readonly GITHUB_REPOSITORY="hideki0145/dotfiles"
 readonly DOTFILES_ORIGIN_URL="https://github.com/$GITHUB_REPOSITORY.git"
 readonly DEFAULT_DOTFILES_BRANCH="main"
+readonly INSTALL_SCRIPT="$DOT_DIR/src/install.sh"
 readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
 readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
 readonly SKIP_HOMEBREW_CASK="$DOT_DIR/tmp/skip_homebrew_cask"
 readonly SKIP_MAS="$DOT_DIR/tmp/skip_mas"
+readonly ORIGINAL_ARGS=("$@")
 
 DOTFILES_BRANCH="$DEFAULT_DOTFILES_BRANCH"
-RUN_ALL=true
-RUN_PACKAGE_UPDATE=false
-RUN_PACKAGE_SETUP=false
-RUN_DEVKIT_SETUP=false
-RUN_CONFIG_DEPLOY=false
-CREATE_SKIP_HOMEBREW_CASK=false
-CREATE_SKIP_MAS=false
 while [ "$#" -gt 0 ]; do
   case "$1" in
   --branch)
@@ -29,38 +24,9 @@ while [ "$#" -gt 0 ]; do
     DOTFILES_BRANCH="$2"
     shift
     ;;
-  --all)
-    RUN_ALL=true
-    RUN_PACKAGE_UPDATE=false
-    RUN_PACKAGE_SETUP=false
-    RUN_DEVKIT_SETUP=false
-    RUN_CONFIG_DEPLOY=false
-    ;;
-  --package-update | -u)
-    RUN_ALL=false
-    RUN_PACKAGE_UPDATE=true
-    ;;
-  --package-setup | -s)
-    RUN_ALL=false
-    RUN_PACKAGE_SETUP=true
-    ;;
-  --devkit-setup | -d)
-    RUN_ALL=false
-    RUN_DEVKIT_SETUP=true
-    ;;
-  --config-deploy | -c)
-    RUN_ALL=false
-    RUN_CONFIG_DEPLOY=true
-    ;;
-  --skip-homebrew-cask)
-    CREATE_SKIP_HOMEBREW_CASK=true
-    ;;
-  --skip-mas)
-    CREATE_SKIP_MAS=true
-    ;;
   --help | -h)
     cat <<EOF
-Usage: $GITHUB_REPOSITORY run.sh [OPTIONS]
+Usage: $DOT_DIR/src/run.sh [OPTIONS]
 
 Options:
   --all                 Run all setup steps. This is the default.
@@ -76,8 +42,7 @@ EOF
     exit 0
     ;;
   *)
-    printf "Error: Unknown argument: %s\n" "$1" 1>&2
-    exit 1
+    # Other options are validated by install.sh after bootstrap completes.
     ;;
   esac
   shift
@@ -108,17 +73,9 @@ fi
 # shellcheck source=utils.sh
 source "$UTILS_SCRIPT"
 
-# shellcheck disable=SC2034
-readonly DOTFILES_RUNNER=true
-# shellcheck disable=SC2034
-readonly DOTFILES_COLLECT_SUMMARY=true
-# shellcheck disable=SC2034
-declare -a DOTFILES_SUMMARY_MESSAGES=()
-trap print_summary EXIT
-
 preserve_first_run=false
-preserve_skip_homebrew_cask=$CREATE_SKIP_HOMEBREW_CASK
-preserve_skip_mas=$CREATE_SKIP_MAS
+preserve_skip_homebrew_cask=false
+preserve_skip_mas=false
 
 if [ ! -d "$DOT_DIR/.git" ]; then
   if [ -f "$FIRST_RUN" ]; then
@@ -178,65 +135,8 @@ if $preserve_skip_mas; then
   touch "$SKIP_MAS"
 fi
 
-ensure_os_support
-DOTFILES_OS_NAME="$(os_name)"
-readonly DOTFILES_OS_NAME
-PACKAGE_UPDATE_SCRIPT="$DOT_DIR/src/package_update.sh"
-readonly PACKAGE_UPDATE_SCRIPT
-PACKAGE_SETUP_SCRIPT="$DOT_DIR/src/package_setup.sh"
-readonly PACKAGE_SETUP_SCRIPT
-DEVKIT_SETUP_SCRIPT="$DOT_DIR/src/devkit_setup.sh"
-readonly DEVKIT_SETUP_SCRIPT
-CONFIG_DEPLOY_SCRIPT="$DOT_DIR/src/config_deploy.sh"
-readonly CONFIG_DEPLOY_SCRIPT
-readonly SCRIPTS=(
-  "$PACKAGE_UPDATE_SCRIPT"
-  "$PACKAGE_SETUP_SCRIPT"
-  "$DEVKIT_SETUP_SCRIPT"
-  "$CONFIG_DEPLOY_SCRIPT"
-)
-
-for script in "${SCRIPTS[@]}"; do
-  if [ ! -f "$script" ]; then
-    error "Not found: $script"
-  fi
-done
-
-if [ "$DOTFILES_OS_NAME" != "darwin" ]; then
-  ask_for_sudo_password
+if [ ! -f "$INSTALL_SCRIPT" ]; then
+  error "Not found: $INSTALL_SCRIPT"
 fi
 
-run_scripts() {
-  for script in "${SCRIPTS[@]}"; do
-    # shellcheck source=/dev/null
-    source "$script"
-  done
-}
-
-if $RUN_ALL; then
-  run_scripts
-else
-  if $RUN_PACKAGE_UPDATE; then
-    # shellcheck source=package_update.sh
-    source "$PACKAGE_UPDATE_SCRIPT"
-  fi
-  if $RUN_PACKAGE_SETUP; then
-    # shellcheck source=package_setup.sh
-    source "$PACKAGE_SETUP_SCRIPT"
-  fi
-  if $RUN_DEVKIT_SETUP; then
-    # shellcheck source=devkit_setup.sh
-    source "$DEVKIT_SETUP_SCRIPT"
-  fi
-  if $RUN_CONFIG_DEPLOY; then
-    # shellcheck source=config_deploy.sh
-    source "$CONFIG_DEPLOY_SCRIPT"
-  fi
-fi
-
-if ! check_gh_auth_status; then
-  summary_hint "You are not logged in to GitHub. Please run 'gh auth login'."
-fi
-if [ -z "$MISE_GITHUB_TOKEN" ]; then
-  summary_hint "The environment variable MISE_GITHUB_TOKEN is not set."
-fi
+exec /bin/bash "$INSTALL_SCRIPT" "${ORIGINAL_ARGS[@]}"
