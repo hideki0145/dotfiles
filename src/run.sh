@@ -8,9 +8,6 @@ readonly DOTFILES_ORIGIN_URL="https://github.com/$GITHUB_REPOSITORY.git"
 readonly DEFAULT_DOTFILES_BRANCH="main"
 readonly INSTALL_SCRIPT="$DOT_DIR/src/install.sh"
 readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
-readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
-readonly SKIP_HOMEBREW_CASK="$DOT_DIR/tmp/skip_homebrew_cask"
-readonly SKIP_MAS="$DOT_DIR/tmp/skip_mas"
 readonly ORIGINAL_ARGS=("$@")
 
 DOTFILES_BRANCH="$DEFAULT_DOTFILES_BRANCH"
@@ -73,20 +70,7 @@ fi
 # shellcheck source=utils.sh
 source "$UTILS_SCRIPT"
 
-preserve_first_run=false
-preserve_skip_homebrew_cask=false
-preserve_skip_mas=false
-
 if [ ! -d "$DOT_DIR/.git" ]; then
-  if [ -f "$FIRST_RUN" ]; then
-    preserve_first_run=true
-  fi
-  if [ -f "$SKIP_HOMEBREW_CASK" ]; then
-    preserve_skip_homebrew_cask=true
-  fi
-  if [ -f "$SKIP_MAS" ]; then
-    preserve_skip_mas=true
-  fi
   rm -rf "$DOT_DIR"
   if has "git"; then
     download "Clone dotfiles repository ($DOTFILES_BRANCH)..."
@@ -120,19 +104,6 @@ else
   fi
   git -C "$DOT_DIR" merge --ff-only "origin/$DOTFILES_BRANCH" ||
     error "Failed to merge dotfiles repository branch: $DOTFILES_BRANCH"
-fi
-
-if $preserve_first_run || $preserve_skip_homebrew_cask || $preserve_skip_mas; then
-  mkdir -p "$DOT_DIR/tmp"
-fi
-if $preserve_first_run; then
-  touch "$FIRST_RUN"
-fi
-if $preserve_skip_homebrew_cask; then
-  touch "$SKIP_HOMEBREW_CASK"
-fi
-if $preserve_skip_mas; then
-  touch "$SKIP_MAS"
 fi
 
 if [ ! -f "$INSTALL_SCRIPT" ]; then

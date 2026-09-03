@@ -4,9 +4,10 @@
 # main
 readonly DOT_DIR="$HOME/.dotfiles"
 readonly UTILS_SCRIPT="$DOT_DIR/src/utils.sh"
-readonly FIRST_RUN="$DOT_DIR/tmp/first_run"
-readonly SKIP_HOMEBREW_CASK="$DOT_DIR/tmp/skip_homebrew_cask"
-readonly SKIP_MAS="$DOT_DIR/tmp/skip_mas"
+readonly DOTFILES_STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
+readonly FIRST_RUN="$DOTFILES_STATE_DIR/first_run"
+readonly SKIP_HOMEBREW_CASK="$DOTFILES_STATE_DIR/skip_homebrew_cask"
+readonly SKIP_MAS="$DOTFILES_STATE_DIR/skip_mas"
 
 RUN_ALL=true
 RUN_PACKAGE_UPDATE=false
@@ -85,14 +86,13 @@ fi
 # shellcheck source=utils.sh
 source "$UTILS_SCRIPT"
 
+mkdir -p "$DOTFILES_STATE_DIR" || error "Failed to create dotfiles state directory."
+
 readonly DOTFILES_RUNNER=true
 readonly DOTFILES_COLLECT_SUMMARY=true
 declare -a DOTFILES_SUMMARY_MESSAGES=()
 trap print_summary EXIT
 
-if $CREATE_SKIP_HOMEBREW_CASK || $CREATE_SKIP_MAS; then
-  mkdir -p "$DOT_DIR/tmp"
-fi
 if $CREATE_SKIP_HOMEBREW_CASK; then
   touch "$SKIP_HOMEBREW_CASK"
 fi
