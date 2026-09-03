@@ -25,6 +25,6 @@ git --version
 if [ -f "$HOME/.gitconfig" ]; then
   git --no-pager config --global --list
 fi
-if ! git config --list | grep -q include.path; then
+if ! git config --global --get-all include.path >/dev/null; then
   git config --global include.path ~/.gitconfig.local
 fi
