@@ -5,7 +5,7 @@ package_name "starship"
 
 case "$DOTFILES_OS_NAME" in
 ubuntu)
-  STARSHIP_VERSION=$(get_github_latest_version "starship/starship")
+  require_github_latest_version "starship/starship" STARSHIP_VERSION || return 0
   if ! has "starship" || [ ! "$STARSHIP_VERSION" = "$(starship --version | sed -n 's/^starship \([^[:space:]]*\).*$/\1/p')" ]; then
     curl -sS https://starship.rs/install.sh | sh -s -- --force >/dev/null
   fi

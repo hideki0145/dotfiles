@@ -211,7 +211,7 @@ get_github_repository() {
   if check_gh_auth_status; then
     gh api "$1"
   else
-    curl -s "https://api.github.com$1"
+    curl -fsSL "https://api.github.com$1"
   fi
 }
 # Get the latest GitHub release version without a leading 'v'.
@@ -221,4 +221,39 @@ get_github_latest_version() {
   tag=$(get_github_repository "/repos/$repository/releases/latest" | sed -n 's/.*"tag_name":[[:space:]]*"\([^"]*\)".*/\1/p')
   [ -n "$tag" ] || return 1
   printf "%s" "${tag#v}"
+}
+# Store the latest GitHub release version in the named variable.
+require_github_latest_version() {
+  local repository="$1"
+  local variable_name="$2"
+  local version
+  if ! version=$(get_github_latest_version "$repository"); then
+    summary_hint "Failed to resolve the latest version of $repository. Skipped."
+    return 1
+  fi
+  printf -v "$variable_name" "%s" "$version"
+}
+# Store the latest version returned as plain text by a URL in the named variable.
+require_url_latest_version() {
+  local url="$1"
+  local variable_name="$2"
+  local package="$3"
+  local version
+  version=$(curl -fsSL "$url") || version=""
+  version=$(printf "%s" "$version" | tr -d ' \t\r\n')
+  if [ -z "$version" ]; then
+    summary_hint "Failed to resolve the latest version of $package. Skipped."
+    return 1
+  fi
+  printf -v "$variable_name" "%s" "$version"
+}
+# Download a file or add a skip message to the summary.
+download_file() {
+  local url="$1"
+  local output="$2"
+  local description="$3"
+  if ! curl -fsSL "$url" -o "$output"; then
+    summary_hint "Failed to download $description. Skipped."
+    return 1
+  fi
 }

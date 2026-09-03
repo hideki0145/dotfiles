@@ -5,11 +5,11 @@ package_name "delta"
 
 case "$DOTFILES_OS_NAME" in
 ubuntu)
-  DELTA_VERSION=$(get_github_latest_version "dandavison/delta")
+  require_github_latest_version "dandavison/delta" DELTA_VERSION || return 0
   if ! has "delta" || [ ! "$DELTA_VERSION" = "$(delta --version | sed -n 's/^delta \([^[:space:]]*\).*$/\1/p')" ]; then
-    curl -LsS "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb" -o "/tmp/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb"
-    sudo apt install -y "/tmp/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb"
-    rm "/tmp/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb"
+    download_file "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb" "$DOT_DIR/tmp/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb" "delta ${DELTA_VERSION}" || return 0
+    sudo apt install -y "$DOT_DIR/tmp/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb"
+    rm "$DOT_DIR/tmp/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb"
   fi
   ;;
 darwin)

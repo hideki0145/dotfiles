@@ -6,9 +6,9 @@ package_name "google-chrome"
 case "$DOTFILES_OS_NAME" in
 ubuntu)
   if ! has "google-chrome"; then
-    curl -LsS "https://dl.google.com/linux/direct/google-chrome-stable_current_$(dpkg --print-architecture).deb" -o "/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb"
-    sudo apt install -y "/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb"
-    rm "/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb"
+    download_file "https://dl.google.com/linux/direct/google-chrome-stable_current_$(dpkg --print-architecture).deb" "$DOT_DIR/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb" "Google Chrome" || return 0
+    sudo apt install -y "$DOT_DIR/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb"
+    rm "$DOT_DIR/tmp/google-chrome-stable_current_$(dpkg --print-architecture).deb"
   fi
 
   google-chrome --version
