@@ -7,7 +7,9 @@ PREZTO_DIR="${ZDOTDIR:-$HOME}/.zprezto"
 if [ ! -d "$PREZTO_DIR" ]; then
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "$PREZTO_DIR"
   for rcfile in "$PREZTO_DIR"/runcoms/*; do
-    [ "${rcfile##*/}" = "README.md" ] && continue
+    case "${rcfile##*/}" in
+    README.md | zpreztorc | zshrc) continue ;;
+    esac
     ln -snfv "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
   done
 else
