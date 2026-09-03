@@ -16,7 +16,9 @@ darwin)
   if ! has_formula "zsh"; then
     brew install -y zsh
     description "Change login shell."
-    sudo sh -c 'echo "/opt/homebrew/bin/zsh" >> /etc/shells'
+    if ! grep -qxF "/opt/homebrew/bin/zsh" /etc/shells; then
+      sudo sh -c 'echo "/opt/homebrew/bin/zsh" >> /etc/shells'
+    fi
     chsh -s /opt/homebrew/bin/zsh
     cp "$DOT_DIR/config/zsh/$DOTFILES_OS_NAME/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
   fi
