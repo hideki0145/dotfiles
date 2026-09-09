@@ -21,7 +21,7 @@ setup_mise_tool() {
   local tool_name="${tool_spec%%@*}"
   shift
 
-  if ! mise list --global "$tool_name" | grep -q "^${tool_name}[[:space:]]"; then
+  if ! mise -C "$HOME" list --global "$tool_name" | grep -q "^${tool_name}[[:space:]]"; then
     if [ "$#" -gt 0 ]; then
       case "$DOTFILES_OS_NAME" in
       ubuntu)
@@ -33,9 +33,9 @@ setup_mise_tool() {
       *) ;;
       esac
     fi
-    mise use --global "$tool_spec"
+    mise -C "$HOME" use --global "$tool_spec"
   else
-    mise list --global "$tool_name" | grep "^${tool_name}[[:space:]]"
+    mise -C "$HOME" list --global "$tool_name" | grep "^${tool_name}[[:space:]]"
   fi
 }
 readonly MISE_GLOBAL_TOOLS=(
