@@ -20,9 +20,11 @@ case "$DOTFILES_OS_NAME" in
 ubuntu)
   PACKAGES=(
     # Required packages
-    curl uv
+    curl uv rustup mise git
+    # Language runtimes
+    node python ruby
     # CUI packages
-    git vim zsh prezto starship tig delta rustup mise yarn claude codex
+    vim zsh prezto starship tig delta usage fzf shellcheck shfmt yarn claude codex
     # GUI packages
     google-chrome
   )
@@ -30,9 +32,11 @@ ubuntu)
 darwin)
   PACKAGES=(
     # Required packages
-    homebrew mas uv
+    homebrew mas uv rustup mise git
+    # Language runtimes
+    node python ruby
     # CUI packages
-    git vim zsh prezto starship tig delta rustup mise yarn claude codex
+    vim zsh prezto starship tig delta usage fzf shellcheck shfmt yarn claude codex
     # GUI packages
     google-chrome homebrew-casks mas-apps
   )

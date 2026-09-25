@@ -257,3 +257,27 @@ download_file() {
     return 1
   fi
 }
+
+# Setup a global mise tool and its system dependencies.
+setup_mise_tool() {
+  local tool_spec="$1"
+  local tool_name="${tool_spec%%@*}"
+  shift
+
+  if ! mise -C "$HOME" list --global "$tool_name" | grep -q "^${tool_name}[[:space:]]"; then
+    if [ "$#" -gt 0 ]; then
+      case "$DOTFILES_OS_NAME" in
+      ubuntu)
+        sudo apt install -y "$@"
+        ;;
+      darwin)
+        brew install -y "$@"
+        ;;
+      *) ;;
+      esac
+    fi
+    mise -C "$HOME" use --global "$tool_spec"
+  else
+    mise -C "$HOME" list --global "$tool_name" | grep "^${tool_name}[[:space:]]"
+  fi
+}
