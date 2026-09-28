@@ -260,6 +260,11 @@ download_file() {
 
 # Setup a global mise tool and its system dependencies.
 setup_mise_tool() {
+  local postinstall=""
+  if [ "$1" = "--postinstall" ]; then
+    postinstall="$2"
+    shift 2
+  fi
   local tool_spec="$1"
   local tool_name="${tool_spec%%@*}"
   shift
@@ -276,7 +281,7 @@ setup_mise_tool() {
       *) ;;
       esac
     fi
-    mise -C "$HOME" use --global "$tool_spec"
+    mise -C "$HOME" use --global ${postinstall:+--postinstall "$postinstall"} "$tool_spec"
   fi
   mise -C "$HOME" list --global "$tool_name" | grep "^${tool_name}[[:space:]]"
 }

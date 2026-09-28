@@ -19,9 +19,8 @@ fi
 declare -a SYMLINK_ENTRIES=(
   "git/.gitconfig.local|$HOME/"
   "git/ignore|$HOME/.config/git/"
-  "mise/.default-gems|$HOME/"
-  "mise/.gemrc|$HOME/"
   "prezto/.zpreztorc|$HOME/"
+  "ruby/.gemrc|$HOME/"
   "starship/starship.toml|$HOME/.config/"
   "vim/.vimrc|$HOME/"
   "zsh/$DOTFILES_OS_NAME/.zshrc|$HOME/"
