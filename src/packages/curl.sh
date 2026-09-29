@@ -7,5 +7,6 @@ ubuntu) ;;
 esac
 
 if ! has "curl"; then
+  package_name "curl"
   sudo apt install -y curl
 fi

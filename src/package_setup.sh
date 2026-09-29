@@ -20,7 +20,7 @@ case "$DOTFILES_OS_NAME" in
 ubuntu)
   PACKAGES=(
     # Required packages
-    curl uv rustup mise git
+    curl build-essential uv rustup mise git
     # Language runtimes
     node python ruby
     # CUI packages

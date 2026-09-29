@@ -1,6 +1,11 @@
 #!/bin/bash
 # Utilities Script for Ubuntu.
 
+# Check Debian packages.
+has_package() {
+  dpkg-query -W -f='${db:Status-Status}\n' "$1" 2>/dev/null | grep -qx "installed"
+}
+
 # Check WSL.
 check_wsl1_or_wsl2() {
   if [ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
