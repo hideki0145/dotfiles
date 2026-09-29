@@ -74,7 +74,7 @@ if [ ! -d "$DOT_DIR/.git" ]; then
   rm -rf "$DOT_DIR"
   if has "git"; then
     download "Clone dotfiles repository ($DOTFILES_BRANCH)..."
-    git clone --branch "$DOTFILES_BRANCH" "$DOTFILES_ORIGIN_URL" "$DOT_DIR" ||
+    git clone --quiet --branch "$DOTFILES_BRANCH" "$DOTFILES_ORIGIN_URL" "$DOT_DIR" ||
       error "Failed to clone dotfiles repository branch: $DOTFILES_BRANCH"
   elif has "curl" || has "wget"; then
     download "Download dotfiles repository ($DOTFILES_BRANCH)..."

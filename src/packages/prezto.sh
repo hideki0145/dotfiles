@@ -5,7 +5,7 @@ package_name "prezto"
 
 PREZTO_DIR="${ZDOTDIR:-$HOME}/.zprezto"
 if [ ! -d "$PREZTO_DIR" ]; then
-  git clone --recursive https://github.com/sorin-ionescu/prezto.git "$PREZTO_DIR"
+  git clone --quiet --recursive https://github.com/sorin-ionescu/prezto.git "$PREZTO_DIR"
   for rcfile in "$PREZTO_DIR"/runcoms/*; do
     case "${rcfile##*/}" in
     README.md | zpreztorc | zshrc) continue ;;
@@ -20,8 +20,9 @@ else
       git -C "$PREZTO_DIR" submodule update --init --recursive
     fi
   fi
-  git -C "$PREZTO_DIR" log -1 --format='prezto %h (%cs)'
 fi
+git -C "$PREZTO_DIR" log -1 --format='prezto %h (%cs)'
+
 PREZTO_CONTRIB_DIR="${ZDOTDIR:-$HOME}/.zprezto-contrib"
 mkdir -p "$PREZTO_CONTRIB_DIR"
 PREZTO_CONTRIB_MODULES=(
@@ -36,7 +37,7 @@ for repository in "${PREZTO_CONTRIB_MODULES[@]}"; do
       git -C "$module_dir" merge --ff-only '@{upstream}'
     fi
   else
-    git clone "https://github.com/$repository.git" "$module_dir"
+    git clone --quiet "https://github.com/$repository.git" "$module_dir"
   fi
   git -C "$module_dir" log -1 --format="$module_name %h (%cs)"
 done
