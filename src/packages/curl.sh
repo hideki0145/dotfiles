@@ -8,5 +8,5 @@ esac
 
 if ! has "curl"; then
   package_name "curl"
-  sudo apt install -y curl
+  apt_install curl
 fi

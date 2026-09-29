@@ -14,7 +14,7 @@ if [ -f "$SKIP_MAS" ]; then
 fi
 
 if ! has_formula "mas"; then
-  brew install -y mas
+  brew_install mas
 fi
 
 mas version

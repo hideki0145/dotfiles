@@ -7,7 +7,7 @@ case "$DOTFILES_OS_NAME" in
 ubuntu)
   # For reference, see: https://www.postgresql.org/download/linux/ubuntu/
   if ! has "psql"; then
-    sudo apt install -y curl ca-certificates
+    apt_install curl ca-certificates
     sudo install -d /usr/share/postgresql-common/pgdg
     sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
     sudo tee /etc/apt/sources.list.d/pgdg.sources <<EOF
@@ -18,13 +18,13 @@ Architectures: $(dpkg --print-architecture)
 Components: main
 Signed-By: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
 EOF
-    sudo apt update -qq
-    sudo apt install -y postgresql-client libpq-dev
+    apt_update
+    apt_install postgresql-client libpq-dev
   fi
   ;;
 darwin)
   if ! has_formula "libpq"; then
-    brew install -y libpq
+    brew_install libpq
   fi
   ;;
 *) ;;

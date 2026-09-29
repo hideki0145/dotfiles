@@ -6,7 +6,7 @@ package_name "zsh"
 case "$DOTFILES_OS_NAME" in
 ubuntu)
   if ! has "zsh"; then
-    sudo apt install -y zsh
+    apt_install zsh
     description "Change login shell."
     sudo chsh -s "$(which zsh)" "$USER"
     cp "$DOT_DIR/config/zsh/$DOTFILES_OS_NAME/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
@@ -14,7 +14,7 @@ ubuntu)
   ;;
 darwin)
   if ! has_formula "zsh"; then
-    brew install -y zsh
+    brew_install zsh
     description "Change login shell."
     if ! grep -qxF "/opt/homebrew/bin/zsh" /etc/shells; then
       sudo sh -c 'echo "/opt/homebrew/bin/zsh" >> /etc/shells'

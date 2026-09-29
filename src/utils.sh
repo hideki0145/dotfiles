@@ -272,10 +272,10 @@ setup_mise_tool() {
     if [ "$#" -gt 0 ]; then
       case "$DOTFILES_OS_NAME" in
       ubuntu)
-        sudo apt install -y "$@"
+        apt_install "$@"
         ;;
       darwin)
-        brew install -y "$@"
+        brew_install "$@"
         ;;
       *) ;;
       esac

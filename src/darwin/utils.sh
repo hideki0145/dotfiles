@@ -1,6 +1,11 @@
 #!/bin/bash
 # Utilities Script for Darwin.
 
+# Install homebrew formulae.
+brew_install() {
+  brew install -y -q "$@"
+}
+
 # Check homebrew formulae.
 has_formula() {
   if ! brew list --formula -1 | grep -q "^$1$"; then

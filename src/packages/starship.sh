@@ -12,7 +12,7 @@ ubuntu)
   ;;
 darwin)
   if ! has_formula "starship"; then
-    brew install -y starship
+    brew_install starship
   fi
   ;;
 *) ;;

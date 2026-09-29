@@ -16,13 +16,13 @@ ubuntu)
       rm -f "$deb_file"
       return 0
     }
-    sudo apt install -y "$deb_file"
+    apt_install "$deb_file"
     rm -f "$deb_file"
   fi
   ;;
 darwin)
   if ! has_formula "git-delta"; then
-    brew install -y git-delta
+    brew_install git-delta
   fi
   ;;
 *) ;;

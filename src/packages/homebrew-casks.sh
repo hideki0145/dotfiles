@@ -41,7 +41,7 @@ for entry in "${CASK_ENTRIES[@]}"; do
   package_name "$cask"
 
   if ! has_cask "$cask"; then
-    brew install -y --cask "$cask"
+    brew_install --cask "$cask"
   fi
 
   case "$version_type" in

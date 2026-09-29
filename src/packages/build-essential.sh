@@ -8,5 +8,5 @@ esac
 
 if ! has_package "build-essential"; then
   package_name "build-essential"
-  sudo apt install -y build-essential
+  apt_install build-essential
 fi

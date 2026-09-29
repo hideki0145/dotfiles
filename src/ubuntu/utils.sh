@@ -1,6 +1,15 @@
 #!/bin/bash
 # Utilities Script for Ubuntu.
 
+# Install Debian packages.
+apt_install() {
+  sudo apt install -y -qq "$@"
+}
+# Update Debian package lists.
+apt_update() {
+  sudo apt update -qq
+}
+
 # Check Debian packages.
 has_package() {
   dpkg-query -W -f='${db:Status-Status}\n' "$1" 2>/dev/null | grep -qx "installed"

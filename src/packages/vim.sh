@@ -6,12 +6,12 @@ package_name "vim"
 case "$DOTFILES_OS_NAME" in
 ubuntu)
   if ! has "vim"; then
-    sudo apt install -y vim
+    apt_install vim
   fi
   ;;
 darwin)
   if ! has_formula "vim"; then
-    brew install -y vim
+    brew_install vim
   fi
   ;;
 *) ;;

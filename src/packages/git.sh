@@ -7,15 +7,15 @@ case "$DOTFILES_OS_NAME" in
 ubuntu)
   if ! grep -qsR git-core/ppa /etc/apt/sources.list /etc/apt/sources.list.d/; then
     sudo add-apt-repository -y ppa:git-core/ppa
-    sudo apt update -qq
+    apt_update
   fi
   if ! has "git"; then
-    sudo apt install -y git
+    apt_install git
   fi
   ;;
 darwin)
   if ! has_formula "git"; then
-    brew install -y git
+    brew_install git
   fi
   ;;
 *) ;;
