@@ -87,8 +87,7 @@ ask_for_sudo_password() {
 
 # Check existence of the command.
 has() {
-  type "$1" >/dev/null 2>&1
-  return $?
+  command -v "$1" >/dev/null 2>&1
 }
 
 # Print in color text.

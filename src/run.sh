@@ -50,13 +50,13 @@ readonly DOTFILES_UTILS_URL="https://raw.githubusercontent.com/$GITHUB_REPOSITOR
 
 if [ ! -f "$UTILS_SCRIPT" ]; then
   mkdir -p "$DOT_DIR/src"
-  if type "curl" >/dev/null 2>&1; then
+  if command -v "curl" >/dev/null 2>&1; then
     curl -fSL "$DOTFILES_UTILS_URL" -o "$UTILS_SCRIPT" ||
       {
         printf "Error: Failed to download utils script.\n" 1>&2
         exit 1
       }
-  elif type "wget" >/dev/null 2>&1; then
+  elif command -v "wget" >/dev/null 2>&1; then
     wget -O "$UTILS_SCRIPT" "$DOTFILES_UTILS_URL" ||
       {
         printf "Error: Failed to download utils script.\n" 1>&2
