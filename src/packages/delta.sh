@@ -7,9 +7,17 @@ case "$DOTFILES_OS_NAME" in
 ubuntu)
   require_github_latest_version "dandavison/delta" DELTA_VERSION || return 0
   if ! has "delta" || [ ! "$DELTA_VERSION" = "$(delta --version | sed -n 's/^delta \([^[:space:]]*\).*$/\1/p')" ]; then
-    download_file "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb" "$DOT_DIR/tmp/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb" "delta ${DELTA_VERSION}" || return 0
-    sudo apt install -y "$DOT_DIR/tmp/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb"
-    rm "$DOT_DIR/tmp/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb"
+    deb_file="$(mktemp --suffix=.deb /tmp/git-delta.XXXXXXXXXX)" || return 0
+    download_file "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_$(dpkg --print-architecture).deb" "$deb_file" "delta ${DELTA_VERSION}" || {
+      rm -f "$deb_file"
+      return 0
+    }
+    chmod 644 "$deb_file" || {
+      rm -f "$deb_file"
+      return 0
+    }
+    sudo apt install -y "$deb_file"
+    rm -f "$deb_file"
   fi
   ;;
 darwin)
