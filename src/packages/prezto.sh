@@ -10,7 +10,7 @@ if [ ! -d "$PREZTO_DIR" ]; then
     case "${rcfile##*/}" in
     README.md | zpreztorc | zshrc) continue ;;
     esac
-    ln -snfv "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
+    link_file "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
   done
 else
   git -C "$PREZTO_DIR" fetch

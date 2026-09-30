@@ -284,3 +284,20 @@ setup_mise_tool() {
   fi
   mise -C "$HOME" list --global "$tool_name" | grep "^${tool_name}[[:space:]]"
 }
+
+# Backup an existing file before creating a symbolic link.
+link_file() {
+  local source="$1"
+  local target="$2"
+  local backup
+  mkdir -p "$(dirname "$target")"
+  if [ -e "$target" ] && [ ! -L "$target" ]; then
+    backup="$target.bak.$(date +%Y%m%d%H%M%S)"
+    if [ -e "$backup" ] || [ -L "$backup" ]; then
+      error "Backup already exists: '$backup'."
+    fi
+    mv "$target" "$backup" || error "Failed to backup '$target'."
+    hint "Backed up existing '$target'."
+  fi
+  ln -snfv "$source" "$target" || error "Failed to link '$target'."
+}

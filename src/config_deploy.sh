@@ -42,12 +42,7 @@ for entry in "${SYMLINK_ENTRIES[@]}"; do
   file=${entry%%|*}
   dir=${entry#*|}
   target="$dir${file##*/}"
-  mkdir -p "$dir"
-  if [ -e "$target" ] && [ ! -L "$target" ]; then
-    mv "$target" "$target.bak.$(date +%Y%m%d%H%M%S)"
-    hint "Backed up existing '$target'."
-  fi
-  ln -snfv "$DOT_DIR/config/$file" "$target"
+  link_file "$DOT_DIR/config/$file" "$target"
 done
 
 # Config Deployment complete
