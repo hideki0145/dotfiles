@@ -13,7 +13,7 @@ if [ -f "$SKIP_HOMEBREW_CASK" ]; then
 fi
 
 if ! has "brew"; then
-  return 0
+  return 1
 fi
 
 readonly CASK_ENTRIES=(

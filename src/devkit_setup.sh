@@ -41,7 +41,7 @@ readonly DEVKIT_PACKAGES
 
 for package in "${DEVKIT_PACKAGES[@]}"; do
   # shellcheck source=/dev/null
-  source "$DOT_DIR/src/packages/$package.sh"
+  source "$DOT_DIR/src/packages/$package.sh" || error "Failed to setup $package."
 done
 
 # Development Kit Setup complete

@@ -5,6 +5,21 @@
 apt_install() {
   sudo apt install -y -qq "$@"
 }
+# Download and install a .deb, then remove the temporary file.
+apt_install_deb() {
+  local url="$1"
+  local description="$2"
+  local deb_file
+  local status=0
+  shift 2
+
+  deb_file="$(mktemp --suffix=.deb /tmp/dotfiles.XXXXXXXXXX)" || return 1
+  download_file "$url" "$deb_file" "$description" &&
+    chmod 644 "$deb_file" &&
+    apt_install "$@" "$deb_file" || status=$?
+  rm -f "$deb_file" || return 1
+  return "$status"
+}
 # Update Debian package lists.
 apt_update() {
   sudo apt update -qq

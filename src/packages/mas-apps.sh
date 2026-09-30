@@ -13,7 +13,7 @@ if [ -f "$SKIP_MAS" ]; then
 fi
 
 if ! has "mas"; then
-  return 0
+  return 1
 fi
 
 readonly MAS_APP_ENTRIES=(

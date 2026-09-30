@@ -14,7 +14,7 @@ source "$DOT_DIR/src/$DOTFILES_OS_NAME/utils.sh"
 
 title "Package Setup start..."
 
-mkdir -p ~/.zsh/completions
+mkdir -p ~/.zsh/completions || error "Failed to create completion directory."
 
 case "$DOTFILES_OS_NAME" in
 ubuntu)
@@ -47,7 +47,7 @@ readonly PACKAGES
 
 for package in "${PACKAGES[@]}"; do
   # shellcheck source=/dev/null
-  source "$DOT_DIR/src/packages/$package.sh"
+  source "$DOT_DIR/src/packages/$package.sh" || error "Failed to setup $package."
 done
 
 # Package Setup complete
@@ -55,7 +55,7 @@ if [ -f "$FIRST_RUN" ]; then
   summary_result "Package Setup complete!"
   summary_description "Please restart your shell."
 else
-  touch "$FIRST_RUN"
+  touch "$FIRST_RUN" || error "Failed to record the first package setup."
   summary_result "First Package Setup complete!"
   summary_description "You run it for the first time, please deployment of config, and restart your shell."
   summary_description "After that, please re-run this script."
