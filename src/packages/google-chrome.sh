@@ -6,7 +6,7 @@ package_name "google-chrome"
 case "$DOTFILES_OS_NAME" in
 ubuntu)
   if ! has "google-chrome"; then
-    apt_install_deb "https://dl.google.com/linux/direct/google-chrome-stable_current_$(dpkg --print-architecture).deb" "Google Chrome" || return 1
+    apt_install_deb "https://dl.google.com/linux/direct/google-chrome-stable_current_$(dpkg --print-architecture).deb" "Google Chrome" --no-install-recommends || return 1
   fi
 
   google-chrome --version
