@@ -8,8 +8,8 @@ ubuntu)
   if ! grep -qsR git-core/ppa /etc/apt/sources.list /etc/apt/sources.list.d/; then
     sudo add-apt-repository -y ppa:git-core/ppa
     apt_update
-  fi
-  if ! has "git"; then
+    apt_install git
+  elif ! has "git"; then
     apt_install git
   fi
   ;;
