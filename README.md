@@ -63,3 +63,15 @@ xcode-select --install
 # Rosetta 2 must be installed.
 softwareupdate --install-rosetta --agree-to-license
 ```
+
+## Maintenance
+
+Run the lint checks before committing changes:
+
+```sh
+bin/lint.sh
+```
+
+This checks shell scripts under `bin/` and `src/` using ShellCheck and shfmt.
+`shellcheck` and `shfmt` must be installed.
+Files are not modified, and the command exits with a non-zero status if any check fails.
