@@ -2,7 +2,7 @@
 # Package Update Script.
 
 if ! ${DOTFILES_RUNNER:-false}; then
-  printf "Error: Please run this script via src/run.sh.\n" 1>&2
+  printf "Error: Please run this script via src/run.sh.\n" >&2
   exit 1
 fi
 

@@ -15,7 +15,7 @@ while [ "$#" -gt 0 ]; do
   case "$1" in
   --branch)
     if [ "$#" -lt 2 ] || [[ "$2" = -* ]]; then
-      printf "Error: --branch requires a value.\n" 1>&2
+      printf "Error: --branch requires a value.\n" >&2
       exit 1
     fi
     DOTFILES_BRANCH="$2"
@@ -53,17 +53,17 @@ if [ ! -f "$UTILS_SCRIPT" ]; then
   if command -v "curl" >/dev/null 2>&1; then
     curl -fSL "$DOTFILES_UTILS_URL" -o "$UTILS_SCRIPT" ||
       {
-        printf "Error: Failed to download utils script.\n" 1>&2
+        printf "Error: Failed to download utils script.\n" >&2
         exit 1
       }
   elif command -v "wget" >/dev/null 2>&1; then
     wget -O "$UTILS_SCRIPT" "$DOTFILES_UTILS_URL" ||
       {
-        printf "Error: Failed to download utils script.\n" 1>&2
+        printf "Error: Failed to download utils script.\n" >&2
         exit 1
       }
   else
-    printf "Error: curl or wget required.\n" 1>&2
+    printf "Error: curl or wget required.\n" >&2
     exit 1
   fi
 fi

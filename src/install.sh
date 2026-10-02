@@ -20,7 +20,7 @@ while [ "$#" -gt 0 ]; do
   case "$1" in
   --branch)
     if [ "$#" -lt 2 ] || [[ "$2" = -* ]]; then
-      printf "Error: --branch requires a value.\n" 1>&2
+      printf "Error: --branch requires a value.\n" >&2
       exit 1
     fi
     shift
@@ -72,7 +72,7 @@ EOF
     exit 0
     ;;
   *)
-    printf "Error: Unknown argument: %s\n" "$1" 1>&2
+    printf "Error: Unknown argument: %s\n" "$1" >&2
     exit 1
     ;;
   esac
@@ -80,7 +80,7 @@ EOF
 done
 
 if [ ! -f "$UTILS_SCRIPT" ]; then
-  printf "Error: Not found: %s\n" "$UTILS_SCRIPT" 1>&2
+  printf "Error: Not found: %s\n" "$UTILS_SCRIPT" >&2
   exit 1
 fi
 # shellcheck source=utils.sh
