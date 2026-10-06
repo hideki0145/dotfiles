@@ -91,9 +91,13 @@ has() {
 }
 
 # Print in color text.
-# For reference, see: https://github.com/alrra/dotfiles/blob/main/src/os/utils.sh#L218
+# For reference, see: https://github.com/alrra/dotfiles/blob/main/src/os/utils.sh
 print_in_color() {
-  printf "%b" "$(tput setaf "$2" 2>/dev/null)$1$(tput sgr0 2>/dev/null)"
+  if [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
+    printf "%b" "$(tput setaf "$2" 2>/dev/null)$1$(tput sgr0 2>/dev/null)"
+  else
+    printf "%b" "$1"
+  fi
 }
 print_in_red() {
   print_in_color "$1" 1
