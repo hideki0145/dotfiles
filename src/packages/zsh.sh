@@ -8,7 +8,7 @@ ubuntu)
   if ! has "zsh"; then
     apt_install zsh
     description "Change login shell."
-    sudo chsh -s "$(which zsh)" "$USER"
+    sudo chsh -s "$(command -v zsh)" "$USER"
     cp "$DOT_DIR/config/zsh/$DOTFILES_OS_NAME/.zsh_history.sample" "${ZDOTDIR:-$HOME}/.zsh_history"
   fi
   ;;
