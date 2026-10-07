@@ -7,7 +7,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 for tool in shellcheck shfmt; do
   if ! command -v "$tool" >/dev/null 2>&1; then
-    printf "Error: %s required.\n" "$tool" 1>&2
+    printf "Error: %s required.\n" "$tool" >&2
     exit 1
   fi
 done
@@ -22,7 +22,7 @@ shellcheck "${shell_files[@]}" || status=1
 shfmt -d "${shell_files[@]}" || status=1
 
 if [ "$status" -ne 0 ]; then
-  printf "✖ lint failed\n" 1>&2
+  printf "✖ lint failed\n" >&2
   exit "$status"
 fi
 
