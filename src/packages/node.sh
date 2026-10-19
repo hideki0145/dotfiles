@@ -13,3 +13,5 @@ darwin)
   ;;
 *) ;;
 esac
+
+verify_command node --version

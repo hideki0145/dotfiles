@@ -17,4 +17,4 @@ darwin)
 *) ;;
 esac
 
-sqlite3 --version
+verify_command sqlite3 --version

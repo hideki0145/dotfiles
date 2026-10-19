@@ -17,4 +17,4 @@ if ! has_formula "mas"; then
   brew_install mas
 fi
 
-mas version
+verify_command mas version

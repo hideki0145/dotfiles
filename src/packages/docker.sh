@@ -41,6 +41,6 @@ darwin)
 esac
 
 if has "docker"; then
-  docker --version
-  docker compose version
+  verify_command docker --version &&
+    verify_command docker compose version
 fi

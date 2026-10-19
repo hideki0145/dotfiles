@@ -301,7 +301,6 @@ setup_mise_tool() {
     fi
     mise -C "$HOME" use --global ${postinstall:+--postinstall "$postinstall"} "$tool_spec"
   fi
-  mise -C "$HOME" list --global "$tool_name" | grep "^${tool_name}[[:space:]]"
 }
 
 # Backup an existing file before creating a symbolic link.
@@ -319,4 +318,35 @@ link_file() {
     hint "Backed up existing '$target'."
   fi
   ln -snfv "$source" "$target" || error "Failed to link '$target'."
+}
+
+# Display the first line of standard input.
+first_line() {
+  head -n 1
+}
+# Display the first two lines of standard input.
+first_two_lines() {
+  head -n 2
+}
+# Verify a command and display its optionally formatted output.
+verify_command() {
+  local formatter=""
+  local output
+  if [ "${1:-}" = "--format" ]; then
+    if [ "$#" -lt 3 ] || [ -z "$2" ]; then
+      printf "Error: --format requires a formatter and a verification command.\n" >&2
+      return 2
+    fi
+    formatter="$2"
+    shift 2
+  fi
+  if [ "$#" -eq 0 ]; then
+    printf "Error: verification command is required.\n" >&2
+    return 2
+  fi
+  output=$("$@") || return $?
+  if [ -n "$formatter" ]; then
+    output=$("$formatter" <<<"$output") || return $?
+  fi
+  print_in_green "✔ $output\n"
 }

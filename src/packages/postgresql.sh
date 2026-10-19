@@ -30,4 +30,4 @@ darwin)
 *) ;;
 esac
 
-psql --version
+verify_command psql --version

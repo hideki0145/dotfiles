@@ -21,7 +21,7 @@ else
     fi
   fi
 fi
-git -C "$PREZTO_DIR" log -1 --format='prezto %h (%cs)'
+verify_command git -C "$PREZTO_DIR" log -1 --format='prezto %h (%cs)' || summary_warning "Failed to setup prezto."
 
 PREZTO_CONTRIB_DIR="${ZDOTDIR:-$HOME}/.zprezto-contrib"
 mkdir -p "$PREZTO_CONTRIB_DIR"
@@ -39,5 +39,7 @@ for repository in "${PREZTO_CONTRIB_MODULES[@]}"; do
   else
     git clone --quiet "https://github.com/$repository.git" "$module_dir"
   fi
-  git -C "$module_dir" log -1 --format="$module_name %h (%cs)"
+  verify_command git -C "$module_dir" log -1 --format="$module_name %h (%cs)" || summary_warning "Failed to setup $module_name."
 done
+
+return 0

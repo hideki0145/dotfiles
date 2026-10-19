@@ -12,5 +12,5 @@ if ! has "yarn"; then
 fi
 
 if has "yarn"; then
-  yarn --version
+  verify_command yarn --version
 fi

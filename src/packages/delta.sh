@@ -18,7 +18,6 @@ darwin)
 *) ;;
 esac
 
-delta --version
 case "$DOTFILES_OS_NAME" in
 ubuntu)
   delta --generate-completion zsh | tee ~/.zsh/completions/_delta >/dev/null
@@ -26,3 +25,5 @@ ubuntu)
 darwin) ;;
 *) ;;
 esac
+
+verify_command delta --version

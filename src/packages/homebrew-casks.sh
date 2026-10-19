@@ -46,14 +46,18 @@ for entry in "${CASK_ENTRIES[@]}"; do
 
   case "$version_type" in
   cask)
-    cask_version "$cask"
+    verify_command cask_version "$cask"
     ;;
   plist)
-    plist_version "$version_target"
+    verify_command plist_version "$version_target"
     ;;
   command)
-    "$version_target" "$version_argument"
+    verify_command "$version_target" "$version_argument"
     ;;
-  *) ;;
-  esac
+  *)
+    false
+    ;;
+  esac || summary_warning "Failed to setup $cask."
 done
+
+return 0

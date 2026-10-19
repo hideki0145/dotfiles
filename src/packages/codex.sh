@@ -9,4 +9,4 @@ else
   codex update
 fi
 
-codex --version
+verify_command codex --version

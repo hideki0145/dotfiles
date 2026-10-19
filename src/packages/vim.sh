@@ -17,4 +17,4 @@ darwin)
 *) ;;
 esac
 
-vim --version | head -n 1
+verify_command --format first_line vim --version

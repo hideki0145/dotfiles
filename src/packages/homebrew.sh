@@ -13,4 +13,4 @@ if ! has "brew"; then
   eval "$(/opt/homebrew/bin/brew shellenv bash)"
 fi
 
-brew --version
+verify_command brew --version

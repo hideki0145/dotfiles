@@ -8,5 +8,8 @@ esac
 
 if ! has "curl"; then
   package_name "curl"
+
   apt_install curl
+
+  verify_command --format first_line curl --version
 fi

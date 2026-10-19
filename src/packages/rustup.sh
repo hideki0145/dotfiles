@@ -11,5 +11,6 @@ else
   rustup self update
 fi
 
-rustup --version
-rustc --version
+verify_command rustup --version &&
+  verify_command rustc --version &&
+  verify_command cargo --version

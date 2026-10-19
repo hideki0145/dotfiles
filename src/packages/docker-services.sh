@@ -19,4 +19,4 @@ if ! docker compose ls --all | grep -q dotfiles; then
   docker compose -f "$COMPOSE_FILE" up -d
 fi
 
-docker compose -f "$COMPOSE_FILE" ps
+verify_command docker compose -f "$COMPOSE_FILE" ps --all

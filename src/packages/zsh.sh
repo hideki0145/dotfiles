@@ -26,4 +26,4 @@ darwin)
 *) ;;
 esac
 
-zsh --version
+verify_command zsh --version

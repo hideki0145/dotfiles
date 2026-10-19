@@ -10,5 +10,6 @@ else
   mise self-update -y --no-plugins
 fi
 
-mise --version
 mise completion zsh | tee ~/.zsh/completions/_mise >/dev/null
+
+verify_command mise version --quiet

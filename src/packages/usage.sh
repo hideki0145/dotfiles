@@ -4,3 +4,5 @@
 package_name "usage"
 
 setup_mise_tool "usage@latest"
+
+verify_command usage --version

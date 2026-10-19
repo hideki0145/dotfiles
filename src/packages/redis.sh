@@ -9,4 +9,4 @@ if ! has "redis-cli" || [ ! "$REDIS_CLI_VERSION" = "$(redis-cli --version | sed 
   curl -fsSL https://packages.redis.io/redis-cli/install.sh | sh
 fi
 
-redis-cli --version
+verify_command redis-cli --version

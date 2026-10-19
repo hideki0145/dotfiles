@@ -18,4 +18,4 @@ darwin)
 *) ;;
 esac
 
-starship --version
+verify_command --format first_line starship --version

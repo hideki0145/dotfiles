@@ -8,4 +8,4 @@ if ! has "ansible"; then
   uv tool install --with-executables-from ansible-core,ansible-lint ansible
 fi
 
-ansible --version
+verify_command --format first_line ansible --version

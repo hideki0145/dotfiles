@@ -16,4 +16,4 @@ if ! has_formula "lima"; then
   docker context use lima-docker
 fi
 
-limactl --version
+verify_command limactl --version

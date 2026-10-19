@@ -4,3 +4,5 @@
 package_name "shfmt"
 
 setup_mise_tool "shfmt@latest"
+
+verify_command shfmt --version

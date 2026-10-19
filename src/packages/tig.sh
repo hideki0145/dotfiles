@@ -17,4 +17,4 @@ darwin)
 *) ;;
 esac
 
-tig --version
+verify_command --format first_line tig --version

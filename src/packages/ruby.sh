@@ -14,3 +14,5 @@ darwin)
   ;;
 *) ;;
 esac
+
+verify_command ruby --version --jit

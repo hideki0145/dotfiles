@@ -33,5 +33,7 @@ for entry in "${MAS_APP_ENTRIES[@]}"; do
     mas install "$app_id"
   fi
 
-  mas_version "$app_id"
+  verify_command mas_version "$app_id" || summary_warning "Failed to setup $app_name."
 done
+
+return 0

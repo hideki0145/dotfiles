@@ -9,4 +9,4 @@ else
   claude update
 fi
 
-claude --version
+verify_command claude --version
