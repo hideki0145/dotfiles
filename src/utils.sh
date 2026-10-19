@@ -146,6 +146,10 @@ skip() {
 hint() {
   print_in_yellow "✎ Hint: $1\n"
 }
+# Display warning message.
+warning() {
+  print_in_yellow "⚠ Warning: $1\n"
+}
 
 # Collect or display summary result message.
 summary_result() {
@@ -171,6 +175,14 @@ summary_hint() {
     hint "$1"
   fi
 }
+# Collect or display summary warning message.
+summary_warning() {
+  if ${DOTFILES_COLLECT_SUMMARY:-false}; then
+    DOTFILES_SUMMARY_MESSAGES+=("warning|$1")
+  else
+    warning "$1"
+  fi
+}
 # Display summary messages.
 print_summary() {
   if [ "${#DOTFILES_SUMMARY_MESSAGES[@]}" -eq 0 ]; then
@@ -190,6 +202,9 @@ print_summary() {
       ;;
     hint)
       hint "$message"
+      ;;
+    warning)
+      warning "$message"
       ;;
     *) ;;
     esac

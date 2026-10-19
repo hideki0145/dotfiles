@@ -47,7 +47,7 @@ readonly PACKAGES
 
 for package in "${PACKAGES[@]}"; do
   # shellcheck source=/dev/null
-  source "$DOT_DIR/src/packages/$package.sh" || error "Failed to setup $package."
+  source "$DOT_DIR/src/packages/$package.sh" || summary_warning "Failed to setup $package."
 done
 
 # Package Setup complete
@@ -55,7 +55,7 @@ if [ -f "$FIRST_RUN" ]; then
   summary_result "Package Setup complete!"
   summary_description "Please restart your shell."
 else
-  touch "$FIRST_RUN" || error "Failed to record the first package setup."
+  touch "$FIRST_RUN" || summary_warning "Failed to record the first package setup."
   summary_result "First Package Setup complete!"
   summary_description "You run it for the first time, please deployment of config, and restart your shell."
   summary_description "After that, please re-run this script."
