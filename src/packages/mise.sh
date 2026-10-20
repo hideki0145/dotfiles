@@ -3,8 +3,9 @@
 
 package_name "mise"
 
+# For reference, see: https://mise.jdx.dev/installing-mise.html
 if ! has "mise"; then
-  curl https://mise.run | sh
+  curl -fsSL https://mise.run | sh
   eval "$(~/.local/bin/mise activate bash)"
 else
   mise self-update -y --no-plugins
