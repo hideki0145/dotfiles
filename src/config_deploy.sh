@@ -27,8 +27,7 @@ declare -a SYMLINK_ENTRIES=(
 )
 
 case "$DOTFILES_OS_NAME" in
-ubuntu)
-  ;;
+ubuntu) ;;
 darwin)
   SYMLINK_ENTRIES+=(
     "docker/$DOTFILES_OS_NAME/config.json|$HOME/.docker/"
