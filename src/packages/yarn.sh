@@ -4,13 +4,11 @@
 package_name "yarn"
 
 if ! has "yarn"; then
-  if has "corepack"; then
-    corepack enable
-  else
+  if ! has "corepack"; then
     skip "yarn"
+    return 0
   fi
+  corepack enable
 fi
 
-if has "yarn"; then
-  verify_command yarn --version
-fi
+verify_command yarn --version
