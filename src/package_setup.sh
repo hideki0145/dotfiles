@@ -24,7 +24,7 @@ ubuntu)
     # Language runtimes
     node python ruby
     # CUI packages
-    vim zsh prezto starship tig delta usage fzf shellcheck shfmt yarn claude codex
+    vim zsh prezto starship tig delta usage jq fzf shellcheck shfmt yarn claude codex
     # GUI packages
     google-chrome
   )
@@ -36,7 +36,7 @@ darwin)
     # Language runtimes
     node python ruby
     # CUI packages
-    vim zsh prezto starship tig delta usage fzf shellcheck shfmt yarn claude codex
+    vim zsh prezto starship tig delta usage jq fzf shellcheck shfmt yarn claude codex
     # GUI packages
     google-chrome homebrew-casks mas-apps
   )
