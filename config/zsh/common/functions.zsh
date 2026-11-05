@@ -3,7 +3,10 @@
 mise_select() {
   local tool="${1:-}"
   local version
-  [[ -n "$tool" ]] || return 1
+  if [[ -z "$tool" ]]; then
+    print -u2 'Usage: mise_select TOOL'
+    return 1
+  fi
   version=$(mise ls-remote "$tool" | sort -rV | fzf --tiebreak=index) || return
   mise use "$tool@$version"
 }
@@ -19,4 +22,15 @@ clipcopy() {
     print -u2 'clipcopy: only WSL and macOS are supported.'
     return 1
   fi
+}
+
+# Convert Markdown to PDF using the same basename.
+md2pdf() {
+  if (( $# == 0 )); then
+    print -u2 'Usage: md2pdf INPUT [OPTIONS]'
+    return 1
+  fi
+  local input="${1%/}"
+  shift
+  npx @pfnet-research/pfpdf@latest --input "$input" --output "${input:r}.pdf" "$@"
 }
