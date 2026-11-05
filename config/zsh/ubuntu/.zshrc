@@ -17,6 +17,7 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 fi
 
 # gh
-if check_wsl1_or_wsl2; then
+# Use Windows PowerShell to open browser links from WSL.
+if [[ -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
   export GH_BROWSER="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe -NoProfile -c start"
 fi

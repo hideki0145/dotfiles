@@ -7,11 +7,3 @@ mise_select() {
   version=$(mise ls-remote "$tool" | sort -rV | fzf --tiebreak=index) || return
   mise use "$tool@$version"
 }
-
-# Check WSL.
-check_wsl1_or_wsl2() {
-  if [ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
-    return 1
-  fi
-  return 0
-}
