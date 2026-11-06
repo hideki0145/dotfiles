@@ -8,7 +8,7 @@ if [ ! -d "$PREZTO_DIR" ]; then
   git clone --quiet --recursive https://github.com/sorin-ionescu/prezto.git "$PREZTO_DIR"
   for rcfile in "$PREZTO_DIR"/runcoms/*; do
     case "${rcfile##*/}" in
-    README.md | zpreztorc | zshrc) continue ;;
+    README.md | zpreztorc | zshenv | zshrc) continue ;;
     esac
     link_file "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
   done

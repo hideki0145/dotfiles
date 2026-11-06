@@ -23,6 +23,7 @@ declare -a SYMLINK_ENTRIES=(
   "ruby/.gemrc|$HOME/"
   "starship/starship.toml|$HOME/.config/"
   "vim/.vimrc|$HOME/"
+  "zsh/$DOTFILES_OS_NAME/.zshenv|$HOME/"
   "zsh/$DOTFILES_OS_NAME/.zshrc|$HOME/"
 )
 
