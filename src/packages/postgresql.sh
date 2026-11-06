@@ -13,7 +13,7 @@ ubuntu)
     sudo tee /etc/apt/sources.list.d/pgdg.sources <<EOF
 Types: deb deb-src
 URIs: https://apt.postgresql.org/pub/repos/apt
-Suites: $(lsb_release -cs)-pgdg
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")-pgdg
 Architectures: $(dpkg --print-architecture)
 Components: main
 Signed-By: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
