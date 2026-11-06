@@ -1,6 +1,6 @@
 # dotfiles
 
-This repository is dotfiles available for **Ubuntu** or **macOS** setups.
+This repository is dotfiles available for **Ubuntu** or **macOS (Apple Silicon)** setups.
 
 Unsupported OSes are blocked before setup starts.
 To run on unsupported OSes at your own risk, set `DOTFILES_ALLOW_UNSUPPORTED_OS=true`.
@@ -44,6 +44,14 @@ curl -fsSL https://raw.githubusercontent.com/hideki0145/dotfiles/main/src/run.sh
 rm "${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/skip_homebrew_cask"
 rm "${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/skip_mas"
 ```
+
+### First setup
+
+1. Install the prerequisites listed in [Dependencies](#dependencies).
+2. Run one of the `--all` commands above.
+3. Review the summary, sign out and back in, and rerun the command to complete setup.
+
+When running individual steps, run `--package-setup` before `--devkit-setup` or `--config-deploy`.
 
 ## Dependencies
 
