@@ -83,3 +83,32 @@ bin/lint.sh
 This checks shell scripts under `bin/` and `src/` using ShellCheck and shfmt.
 `shellcheck` and `shfmt` must be installed.
 Files are not modified, and the command exits with a non-zero status if any check fails.
+
+Measure Zsh startup time (30 runs by default; requires Zsh and jq). Hyperfine is used when available; otherwise, Bash time is used.
+
+```sh
+bin/benchmark_zsh.sh
+bin/benchmark_zsh.sh --runs 30 --warmup 3 --login
+```
+
+Results and comparison metadata are appended to `tmp/benchmark_zsh.jsonl`. Use `--help` for options, including `--no-log`.
+This measures `zsh -i -c exit` (or `zsh -l -i -c exit` with `--login`), which does not include displaying the first prompt or completing deferred work.
+
+Each JSONL line contains the results of one invocation. Inspect the latest result:
+
+```sh
+tail -n 1 tmp/benchmark_zsh.jsonl | jq .
+```
+
+Display historical mean startup times in milliseconds:
+
+```sh
+jq -sr '
+  (["timestamp", "commit", "engine", "mean_ms"],
+   (.[] | [.timestamp, .commit, .engine,
+     ((.benchmark.results[0] | .mean // .summary.time_wall_clock.mean) * 100000 | round / 100)]))
+  | @tsv
+' tmp/benchmark_zsh.jsonl | column -t -s $'\t'
+```
+
+Compare results using the same measurement engine, login mode, and environment.
