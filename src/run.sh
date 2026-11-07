@@ -22,20 +22,10 @@ while [ "$#" -gt 0 ]; do
     shift
     ;;
   --help | -h)
-    cat <<EOF
-Usage: $DOT_DIR/src/run.sh [OPTIONS]
-
-Options:
-  --all                 Run all setup steps. This is the default.
-  --branch BRANCH       Use a specific dotfiles branch. Defaults to main.
-  --package-update, -u  Update installed packages.
-  --package-setup, -s   Install required packages.
-  --devkit-setup, -d    Install development tools.
-  --config-deploy, -c   Deploy configuration files.
-  --skip-homebrew-cask  Skip Homebrew cask installation.
-  --skip-mas            Skip mas and Mac App Store apps installation.
-  --help, -h            Show this help.
-EOF
+    if [ -f "$INSTALL_SCRIPT" ]; then
+      exec /bin/bash "$INSTALL_SCRIPT" --help
+    fi
+    printf "Usage: %s [--branch BRANCH] [OPTIONS]\n" "$DOT_DIR/src/run.sh"
     exit 0
     ;;
   *)
