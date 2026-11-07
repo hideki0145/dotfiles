@@ -10,7 +10,7 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
   SSH_KEY_LIFE_TIME_SEC=3600
   SSH_AGENT_FILE="$HOME/.ssh_agent"
   test -f "$SSH_AGENT_FILE" && source "$SSH_AGENT_FILE" >/dev/null 2>&1
-  if ! pgrep -u "$USER" -x ssh-agent >/dev/null; then
+  if ! pgrep -u "$UID" -x ssh-agent >/dev/null; then
     ssh-agent -t "$SSH_KEY_LIFE_TIME_SEC" | tee "$SSH_AGENT_FILE" >/dev/null
     source "$SSH_AGENT_FILE" >/dev/null 2>&1
   fi
