@@ -10,7 +10,7 @@ else
   uv self update
 fi
 
-uv generate-shell-completion zsh | tee ~/.zsh/completions/_uv >/dev/null
-uvx --generate-shell-completion zsh | tee ~/.zsh/completions/_uvx >/dev/null
+has uv && uv generate-shell-completion zsh | tee ~/.zsh/completions/_uv >/dev/null
+has uvx && uvx --generate-shell-completion zsh | tee ~/.zsh/completions/_uvx >/dev/null
 
 verify_command uv --version

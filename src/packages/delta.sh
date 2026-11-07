@@ -21,7 +21,7 @@ esac
 
 case "$DOTFILES_OS_NAME" in
 ubuntu)
-  delta --generate-completion zsh | tee ~/.zsh/completions/_delta >/dev/null
+  has delta && delta --generate-completion zsh | tee ~/.zsh/completions/_delta >/dev/null
   ;;
 darwin) ;;
 *) ;;
