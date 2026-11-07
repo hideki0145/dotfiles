@@ -24,7 +24,7 @@ Uses hyperfine when available, otherwise Bash time.
 
   -n, --runs N      Number of measured runs (default: 30).
   -w, --warmup N    Number of warm-up runs (default: 3).
-  -l, --login       Measure a login shell as well as an interactive shell.
+  -l, --login       Measure only an interactive login shell (zsh -l -i -c exit).
   -o, --output FILE Append JSONL results to FILE (default: tmp/benchmark_zsh.jsonl).
       --no-log      Do not save results.
   -h, --help        Show this help.
