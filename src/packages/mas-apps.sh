@@ -30,7 +30,7 @@ for entry in "${MAS_APP_ENTRIES[@]}"; do
   package_name "$app_name"
 
   if ! has_mas "$app_id"; then
-    mas install "$app_id"
+    mas_install "$app_id"
   fi
 
   verify_command mas_version "$app_id" || summary_warning "Failed to setup $app_name."

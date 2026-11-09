@@ -23,6 +23,11 @@ cask_version() {
   brew list --cask --versions | grep "^$1 "
 }
 
+# Install mas apps.
+mas_install() {
+  mas install "$@"
+}
+
 # Check mas apps.
 has_mas() {
   if ! mas list | grep -q "^ *$1 "; then
