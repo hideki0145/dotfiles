@@ -27,6 +27,7 @@ PREZTO_CONTRIB_DIR="${ZDOTDIR:-$HOME}/.zprezto-contrib"
 mkdir -p "$PREZTO_CONTRIB_DIR"
 PREZTO_CONTRIB_MODULES=(
   "joshskidmore/zsh-fzf-history-search"
+  "romkatv/zsh-defer"
 )
 for repository in "${PREZTO_CONTRIB_MODULES[@]}"; do
   module_name="${repository##*/}"

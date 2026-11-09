@@ -20,7 +20,17 @@ export VISUAL="vim"
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 # mise
-[[ -x "$HOME/.local/bin/mise" ]] && eval "$("$HOME/.local/bin/mise" activate zsh)"
+if [[ -x "$HOME/.local/bin/mise" ]]; then
+  _mise_activate() {
+    eval "$("$HOME/.local/bin/mise" activate zsh)"
+  }
+  # Defer activation until ZLE is idle and keep errors visible.
+  if (( $+functions[zsh-defer] )); then
+    zsh-defer -2 _mise_activate
+  else
+    _mise_activate
+  fi
+fi
 
 # starship
 (( $+commands[starship] )) && eval "$(starship init zsh)"

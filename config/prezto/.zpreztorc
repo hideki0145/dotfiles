@@ -269,7 +269,8 @@ zstyle ':prezto:load' pmodule \
   'syntax-highlighting' \
   'history-substring-search' \
   'zsh-fzf-history-search' \
-  'autosuggestions'
+  'autosuggestions' \
+  'zsh-defer'
 zstyle ':prezto:module:autosuggestions:color' found 'fg=#808080'
 zstyle ':prezto:module:editor' key-bindings 'vi'
 zstyle ':prezto:module:git:alias' skip 'yes'
