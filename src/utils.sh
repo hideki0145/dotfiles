@@ -276,6 +276,11 @@ download_file() {
   fi
 }
 
+# Install Python tools with uv.
+uv_tool_install() {
+  uv tool install "$@"
+}
+
 # Setup a global mise tool and its system dependencies.
 setup_mise_tool() {
   local postinstall=""

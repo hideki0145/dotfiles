@@ -5,7 +5,7 @@ package_name "ansible"
 
 # For reference, see: https://docs.astral.sh/uv/guides/tools/#installing-tools
 if ! has "ansible"; then
-  uv tool install --with-executables-from ansible-core,ansible-lint ansible
+  uv_tool_install --with-executables-from ansible-core,ansible-lint ansible
 fi
 
 verify_command --format first_line ansible --version
